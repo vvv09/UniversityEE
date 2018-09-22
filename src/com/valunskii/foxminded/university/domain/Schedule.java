@@ -1,13 +1,16 @@
 package com.valunskii.foxminded.university.domain;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
+import java.util.Set;
 
 import lombok.Getter;
 
+@Getter
 public class Schedule {
-    private @Getter List<DaySchedule> schedule = new ArrayList<>();
+    private List<DaySchedule> schedule = new ArrayList<>();
 
     public void addDaySchedule(DaySchedule daySchedule) {
         schedule.add(daySchedule);
@@ -17,17 +20,55 @@ public class Schedule {
         schedule.remove(daySchedule);
     }
 
-    private DaySchedule showStudentDaySchedule(Student student, String day) {
-        return null;
+    private Parity getParityByDate(LocalDate date) {
+
+        /*
+         * NOTE!
+         * 
+         * in present business logic there is no any vacation between odd and even
+         * semester;
+         * 
+         */
+
+        LocalDate inputDate = date;
+
+        // getting date of the beginning of year;
+        LocalDate dayFirstSeptember = LocalDate.of(inputDate.getYear(), 9, 1);
+        if (inputDate.getMonthValue() < 9) {
+            dayFirstSeptember = dayFirstSeptember.minusYears(1);
+        }
+
+        // Getting date of fist Monday for future correct calculation of parity
+        LocalDate dayFirstMonday = dayFirstSeptember.plusDays(1);
+        while (dayFirstMonday.getDayOfWeek() != DayOfWeek.MONDAY) {
+            dayFirstMonday = dayFirstMonday.plusDays(1);
+        }
+
+        // Now getting parity itself
+        long daysBetween = java.time.temporal.ChronoUnit.DAYS.between(dayFirstMonday.plusDays(1), inputDate);
+        boolean parity = false;
+        if (((daysBetween / 7) % 2) == 0) {
+            parity = true;
+        }
+        if (dayFirstSeptember.getDayOfWeek() == DayOfWeek.SUNDAY) {
+            // if September 1st is on Sunday then next week(that should be even) becomes an
+            // odd one.(mentor's wish)
+            parity = !parity;
+        }
+        if (parity) {
+            return Parity.EVEN;
+        } else {
+            return Parity.ODD;
+        }
     }
 
-    public DaySchedule showStudentDaySchedule(Student student, Calendar day) {
-        String name = getDayNameByDate(day);
-
-        DaySchedule studentDaySchedule = null;
+    public DaySchedule showStudentDaySchedule(Student student, LocalDate date) {
+        DaySchedule studentDaySchedule = new DaySchedule(date.getDayOfWeek(), getParityByDate(date));
+        System.out.println("(FOR CHECKOUT ONLY. REMOVE THIS LINE IN FUTURE)                  "
+                + studentDaySchedule.getDayOfWeek() + " " + studentDaySchedule.getParityOfWeek());
         for (DaySchedule s : schedule) {
-            if (s.getName().equals(name)) {
-                studentDaySchedule = new DaySchedule(s.getName());
+            if (s.getDayOfWeek() == studentDaySchedule.getDayOfWeek()
+                    && s.getParityOfWeek() == studentDaySchedule.getParityOfWeek()) {
                 for (Lesson l : s.getLessons()) {
                     Lesson studentLesson = new Lesson();
                     for (Lecture lec : l.getLectures()) {
@@ -42,35 +83,13 @@ public class Schedule {
         return studentDaySchedule;
     }
 
-    public Schedule showStudentSchedule(Student student) {
-        Schedule studentSchedule = new Schedule();
+    public DaySchedule showTeacherDaySchedule(Teacher teacher, LocalDate date) {
+        DaySchedule teacherDaySchedule = new DaySchedule(date.getDayOfWeek(), getParityByDate(date));
+        System.out.println("(FOR CHECKOUT ONLY. REMOVE THIS LINE IN FUTURE)                  "
+                + teacherDaySchedule.getDayOfWeek() + " " + teacherDaySchedule.getParityOfWeek());
         for (DaySchedule s : schedule) {
-            DaySchedule studentDaySchedule = new DaySchedule(s.getName());
-            for (Lesson l : s.getLessons()) {
-                Lesson studentLesson = new Lesson();
-                for (Lecture lec : l.getLectures()) {
-                    if (lec.getGroup().equals(student.getGroup())) {
-                        studentLesson.addLecture(lec);
-                    }
-                }
-                studentDaySchedule.addLesson(studentLesson);
-            }
-            studentSchedule.addDaySchedule(studentDaySchedule);
-        }
-        return studentSchedule;
-    }
-
-    private DaySchedule showTeacherDaySchedule(Teacher teacher, String day) {
-        return null;
-    }
-
-    public DaySchedule showTeacherDaySchedule(Teacher teacher, Calendar day) {
-        String name = getDayNameByDate(day);
-
-        DaySchedule teacherDaySchedule = null;
-        for (DaySchedule s : schedule) {
-            if (s.getName().equals(name)) {
-                teacherDaySchedule = new DaySchedule(s.getName());
+            if (s.getDayOfWeek() == teacherDaySchedule.getDayOfWeek()
+                    && s.getParityOfWeek() == teacherDaySchedule.getParityOfWeek()) {
                 for (Lesson l : s.getLessons()) {
                     Lesson teacherLesson = new Lesson();
                     for (Lecture lec : l.getLectures()) {
@@ -85,10 +104,28 @@ public class Schedule {
         return teacherDaySchedule;
     }
 
+    public Schedule showStudentSchedule(Student student) {
+        Schedule studentSchedule = new Schedule();
+        for (DaySchedule s : schedule) {
+            DaySchedule studentDaySchedule = new DaySchedule(s.getDayOfWeek(), s.getParityOfWeek());
+            for (Lesson l : s.getLessons()) {
+                Lesson studentLesson = new Lesson();
+                for (Lecture lec : l.getLectures()) {
+                    if (lec.getGroup().equals(student.getGroup())) {
+                        studentLesson.addLecture(lec);
+                    }
+                }
+                studentDaySchedule.addLesson(studentLesson);
+            }
+            studentSchedule.addDaySchedule(studentDaySchedule);
+        }
+        return studentSchedule;
+    }
+
     public Schedule showTeacherSchedule(Teacher teacher) {
         Schedule teacherSchedule = new Schedule();
         for (DaySchedule s : schedule) {
-            DaySchedule teacherDaySchedule = new DaySchedule(s.getName());
+            DaySchedule teacherDaySchedule = new DaySchedule(s.getDayOfWeek(), s.getParityOfWeek());
             for (Lesson l : s.getLessons()) {
                 Lesson teacherLesson = new Lesson();
                 for (Lecture lec : l.getLectures()) {
@@ -101,42 +138,5 @@ public class Schedule {
             teacherSchedule.addDaySchedule(teacherDaySchedule);
         }
         return teacherSchedule;
-    }
-
-    private String getDayNameByDate(Calendar day) {
-        int dayOfWeek = day.get(Calendar.DAY_OF_WEEK);
-        String dayName = "";
-        switch (dayOfWeek) {
-        case 1:
-            System.out.println("В воскресенье университете закрыт");
-            break;
-        case 2:
-            dayName = "ПН неч";
-            break;
-
-        case 3:
-            dayName = "ВТ неч";
-            break;
-
-        case 4:
-            dayName = "СР неч";
-            break;
-
-        case 5:
-            dayName = "ЧТ неч";
-            break;
-
-        case 6:
-            dayName = "ПТ неч";
-            break;
-
-        case 7:
-            dayName = "СБ неч";
-            break;
-
-        default:
-            break;
-        }
-        return dayName;
     }
 }

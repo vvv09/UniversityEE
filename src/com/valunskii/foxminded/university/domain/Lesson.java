@@ -5,9 +5,10 @@ import java.util.Set;
 
 import lombok.Getter;
 
+@Getter
 public class Lesson {
 
-    private @Getter Set<Lecture> lectures = new HashSet<>();
+    private Set<Lecture> lectures = new HashSet<>();
 
     public void addLecture(Lecture lecture) {
         if (checkIfCorrect(lecture)) {

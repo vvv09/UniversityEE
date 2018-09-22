@@ -7,10 +7,11 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
-@EqualsAndHashCode(exclude = "students") //достаточно только имени группы, поскольку группы не могут называться одинаково...
+@Getter
+@EqualsAndHashCode(exclude = "students") //name is enough, since groups can't be called identically...
 public class Group {
-    private @Getter @Setter String name;
-    private @Getter Set<Student> students = new HashSet<>();
+    private @Setter String name;
+    private Set<Student> students = new HashSet<>();
         
     public Group(String name) {
         this.name = name;

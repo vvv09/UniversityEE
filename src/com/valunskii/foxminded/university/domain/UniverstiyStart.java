@@ -1,9 +1,7 @@
 package com.valunskii.foxminded.university.domain;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.util.List;
 
 public class UniverstiyStart {
@@ -13,16 +11,26 @@ public class UniverstiyStart {
     public static void main(String[] args) {
 
         createUniversity();
-        showCreatedUniversity();
+//        showCreatedUniversity();
 
         createUniversitySchedule();
-        showUniversitySchedule();
-        showStudentSchedule();
-        showTeacherSchedule();
+//        showUniversitySchedule();
+//        showStudentSchedule();
+//        showTeacherSchedule();
         showStudentScheduleForDay();
         showTeacherScheduleForDay();
 
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
     private static void showCreatedUniversity() {
         System.out.println("---Список всех аудиторий университета---");
@@ -374,73 +382,73 @@ public class UniverstiyStart {
         lesson27.addLecture(lecture20);
         lesson27.addLecture(lecture30);
 
-        DaySchedule oddMon = new DaySchedule("ПН неч");
+        DaySchedule oddMon = new DaySchedule(DayOfWeek.MONDAY, Parity.ODD);
         oddMon.addLesson(lesson1);
         oddMon.addLesson(lesson1);
         oddMon.addLesson(lesson2);
         oddMon.addLesson(lesson3);
         oddMon.addLesson(lesson4);
-        DaySchedule oddTue = new DaySchedule("ВТ неч");
+        DaySchedule oddTue = new DaySchedule(DayOfWeek.TUESDAY, Parity.ODD);
         oddTue.addLesson(lesson5);
         oddTue.addLesson(lesson5);
         oddTue.addLesson(lesson6);
         oddTue.addLesson(lesson6);
         oddTue.addLesson(lesson7);
-        DaySchedule oddWen = new DaySchedule("СР неч");
+        DaySchedule oddWen = new DaySchedule(DayOfWeek.WEDNESDAY, Parity.ODD);
         oddWen.addLesson(lesson8);
         oddWen.addLesson(lesson9);
         oddWen.addLesson(lesson10);
         oddWen.addLesson(lesson10);
         oddWen.addLesson(lesson11);
-        DaySchedule oddThu = new DaySchedule("ЧТ неч");
+        DaySchedule oddThu = new DaySchedule(DayOfWeek.THURSDAY, Parity.ODD);
         oddThu.addLesson(lesson7);
         oddThu.addLesson(lesson12);
         oddThu.addLesson(lesson12);
         oddThu.addLesson(lesson13);
         oddThu.addLesson(lesson14);
-        DaySchedule oddFri = new DaySchedule("ПТ неч");
+        DaySchedule oddFri = new DaySchedule(DayOfWeek.FRIDAY, Parity.ODD);
         oddFri.addLesson(lesson8);
         oddFri.addLesson(lesson13);
         oddFri.addLesson(lesson15);
         oddFri.addLesson(lesson16);
         oddFri.addLesson(lesson17);
-        DaySchedule oddSat = new DaySchedule("СБ неч");
+        DaySchedule oddSat = new DaySchedule(DayOfWeek.SATURDAY, Parity.ODD);
         oddSat.addLesson(lesson10);
         oddSat.addLesson(lesson18);
         oddSat.addLesson(lesson18);
 
-        DaySchedule evenMon = new DaySchedule("ПН чет");
+        DaySchedule evenMon = new DaySchedule(DayOfWeek.MONDAY, Parity.EVEN);
         evenMon.addLesson(lesson1);
         evenMon.addLesson(lesson19);
         evenMon.addLesson(lesson20);
         evenMon.addLesson(lesson2);
         evenMon.addLesson(lesson21);
         evenMon.addLesson(lesson21);
-        DaySchedule evenTue = new DaySchedule("ВТ чет");
+        DaySchedule evenTue = new DaySchedule(DayOfWeek.TUESDAY, Parity.EVEN);
         evenTue.addLesson(lesson22);
         evenTue.addLesson(lesson5);
         evenTue.addLesson(lesson6);
         evenTue.addLesson(lesson6);
         evenTue.addLesson(lesson7);
-        DaySchedule evenWen = new DaySchedule("СР чет");
+        DaySchedule evenWen = new DaySchedule(DayOfWeek.WEDNESDAY, Parity.EVEN);
         evenWen.addLesson(lesson8);
         evenWen.addLesson(lesson9);
         evenWen.addLesson(lesson23);
         evenWen.addLesson(lesson23);
         evenWen.addLesson(lesson11);
-        DaySchedule evenThu = new DaySchedule("ЧТ чет");
+        DaySchedule evenThu = new DaySchedule(DayOfWeek.THURSDAY, Parity.EVEN);
         evenThu.addLesson(lesson7);
         evenThu.addLesson(lesson12);
         evenThu.addLesson(lesson12);
         evenThu.addLesson(lesson13);
         evenThu.addLesson(lesson14);
-        DaySchedule evenFri = new DaySchedule("ПТ чет");
+        DaySchedule evenFri = new DaySchedule(DayOfWeek.FRIDAY, Parity.EVEN);
         evenFri.addLesson(lesson24);
         evenFri.addLesson(lesson13);
         evenFri.addLesson(lesson25);
         evenFri.addLesson(lesson16);
         evenFri.addLesson(lesson26);
-        DaySchedule evenSat = new DaySchedule("СБ чет");
+        DaySchedule evenSat = new DaySchedule(DayOfWeek.SATURDAY, Parity.EVEN);
         evenSat.addLesson(lesson27);
         evenSat.addLesson(lesson18);
         evenSat.addLesson(lesson18);
@@ -467,7 +475,7 @@ public class UniverstiyStart {
         Schedule allSchedule = itmo.getSchedule();
 
         for (DaySchedule s : allSchedule.getSchedule()) {
-            System.out.println(s.getName());
+            System.out.println(s.getDayOfWeek());
             int i = 1;
             for (Lesson l : s.getLessons()) {
                 System.out.print(i + ") ");
@@ -488,7 +496,7 @@ public class UniverstiyStart {
                 + student.getMiddleName() + "\nгруппа " + student.getGroup().getName());
         Schedule studentSchedule = itmo.getSchedule().showStudentSchedule(student);
         for (DaySchedule s : studentSchedule.getSchedule()) {
-            System.out.println(s.getName());
+            System.out.println(s.getDayOfWeek() + " " + s.getParityOfWeek());
             int i = 1;
             for (Lesson l : s.getLessons()) {
                 System.out.print(i + ") ");
@@ -505,11 +513,12 @@ public class UniverstiyStart {
     private static void showTeacherSchedule() {
         int teacherId = 9;
         Teacher teacher = itmo.getTeacherById(teacherId);
+        System.out.println("______________________________");
         System.out.println("Расписание на месяц для преподавателя: " + teacher.getLastName() + " "
                 + teacher.getFirstName() + " " + teacher.getMiddleName() + "\n");
         Schedule teacherSchedule = itmo.getSchedule().showTeacherSchedule(teacher);
         for (DaySchedule s : teacherSchedule.getSchedule()) {
-            System.out.println(s.getName());
+            System.out.println(s.getDayOfWeek() + " " + s.getParityOfWeek());
             int i = 1;
             for (Lesson l : s.getLessons()) {
                 System.out.print(i + ") ");
@@ -525,14 +534,16 @@ public class UniverstiyStart {
 
     private static void showStudentScheduleForDay() {
         int studentId = 7;
-        Calendar day = new GregorianCalendar(2018, 8, 20); // 20 сентября 2018 (день 5 - чет)
+        LocalDate date = LocalDate.of(2018, 9, 22); // 20 сентября 2018 (день 5 - чет)
         
         Student student = itmo.getStudentById(studentId);
         
-        System.out.println("Расписание на " + day.get(Calendar.DAY_OF_WEEK) + " для студента: " + student.getLastName() + " "
-                + student.getFirstName() + " " + student.getMiddleName() + "\n");
+        System.out.println("______________________________");
+        System.out.println("Расписание на: " + date + " \nдля студента: " + student.getLastName() + " "
+                + student.getFirstName() + " " + student.getMiddleName() + "\nгруппа: " + student.getGroup().getName());
+        System.out.println("______________________________");
         
-        DaySchedule StudentDaySchedule = itmo.getSchedule().showStudentDaySchedule(student, day);
+        DaySchedule StudentDaySchedule = itmo.getSchedule().showStudentDaySchedule(student, date);
         int i = 1;
         for (Lesson l : StudentDaySchedule.getLessons()) {
             System.out.print(i + ") ");
@@ -551,15 +562,16 @@ public class UniverstiyStart {
 
     private static void showTeacherScheduleForDay() {
         int teacherId = 9;
-        
-        Calendar day = new GregorianCalendar(2018, 8, 20); // 20 сентября 2018 (день 5 - чет)
+        LocalDate date = LocalDate.of(2018, 9, 22);
         
         Teacher teacher = itmo.getTeacherById(teacherId);
+        System.out.println();
+        System.out.println("______________________________");
+        System.out.println("Расписание на " + date + "\nдля преподавателя: " + teacher.getLastName() + " "
+                + teacher.getFirstName() + " " + teacher.getMiddleName());
+        System.out.println("______________________________");
         
-        System.out.println("Расписание на " + day.get(Calendar.DAY_OF_WEEK) + " для преподавателя: " + teacher.getLastName() + " "
-                + teacher.getFirstName() + " " + teacher.getMiddleName() + "\n");
-        
-        DaySchedule TeacherDaySchedule = itmo.getSchedule().showTeacherDaySchedule(teacher, day);
+        DaySchedule TeacherDaySchedule = itmo.getSchedule().showTeacherDaySchedule(teacher, date);
         int i = 1;
         for (Lesson l : TeacherDaySchedule.getLessons()) {
             System.out.print(i + ") ");

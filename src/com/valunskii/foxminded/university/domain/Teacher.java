@@ -4,13 +4,13 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
-
-@EqualsAndHashCode(exclude = {"firstName", "middleName", "lastName"})
+@Getter @Setter
+@EqualsAndHashCode(exclude = {"firstName", "middleName", "lastName"}) //id is quite enough
 public class Teacher {
-    private @Getter @Setter int id;
-    private @Getter @Setter String firstName;
-    private @Getter @Setter String middleName;
-    private @Getter @Setter String lastName;
+    private int id;
+    private String firstName;
+    private String middleName;
+    private String lastName;
     
     public Teacher(int id, String firstName, String middleName, String lastName) {
         this.id = id;

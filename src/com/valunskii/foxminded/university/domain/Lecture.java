@@ -3,11 +3,12 @@ package com.valunskii.foxminded.university.domain;
 import lombok.Getter;
 import lombok.Setter;
 
+@Getter @Setter
 public class Lecture {
-    private @Getter @Setter Subject subject;
-    private @Getter @Setter Teacher teacher;
-    private @Getter @Setter Group group;
-    private @Getter @Setter Classroom classroom;
+    private Subject subject;
+    private Teacher teacher;
+    private Group group;
+    private Classroom classroom;
 
     public Lecture(Subject subject, Teacher teacher, Group group, Classroom classroom) {
         this.subject = subject;

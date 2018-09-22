@@ -6,18 +6,19 @@ import java.util.Set;
 import lombok.Getter;
 import lombok.Setter;
 
+@Getter
 public class University {
-    private @Getter Set<Subject> subjects = new HashSet<>();
-    private @Getter Set<Teacher> teachers = new HashSet<>();
-    private @Getter Set<Group> groups = new HashSet<>();
-    private @Getter Set<Student> students = new HashSet<>();
-    private @Getter Set<Classroom> classrooms = new HashSet<>();
-    private @Getter @Setter Schedule Schedule;
-    
+    private Set<Subject> subjects = new HashSet<>();
+    private Set<Teacher> teachers = new HashSet<>();
+    private Set<Group> groups = new HashSet<>();
+    private Set<Student> students = new HashSet<>();
+    private Set<Classroom> classrooms = new HashSet<>();
+    private @Setter Schedule Schedule;
+
     public void addStudent(Student student) {
         students.add(student);
     }
-    
+
     public void removeStudent(Student student) {
         students.remove(student);
     }
@@ -105,16 +106,16 @@ public class University {
     public Student getStudentById(int id) {
         for (Student s : students) {
             if (s.getId() == id) {
-                return  s;
+                return s;
             }
         }
         return null; // TODO: null shoudn't have business value!!!
     }
-    
+
     public Teacher getTeacherById(int id) {
         for (Teacher t : teachers) {
             if (t.getId() == id) {
-                return  t;
+                return t;
             }
         }
         return null; // TODO: null shoudn't have business value!!!
