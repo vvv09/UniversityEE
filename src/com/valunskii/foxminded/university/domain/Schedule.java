@@ -3,6 +3,7 @@ package com.valunskii.foxminded.university.domain;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -69,11 +70,11 @@ public class Schedule {
         for (DaySchedule s : schedule) {
             if (s.getDayOfWeek() == studentDaySchedule.getDayOfWeek()
                     && s.getParityOfWeek() == studentDaySchedule.getParityOfWeek()) {
-                for (Lesson l : s.getLessons()) {
-                    Lesson studentLesson = new Lesson();
-                    for (Lecture lec : l.getLectures()) {
+                for (Set<Lecture> l : s.getLessons()) {
+                    Set<Lecture> studentLesson = new HashSet<>();
+                    for (Lecture lec : l) {
                         if (lec.getGroup().equals(student.getGroup())) {
-                            studentLesson.addLecture(lec);
+                            studentLesson.add(lec);
                         }
                     }
                     studentDaySchedule.addLesson(studentLesson);
@@ -90,11 +91,11 @@ public class Schedule {
         for (DaySchedule s : schedule) {
             if (s.getDayOfWeek() == teacherDaySchedule.getDayOfWeek()
                     && s.getParityOfWeek() == teacherDaySchedule.getParityOfWeek()) {
-                for (Lesson l : s.getLessons()) {
-                    Lesson teacherLesson = new Lesson();
-                    for (Lecture lec : l.getLectures()) {
+                for (Set<Lecture> l : s.getLessons()) {
+                    Set<Lecture> teacherLesson = new HashSet<>();
+                    for (Lecture lec : l) {
                         if (lec.getTeacher().equals(teacher)) {
-                            teacherLesson.addLecture(lec);
+                            teacherLesson.add(lec);
                         }
                     }
                     teacherDaySchedule.addLesson(teacherLesson);
@@ -108,11 +109,11 @@ public class Schedule {
         Schedule studentSchedule = new Schedule();
         for (DaySchedule s : schedule) {
             DaySchedule studentDaySchedule = new DaySchedule(s.getDayOfWeek(), s.getParityOfWeek());
-            for (Lesson l : s.getLessons()) {
-                Lesson studentLesson = new Lesson();
-                for (Lecture lec : l.getLectures()) {
+            for (Set<Lecture> l : s.getLessons()) {
+                Set<Lecture> studentLesson = new HashSet<>();
+                for (Lecture lec : l) {
                     if (lec.getGroup().equals(student.getGroup())) {
-                        studentLesson.addLecture(lec);
+                        studentLesson.add(lec);
                     }
                 }
                 studentDaySchedule.addLesson(studentLesson);
@@ -126,11 +127,11 @@ public class Schedule {
         Schedule teacherSchedule = new Schedule();
         for (DaySchedule s : schedule) {
             DaySchedule teacherDaySchedule = new DaySchedule(s.getDayOfWeek(), s.getParityOfWeek());
-            for (Lesson l : s.getLessons()) {
-                Lesson teacherLesson = new Lesson();
-                for (Lecture lec : l.getLectures()) {
+            for (Set<Lecture> l : s.getLessons()) {
+                Set<Lecture> teacherLesson = new HashSet<>();
+                for (Lecture lec : l) {
                     if (lec.getTeacher().equals(teacher)) {
-                        teacherLesson.addLecture(lec);
+                        teacherLesson.add(lec);
                     }
                 }
                 teacherDaySchedule.addLesson(teacherLesson);

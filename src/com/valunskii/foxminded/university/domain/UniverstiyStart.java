@@ -2,7 +2,8 @@ package com.valunskii.foxminded.university.domain;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 public class UniverstiyStart {
 
@@ -11,12 +12,12 @@ public class UniverstiyStart {
     public static void main(String[] args) {
 
         createUniversity();
-//        showCreatedUniversity();
+        showCreatedUniversity();
 
         createUniversitySchedule();
-//        showUniversitySchedule();
-//        showStudentSchedule();
-//        showTeacherSchedule();
+        showUniversitySchedule();
+        showStudentSchedule();
+        showTeacherSchedule();
         showStudentScheduleForDay();
         showTeacherScheduleForDay();
 
@@ -273,114 +274,114 @@ public class UniverstiyStart {
         Lecture lecture47 = itmo.createLecture("ДИСКРЕТНАЯ МАТЕМАТИКА", 16, "M-3100", "2503");
         Lecture lecture48 = itmo.createLecture("ДИСКРЕТНАЯ МАТЕМАТИКА", 16, "N-3147", "2503");
 
-        Lesson lesson1 = new Lesson();
-        lesson1.addLecture(lecture1);
-        lesson1.addLecture(lecture5);
-        lesson1.addLecture(lecture9);
-        Lesson lesson2 = new Lesson();
-        lesson2.addLecture(lecture13);
-        lesson2.addLecture(lecture17);
-        lesson2.addLecture(lecture21);
-        Lesson lesson3 = new Lesson();
-        lesson3.addLecture(lecture19);
-        lesson3.addLecture(lecture23);
-        lesson3.addLecture(lecture27);
-        Lesson lesson4 = new Lesson();
-        lesson4.addLecture(lecture10);
-        lesson4.addLecture(lecture14);
-        lesson4.addLecture(lecture18);
-        Lesson lesson5 = new Lesson();
-        lesson5.addLecture(lecture16);
-        lesson5.addLecture(lecture20);
-        lesson5.addLecture(lecture24);
-        Lesson lesson6 = new Lesson();
-        lesson6.addLecture(lecture7);
-        lesson6.addLecture(lecture11);
-        lesson6.addLecture(lecture15);
-        Lesson lesson7 = new Lesson();
-        lesson7.addLecture(lecture31);
-        lesson7.addLecture(lecture35);
-        lesson7.addLecture(lecture39);
-        Lesson lesson8 = new Lesson();
-        lesson8.addLecture(lecture43);
-        lesson8.addLecture(lecture47);
-        lesson8.addLecture(lecture3);
-        Lesson lesson9 = new Lesson();
-        lesson9.addLecture(lecture25);
-        lesson9.addLecture(lecture29);
-        lesson9.addLecture(lecture33);
-        Lesson lesson10 = new Lesson();
-        lesson10.addLecture(lecture4);
-        lesson10.addLecture(lecture8);
-        lesson10.addLecture(lecture12);
-        Lesson lesson11 = new Lesson();
-        lesson11.addLecture(lecture28);
-        lesson11.addLecture(lecture32);
-        lesson11.addLecture(lecture36);
-        Lesson lesson12 = new Lesson();
-        lesson12.addLecture(lecture22);
-        lesson12.addLecture(lecture26);
-        lesson12.addLecture(lecture30);
-        Lesson lesson13 = new Lesson();
-        lesson13.addLecture(lecture34);
-        lesson13.addLecture(lecture38);
-        lesson13.addLecture(lecture42);
-        Lesson lesson14 = new Lesson();
-        lesson14.addLecture(lecture19);
-        lesson14.addLecture(lecture23);
-        lesson14.addLecture(lecture27);
-        Lesson lesson15 = new Lesson();
-        lesson15.addLecture(lecture40);
-        lesson15.addLecture(lecture44);
-        lesson15.addLecture(lecture48);
-        Lesson lesson16 = new Lesson();
-        lesson16.addLecture(lecture46);
-        lesson16.addLecture(lecture2);
-        lesson16.addLecture(lecture6);
-        Lesson lesson17 = new Lesson();
-        lesson17.addLecture(lecture10);
-        lesson17.addLecture(lecture14);
-        lesson17.addLecture(lecture18);
-        Lesson lesson18 = new Lesson();
-        lesson18.addLecture(lecture37);
-        lesson18.addLecture(lecture41);
-        lesson18.addLecture(lecture45);
-        Lesson lesson19 = new Lesson();
-        lesson19.addLecture(lecture7);
-        lesson19.addLecture(lecture5);
-        lesson19.addLecture(lecture3);
-        Lesson lesson20 = new Lesson();
-        lesson20.addLecture(lecture7);
-        lesson20.addLecture(lecture23);
-        lesson20.addLecture(lecture21);
-        Lesson lesson21 = new Lesson();
-        lesson21.addLecture(lecture34);
-        lesson21.addLecture(lecture32);
-        lesson21.addLecture(lecture30);
-        Lesson lesson22 = new Lesson();
-        lesson22.addLecture(lecture13);
-        lesson22.addLecture(lecture11);
-        lesson22.addLecture(lecture9);
-        Lesson lesson23 = new Lesson();
-        lesson23.addLecture(lecture10);
-        lesson23.addLecture(lecture8);
-        lesson23.addLecture(lecture6);
-        Lesson lesson24 = new Lesson();
-        lesson24.addLecture(lecture28);
-        lesson24.addLecture(lecture17);
-        lesson24.addLecture(lecture6);
-        Lesson lesson25 = new Lesson();
-        lesson25.addLecture(lecture1);
-        lesson25.addLecture(lecture17);
-        lesson25.addLecture(lecture8);
-        Lesson lesson26 = new Lesson();
-        lesson26.addLecture(lecture34);
-        lesson26.addLecture(lecture29);
-        lesson26.addLecture(lecture24);
-        Lesson lesson27 = new Lesson();
-        lesson27.addLecture(lecture10);
-        lesson27.addLecture(lecture20);
-        lesson27.addLecture(lecture30);
+        Set<Lecture> lesson1 = new HashSet<>();
+        lesson1.add(lecture1);
+        lesson1.add(lecture5);
+        lesson1.add(lecture9);
+        Set<Lecture> lesson2 = new HashSet<>();
+        lesson2.add(lecture13);
+        lesson2.add(lecture17);
+        lesson2.add(lecture21);
+        Set<Lecture> lesson3 = new HashSet<>();
+        lesson3.add(lecture19);
+        lesson3.add(lecture23);
+        lesson3.add(lecture27);
+        Set<Lecture> lesson4 = new HashSet<>();
+        lesson4.add(lecture10);
+        lesson4.add(lecture14);
+        lesson4.add(lecture18);
+        Set<Lecture> lesson5 = new HashSet<>();
+        lesson5.add(lecture16);
+        lesson5.add(lecture20);
+        lesson5.add(lecture24);
+        Set<Lecture> lesson6 = new HashSet<>();
+        lesson6.add(lecture7);
+        lesson6.add(lecture11);
+        lesson6.add(lecture15);
+        Set<Lecture> lesson7 = new HashSet<>();
+        lesson7.add(lecture31);
+        lesson7.add(lecture35);
+        lesson7.add(lecture39);
+        Set<Lecture> lesson8 = new HashSet<>();
+        lesson8.add(lecture43);
+        lesson8.add(lecture47);
+        lesson8.add(lecture3);
+        Set<Lecture> lesson9 = new HashSet<>();
+        lesson9.add(lecture25);
+        lesson9.add(lecture29);
+        lesson9.add(lecture33);
+        Set<Lecture> lesson10 = new HashSet<>();
+        lesson10.add(lecture4);
+        lesson10.add(lecture8);
+        lesson10.add(lecture12);
+        Set<Lecture> lesson11 = new HashSet<>();
+        lesson11.add(lecture28);
+        lesson11.add(lecture32);
+        lesson11.add(lecture36);
+        Set<Lecture> lesson12 = new HashSet<>();
+        lesson12.add(lecture22);
+        lesson12.add(lecture26);
+        lesson12.add(lecture30);
+        Set<Lecture> lesson13 = new HashSet<>();
+        lesson13.add(lecture34);
+        lesson13.add(lecture38);
+        lesson13.add(lecture42);
+        Set<Lecture> lesson14 = new HashSet<>();
+        lesson14.add(lecture19);
+        lesson14.add(lecture23);
+        lesson14.add(lecture27);
+        Set<Lecture> lesson15 = new HashSet<>();
+        lesson15.add(lecture40);
+        lesson15.add(lecture44);
+        lesson15.add(lecture48);
+        Set<Lecture> lesson16 = new HashSet<>();
+        lesson16.add(lecture46);
+        lesson16.add(lecture2);
+        lesson16.add(lecture6);
+        Set<Lecture> lesson17 = new HashSet<>();
+        lesson17.add(lecture10);
+        lesson17.add(lecture14);
+        lesson17.add(lecture18);
+        Set<Lecture> lesson18 = new HashSet<>();
+        lesson18.add(lecture37);
+        lesson18.add(lecture41);
+        lesson18.add(lecture45);
+        Set<Lecture> lesson19 = new HashSet<>();
+        lesson19.add(lecture7);
+        lesson19.add(lecture5);
+        lesson19.add(lecture3);
+        Set<Lecture> lesson20 = new HashSet<>();
+        lesson20.add(lecture7);
+        lesson20.add(lecture23);
+        lesson20.add(lecture21);
+        Set<Lecture> lesson21 = new HashSet<>();
+        lesson21.add(lecture34);
+        lesson21.add(lecture32);
+        lesson21.add(lecture30);
+        Set<Lecture> lesson22 = new HashSet<>();
+        lesson22.add(lecture13);
+        lesson22.add(lecture11);
+        lesson22.add(lecture9);
+        Set<Lecture> lesson23 = new HashSet<>();
+        lesson23.add(lecture10);
+        lesson23.add(lecture8);
+        lesson23.add(lecture6);
+        Set<Lecture> lesson24 = new HashSet<>();
+        lesson24.add(lecture28);
+        lesson24.add(lecture17);
+        lesson24.add(lecture6);
+        Set<Lecture> lesson25 = new HashSet<>();
+        lesson25.add(lecture1);
+        lesson25.add(lecture17);
+        lesson25.add(lecture8);
+        Set<Lecture> lesson26 = new HashSet<>();
+        lesson26.add(lecture34);
+        lesson26.add(lecture29);
+        lesson26.add(lecture24);
+        Set<Lecture> lesson27 = new HashSet<>();
+        lesson27.add(lecture10);
+        lesson27.add(lecture20);
+        lesson27.add(lecture30);
 
         DaySchedule oddMon = new DaySchedule(DayOfWeek.MONDAY, Parity.ODD);
         oddMon.addLesson(lesson1);
@@ -474,12 +475,12 @@ public class UniverstiyStart {
     private static void showUniversitySchedule() {
         Schedule allSchedule = itmo.getSchedule();
 
-        for (DaySchedule s : allSchedule.getSchedule()) {
-            System.out.println(s.getDayOfWeek());
+        for (DaySchedule daySchedule : allSchedule.getSchedule()) {
+            System.out.println(daySchedule.getDayOfWeek());
             int i = 1;
-            for (Lesson l : s.getLessons()) {
+            for (Set<Lecture> lecturesSet : daySchedule.getLessons()) {
                 System.out.print(i + ") ");
-                for (Lecture lec : l.getLectures()) {
+                for (Lecture lec : lecturesSet) {
                     System.out.print(lec.getSubject().getName() + " (" + lec.getTeacher().getLastName() + ") "
                             + lec.getGroup().getName() + " " + lec.getClassroom().getName() + " | ");
                 }
@@ -495,12 +496,12 @@ public class UniverstiyStart {
         System.out.println("Расписание на месяц для: " + student.getLastName() + " " + student.getFirstName() + " "
                 + student.getMiddleName() + "\nгруппа " + student.getGroup().getName());
         Schedule studentSchedule = itmo.getSchedule().showStudentSchedule(student);
-        for (DaySchedule s : studentSchedule.getSchedule()) {
-            System.out.println(s.getDayOfWeek() + " " + s.getParityOfWeek());
+        for (DaySchedule daySchedule : studentSchedule.getSchedule()) {
+            System.out.println(daySchedule.getDayOfWeek() + " " + daySchedule.getParityOfWeek());
             int i = 1;
-            for (Lesson l : s.getLessons()) {
+            for (Set<Lecture> lecturesSet : daySchedule.getLessons()) {
                 System.out.print(i + ") ");
-                for (Lecture lec : l.getLectures()) {
+                for (Lecture lec : lecturesSet) {
                     System.out.print(lec.getSubject().getName() + " (" + lec.getTeacher().getLastName() + ") "
                             + lec.getGroup().getName() + " " + lec.getClassroom().getName() + " | ");
                 }
@@ -517,12 +518,12 @@ public class UniverstiyStart {
         System.out.println("Расписание на месяц для преподавателя: " + teacher.getLastName() + " "
                 + teacher.getFirstName() + " " + teacher.getMiddleName() + "\n");
         Schedule teacherSchedule = itmo.getSchedule().showTeacherSchedule(teacher);
-        for (DaySchedule s : teacherSchedule.getSchedule()) {
-            System.out.println(s.getDayOfWeek() + " " + s.getParityOfWeek());
+        for (DaySchedule daySchedule : teacherSchedule.getSchedule()) {
+            System.out.println(daySchedule.getDayOfWeek() + " " + daySchedule.getParityOfWeek());
             int i = 1;
-            for (Lesson l : s.getLessons()) {
+            for (Set<Lecture> lecturesSet : daySchedule.getLessons()) {
                 System.out.print(i + ") ");
-                for (Lecture lec : l.getLectures()) {
+                for (Lecture lec : lecturesSet) {
                     System.out.print(lec.getSubject().getName() + " / " + lec.getGroup().getName() + " / "
                             + lec.getClassroom().getName() + " | ");
                 }
@@ -545,9 +546,9 @@ public class UniverstiyStart {
         
         DaySchedule StudentDaySchedule = itmo.getSchedule().showStudentDaySchedule(student, date);
         int i = 1;
-        for (Lesson l : StudentDaySchedule.getLessons()) {
+        for (Set<Lecture> lecturesSet : StudentDaySchedule.getLessons()) {
             System.out.print(i + ") ");
-            for (Lecture lec : l.getLectures()) {
+            for (Lecture lec : lecturesSet) {
                 System.out.print(lec.getSubject().getName() + " / " + lec.getGroup().getName() + " / "
                         + lec.getClassroom().getName() + " | ");
             }
@@ -573,9 +574,9 @@ public class UniverstiyStart {
         
         DaySchedule TeacherDaySchedule = itmo.getSchedule().showTeacherDaySchedule(teacher, date);
         int i = 1;
-        for (Lesson l : TeacherDaySchedule.getLessons()) {
+        for (Set<Lecture> lecturesSet : TeacherDaySchedule.getLessons()) {
             System.out.print(i + ") ");
-            for (Lecture lec : l.getLectures()) {
+            for (Lecture lec : lecturesSet) {
                 System.out.print(lec.getSubject().getName() + " / " + lec.getGroup().getName() + " / "
                         + lec.getClassroom().getName() + " | ");
             }
