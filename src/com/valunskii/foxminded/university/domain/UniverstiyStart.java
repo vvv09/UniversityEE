@@ -12,14 +12,14 @@ public class UniverstiyStart {
     public static void main(String[] args) {
 
         createUniversity();
-        showCreatedUniversity();
+//        showCreatedUniversity();
 
         createUniversitySchedule();
-        showUniversitySchedule();
-        showStudentSchedule();
-        showTeacherSchedule();
+//        showUniversitySchedule();
+//        showStudentSchedule();
+//        showTeacherSchedule();
         showStudentScheduleForDay();
-        showTeacherScheduleForDay();
+//        showTeacherScheduleForDay();
 
     }
     
@@ -535,7 +535,7 @@ public class UniverstiyStart {
 
     private static void showStudentScheduleForDay() {
         int studentId = 7;
-        LocalDate date = LocalDate.of(2018, 9, 22); // 20 сентября 2018 (день 5 - чет)
+        LocalDate date = LocalDate.of(2017, 10, 22); // пятница чет
         
         Student student = itmo.getStudentById(studentId);
         
@@ -563,7 +563,7 @@ public class UniverstiyStart {
 
     private static void showTeacherScheduleForDay() {
         int teacherId = 9;
-        LocalDate date = LocalDate.of(2018, 9, 22);
+        LocalDate date = LocalDate.of(2018, 9, 29);
         
         Teacher teacher = itmo.getTeacherById(teacherId);
         System.out.println();

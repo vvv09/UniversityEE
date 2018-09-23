@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.time.temporal.ChronoUnit;
 
 import lombok.Getter;
 
@@ -26,29 +27,28 @@ public class Schedule {
         /*
          * NOTE!
          * 
-         * in present business logic there is no any vacation between odd and even
+         * in present business logic there is no sessions as well as vacation between odd and even
          * semester;
          * 
          */
 
         LocalDate inputDate = date;
 
-        // getting date of the beginning of year;
+        // Getting date of the beginning of academic year;
         LocalDate dayFirstSeptember = LocalDate.of(inputDate.getYear(), 9, 1);
         if (inputDate.getMonthValue() < 9) {
             dayFirstSeptember = dayFirstSeptember.minusYears(1);
         }
 
-        // Getting date of fist Monday for future correct calculation of parity
+        // Getting date of fist Monday for correct calculation of parity in future
         LocalDate dayFirstMonday = dayFirstSeptember.plusDays(1);
         while (dayFirstMonday.getDayOfWeek() != DayOfWeek.MONDAY) {
             dayFirstMonday = dayFirstMonday.plusDays(1);
         }
 
         // Now getting parity itself
-        long daysBetween = java.time.temporal.ChronoUnit.DAYS.between(dayFirstMonday.plusDays(1), inputDate);
         boolean parity = false;
-        if (((daysBetween / 7) % 2) == 0) {
+        if (((ChronoUnit.DAYS.between(dayFirstMonday, inputDate) / 7) % 2) == 0) {
             parity = true;
         }
         if (dayFirstSeptember.getDayOfWeek() == DayOfWeek.SUNDAY) {
