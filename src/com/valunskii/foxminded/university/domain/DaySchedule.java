@@ -66,11 +66,3 @@ public class DaySchedule {
         return true;
     }
 }
-
-//public void addLesson(Lesson lesson) {
-//lessons.add(lesson);
-//}
-//
-//public void removeLesson(Lesson lesson) {
-//lessons.remove(lesson);
-//}

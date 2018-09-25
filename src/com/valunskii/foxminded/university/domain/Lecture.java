@@ -3,7 +3,8 @@ package com.valunskii.foxminded.university.domain;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter @Setter
+@Getter
+@Setter
 public class Lecture {
     private Subject subject;
     private Teacher teacher;

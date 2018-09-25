@@ -22,45 +22,49 @@ public class Schedule {
         schedule.remove(daySchedule);
     }
 
+    /**
+     * NOTE!
+     * 
+     * in present business logic there is no sessions as well as vacation between odd and even
+     * semester;
+     * 
+     */
     private Parity getParityByDate(LocalDate date) {
-
-        /*
-         * NOTE!
-         * 
-         * in present business logic there is no sessions as well as vacation between odd and even
-         * semester;
-         * 
-         */
-
         LocalDate inputDate = date;
-
-        // Getting date of the beginning of academic year;
-        LocalDate dayFirstSeptember = LocalDate.of(inputDate.getYear(), 9, 1);
-        if (inputDate.getMonthValue() < 9) {
-            dayFirstSeptember = dayFirstSeptember.minusYears(1);
+        LocalDate dayFirstSeptember = getBeginingAcademicYear(inputDate);
+        LocalDate dayFirstMonday = getFirstMonday(dayFirstSeptember);
+        return determineWeekParity(dayFirstMonday, dayFirstSeptember, date);    
+    }
+    
+    private LocalDate getBeginingAcademicYear(LocalDate date) {
+        LocalDate beginingOfAcademicYear = LocalDate.of(date.getYear(), 9, 1);
+        if (date.getMonthValue() < 9) {
+            beginingOfAcademicYear = beginingOfAcademicYear.minusYears(1);
         }
-
-        // Getting date of fist Monday for correct calculation of parity in future
-        LocalDate dayFirstMonday = dayFirstSeptember.plusDays(1);
+        return beginingOfAcademicYear;
+    }
+    
+    private LocalDate getFirstMonday(LocalDate date) {
+        LocalDate dayFirstMonday = date;
         while (dayFirstMonday.getDayOfWeek() != DayOfWeek.MONDAY) {
             dayFirstMonday = dayFirstMonday.plusDays(1);
         }
-
-        // Now getting parity itself
+        return dayFirstMonday;
+    }
+    
+    private Parity determineWeekParity(LocalDate firstMonday, LocalDate firstSeptember, LocalDate date) {
         boolean parity = false;
-        if (((ChronoUnit.DAYS.between(dayFirstMonday, inputDate) / 7) % 2) == 0) {
+        if (((ChronoUnit.DAYS.between(firstMonday, date) / 7) % 2) == 0) {
             parity = true;
         }
-        if (dayFirstSeptember.getDayOfWeek() == DayOfWeek.SUNDAY) {
-            // if September 1st is on Sunday then next week(that should be even) becomes an
-            // odd one.(mentor's wish)
+        if (firstSeptember.getDayOfWeek() == DayOfWeek.SATURDAY || firstSeptember.getDayOfWeek() == DayOfWeek.SUNDAY ) {
             parity = !parity;
         }
         if (parity) {
             return Parity.EVEN;
         } else {
             return Parity.ODD;
-        }
+        } 
     }
 
     public DaySchedule showStudentDaySchedule(Student student, LocalDate date) {
