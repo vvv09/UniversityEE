@@ -3,6 +3,7 @@ package com.valunskii.foxminded.university.domain;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 public class UniverstiyStart {
@@ -10,28 +11,16 @@ public class UniverstiyStart {
     private static University itmo;
 
     public static void main(String[] args) {
-
         createUniversity();
-//        showCreatedUniversity();
+        showCreatedUniversity();
 
         createUniversitySchedule();
-//        showUniversitySchedule();
-//        showStudentSchedule();
-//        showTeacherSchedule();
-        showStudentScheduleForDay();
+        showUniversitySchedule();
+        showStudentSchedule();
+        showTeacherSchedule();
+//        showStudentScheduleForDay();
 //        showTeacherScheduleForDay();
-
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
 
     private static void showCreatedUniversity() {
         System.out.println("---Список всех аудиторий университета---");
@@ -384,75 +373,75 @@ public class UniverstiyStart {
         lesson27.add(lecture30);
 
         DaySchedule oddMon = new DaySchedule(DayOfWeek.MONDAY, Parity.ODD);
-        oddMon.addLesson(lesson1);
-        oddMon.addLesson(lesson1);
-        oddMon.addLesson(lesson2);
-        oddMon.addLesson(lesson3);
-        oddMon.addLesson(lesson4);
+        oddMon.addLesson(Lesson.FIRST, lesson1);
+        oddMon.addLesson(Lesson.SECOND, lesson1);
+        oddMon.addLesson(Lesson.THIRD, lesson2);
+        oddMon.addLesson(Lesson.FOURTH, lesson3);
+        oddMon.addLesson(Lesson.FIFTH, lesson4);
         DaySchedule oddTue = new DaySchedule(DayOfWeek.TUESDAY, Parity.ODD);
-        oddTue.addLesson(lesson5);
-        oddTue.addLesson(lesson5);
-        oddTue.addLesson(lesson6);
-        oddTue.addLesson(lesson6);
-        oddTue.addLesson(lesson7);
+        oddTue.addLesson(Lesson.FIRST, lesson5);
+        oddTue.addLesson(Lesson.SECOND, lesson5);
+        oddTue.addLesson(Lesson.THIRD, lesson6);
+        oddTue.addLesson(Lesson.FOURTH, lesson6);
+        oddTue.addLesson(Lesson.FIFTH, lesson7);
         DaySchedule oddWen = new DaySchedule(DayOfWeek.WEDNESDAY, Parity.ODD);
-        oddWen.addLesson(lesson8);
-        oddWen.addLesson(lesson9);
-        oddWen.addLesson(lesson10);
-        oddWen.addLesson(lesson10);
-        oddWen.addLesson(lesson11);
+        oddWen.addLesson(Lesson.FIRST, lesson8);
+        oddWen.addLesson(Lesson.SECOND, lesson9);
+        oddWen.addLesson(Lesson.THIRD, lesson10);
+        oddWen.addLesson(Lesson.FOURTH, lesson10);
+        oddWen.addLesson(Lesson.FIFTH, lesson11);
         DaySchedule oddThu = new DaySchedule(DayOfWeek.THURSDAY, Parity.ODD);
-        oddThu.addLesson(lesson7);
-        oddThu.addLesson(lesson12);
-        oddThu.addLesson(lesson12);
-        oddThu.addLesson(lesson13);
-        oddThu.addLesson(lesson14);
+        oddThu.addLesson(Lesson.FIRST, lesson7);
+        oddThu.addLesson(Lesson.SECOND, lesson12);
+        oddThu.addLesson(Lesson.THIRD, lesson12);
+        oddThu.addLesson(Lesson.FOURTH, lesson13);
+        oddThu.addLesson(Lesson.FIFTH, lesson14);
         DaySchedule oddFri = new DaySchedule(DayOfWeek.FRIDAY, Parity.ODD);
-        oddFri.addLesson(lesson8);
-        oddFri.addLesson(lesson13);
-        oddFri.addLesson(lesson15);
-        oddFri.addLesson(lesson16);
-        oddFri.addLesson(lesson17);
+        oddFri.addLesson(Lesson.FIRST, lesson8);
+        oddFri.addLesson(Lesson.SECOND, lesson13);
+        oddFri.addLesson(Lesson.THIRD, lesson15);
+        oddFri.addLesson(Lesson.FOURTH, lesson16);
+        oddFri.addLesson(Lesson.FIFTH, lesson17);
         DaySchedule oddSat = new DaySchedule(DayOfWeek.SATURDAY, Parity.ODD);
-        oddSat.addLesson(lesson10);
-        oddSat.addLesson(lesson18);
-        oddSat.addLesson(lesson18);
+        oddSat.addLesson(Lesson.FIRST, lesson10);
+        oddSat.addLesson(Lesson.SECOND, lesson18);
+        oddSat.addLesson(Lesson.THIRD, lesson18);
 
         DaySchedule evenMon = new DaySchedule(DayOfWeek.MONDAY, Parity.EVEN);
-        evenMon.addLesson(lesson1);
-        evenMon.addLesson(lesson19);
-        evenMon.addLesson(lesson20);
-        evenMon.addLesson(lesson2);
-        evenMon.addLesson(lesson21);
-        evenMon.addLesson(lesson21);
+        evenMon.addLesson(Lesson.FIRST, lesson1);
+        evenMon.addLesson(Lesson.SECOND, lesson19);
+        evenMon.addLesson(Lesson.THIRD, lesson20);
+        evenMon.addLesson(Lesson.FOURTH, lesson2);
+        evenMon.addLesson(Lesson.FIFTH, lesson21);
+        evenMon.addLesson(Lesson.SIXTH, lesson21);
         DaySchedule evenTue = new DaySchedule(DayOfWeek.TUESDAY, Parity.EVEN);
-        evenTue.addLesson(lesson22);
-        evenTue.addLesson(lesson5);
-        evenTue.addLesson(lesson6);
-        evenTue.addLesson(lesson6);
-        evenTue.addLesson(lesson7);
+        evenTue.addLesson(Lesson.FIRST, lesson22);
+        evenTue.addLesson(Lesson.SECOND, lesson5);
+        evenTue.addLesson(Lesson.THIRD, lesson6);
+        evenTue.addLesson(Lesson.FOURTH, lesson6);
+        evenTue.addLesson(Lesson.FIFTH, lesson7);
         DaySchedule evenWen = new DaySchedule(DayOfWeek.WEDNESDAY, Parity.EVEN);
-        evenWen.addLesson(lesson8);
-        evenWen.addLesson(lesson9);
-        evenWen.addLesson(lesson23);
-        evenWen.addLesson(lesson23);
-        evenWen.addLesson(lesson11);
+        evenWen.addLesson(Lesson.FIRST, lesson8);
+        evenWen.addLesson(Lesson.SECOND, lesson9);
+        evenWen.addLesson(Lesson.THIRD, lesson23);
+        evenWen.addLesson(Lesson.FOURTH, lesson23);
+        evenWen.addLesson(Lesson.FIFTH, lesson11);
         DaySchedule evenThu = new DaySchedule(DayOfWeek.THURSDAY, Parity.EVEN);
-        evenThu.addLesson(lesson7);
-        evenThu.addLesson(lesson12);
-        evenThu.addLesson(lesson12);
-        evenThu.addLesson(lesson13);
-        evenThu.addLesson(lesson14);
+        evenThu.addLesson(Lesson.FIRST, lesson7);
+        evenThu.addLesson(Lesson.SECOND, lesson12);
+        evenThu.addLesson(Lesson.THIRD, lesson12);
+        evenThu.addLesson(Lesson.FOURTH, lesson13);
+        evenThu.addLesson(Lesson.FIFTH, lesson14);
         DaySchedule evenFri = new DaySchedule(DayOfWeek.FRIDAY, Parity.EVEN);
-        evenFri.addLesson(lesson24);
-        evenFri.addLesson(lesson13);
-        evenFri.addLesson(lesson25);
-        evenFri.addLesson(lesson16);
-        evenFri.addLesson(lesson26);
+        evenFri.addLesson(Lesson.FIRST, lesson24);
+        evenFri.addLesson(Lesson.SECOND, lesson13);
+        evenFri.addLesson(Lesson.THIRD, lesson25);
+        evenFri.addLesson(Lesson.FOURTH, lesson16);
+        evenFri.addLesson(Lesson.FIFTH, lesson26);
         DaySchedule evenSat = new DaySchedule(DayOfWeek.SATURDAY, Parity.EVEN);
-        evenSat.addLesson(lesson27);
-        evenSat.addLesson(lesson18);
-        evenSat.addLesson(lesson18);
+        evenSat.addLesson(Lesson.FIRST, lesson27);
+        evenSat.addLesson(Lesson.SECOND, lesson18);
+        evenSat.addLesson(Lesson.THIRD, lesson18);
 
         Schedule monthSchedule = new Schedule();
         monthSchedule.addDaySchedule(oddMon);
@@ -474,19 +463,22 @@ public class UniverstiyStart {
 
     private static void showUniversitySchedule() {
         Schedule allSchedule = itmo.getSchedule();
-
         for (DaySchedule daySchedule : allSchedule.getSchedule()) {
-            System.out.println(daySchedule.getDayOfWeek());
-            int i = 1;
-            for (Set<Lecture> lecturesSet : daySchedule.getLessons()) {
-                System.out.print(i + ") ");
-                for (Lecture lec : lecturesSet) {
-                    System.out.print(lec.getSubject().getName() + " (" + lec.getTeacher().getLastName() + ") "
-                            + lec.getGroup().getName() + " " + lec.getClassroom().getName() + " | ");
+            System.out.println(daySchedule.getDayOfWeek() + " " + daySchedule.getParityOfWeek());
+            System.out.println("------------------");
+            for (Lesson les : Lesson.values()) {
+                for (Map.Entry<Lesson, Set<Lecture>> lessons : daySchedule.getLessons().entrySet()) {
+                    if (lessons.getKey() == les) {
+                        System.out.println("  - " + lessons.getKey().getDescription() + ": ");
+                        for (Lecture lec : lessons.getValue()) {
+                            System.out.print(lec.getSubject().getName() + " (" + lec.getTeacher().getLastName() + ") "
+                                    + lec.getGroup().getName() + " " + lec.getClassroom().getName() + " | ");
+                        }
+                        System.out.println();
+                    }
                 }
-                i++;
-                System.out.println();
             }
+            System.out.println();
         }
     }
 
@@ -498,16 +490,20 @@ public class UniverstiyStart {
         Schedule studentSchedule = itmo.getSchedule().showStudentSchedule(student);
         for (DaySchedule daySchedule : studentSchedule.getSchedule()) {
             System.out.println(daySchedule.getDayOfWeek() + " " + daySchedule.getParityOfWeek());
-            int i = 1;
-            for (Set<Lecture> lecturesSet : daySchedule.getLessons()) {
-                System.out.print(i + ") ");
-                for (Lecture lec : lecturesSet) {
-                    System.out.print(lec.getSubject().getName() + " (" + lec.getTeacher().getLastName() + ") "
-                            + lec.getGroup().getName() + " " + lec.getClassroom().getName() + " | ");
+            System.out.println("------------------");
+            for (Lesson les : Lesson.values()) {
+                for (Map.Entry<Lesson, Set<Lecture>> lessons : daySchedule.getLessons().entrySet()) {
+                    if (lessons.getKey() == les) {
+                        System.out.print("  - " + lessons.getKey().getDescription() + ": ");
+                        for (Lecture lec : lessons.getValue()) {
+                            System.out.print(lec.getSubject().getName() + " (" + lec.getTeacher().getLastName() + ") "
+                                    + lec.getGroup().getName() + " аудитория " + lec.getClassroom().getName());
+                        }
+                        System.out.println();
+                    }
                 }
-                i++;
-                System.out.println();
             }
+            System.out.println();
         }
     }
 
@@ -520,68 +516,70 @@ public class UniverstiyStart {
         Schedule teacherSchedule = itmo.getSchedule().showTeacherSchedule(teacher);
         for (DaySchedule daySchedule : teacherSchedule.getSchedule()) {
             System.out.println(daySchedule.getDayOfWeek() + " " + daySchedule.getParityOfWeek());
-            int i = 1;
-            for (Set<Lecture> lecturesSet : daySchedule.getLessons()) {
-                System.out.print(i + ") ");
-                for (Lecture lec : lecturesSet) {
-                    System.out.print(lec.getSubject().getName() + " / " + lec.getGroup().getName() + " / "
-                            + lec.getClassroom().getName() + " | ");
+            for (Lesson les : Lesson.values()) {
+                for (Map.Entry<Lesson, Set<Lecture>> lessons : daySchedule.getLessons().entrySet()) {
+                    if (lessons.getKey() == les) {
+                        System.out.print("  - " + lessons.getKey().getDescription() + ": ");
+                        for (Lecture lec : lessons.getValue()) {
+                            System.out.print(lec.getSubject().getName() + " группа " + lec.getGroup().getName() + ", аудитория " + lec.getClassroom().getName());
+                        }
+                        System.out.println();
+                    }
                 }
-                i++;
-                System.out.println();
             }
-        }
-    }
-
-    private static void showStudentScheduleForDay() {
-        int studentId = 7;
-        LocalDate date = LocalDate.of(2017, 10, 22); // пятница чет
-        
-        Student student = itmo.getStudentById(studentId);
-        
-        System.out.println("______________________________");
-        System.out.println("Расписание на: " + date + " \nдля студента: " + student.getLastName() + " "
-                + student.getFirstName() + " " + student.getMiddleName() + "\nгруппа: " + student.getGroup().getName());
-        System.out.println("______________________________");
-        
-        DaySchedule StudentDaySchedule = itmo.getSchedule().showStudentDaySchedule(student, date);
-        int i = 1;
-        for (Set<Lecture> lecturesSet : StudentDaySchedule.getLessons()) {
-            System.out.print(i + ") ");
-            for (Lecture lec : lecturesSet) {
-                System.out.print(lec.getSubject().getName() + " / " + lec.getGroup().getName() + " / "
-                        + lec.getClassroom().getName() + " | ");
-            }
-            i++;
-            System.out.println();
-        }
-
-       
-        
-       
-    }
-
-    private static void showTeacherScheduleForDay() {
-        int teacherId = 9;
-        LocalDate date = LocalDate.of(2018, 9, 29);
-        
-        Teacher teacher = itmo.getTeacherById(teacherId);
-        System.out.println();
-        System.out.println("______________________________");
-        System.out.println("Расписание на " + date + "\nдля преподавателя: " + teacher.getLastName() + " "
-                + teacher.getFirstName() + " " + teacher.getMiddleName());
-        System.out.println("______________________________");
-        
-        DaySchedule TeacherDaySchedule = itmo.getSchedule().showTeacherDaySchedule(teacher, date);
-        int i = 1;
-        for (Set<Lecture> lecturesSet : TeacherDaySchedule.getLessons()) {
-            System.out.print(i + ") ");
-            for (Lecture lec : lecturesSet) {
-                System.out.print(lec.getSubject().getName() + " / " + lec.getGroup().getName() + " / "
-                        + lec.getClassroom().getName() + " | ");
-            }
-            i++;
             System.out.println();
         }
     }
+
+//    private static void showStudentScheduleForDay() {
+//        int studentId = 7;
+//        LocalDate date = LocalDate.of(2017, 10, 22); // пятница чет
+//        
+//        Student student = itmo.getStudentById(studentId);
+//        
+//        System.out.println("______________________________");
+//        System.out.println("Расписание на: " + date + " \nдля студента: " + student.getLastName() + " "
+//                + student.getFirstName() + " " + student.getMiddleName() + "\nгруппа: " + student.getGroup().getName());
+//        System.out.println("______________________________");
+//        
+//        DaySchedule StudentDaySchedule = itmo.getSchedule().showStudentDaySchedule(student, date);
+//        int i = 1;
+//        for (Set<Lecture> lecturesSet : StudentDaySchedule.getLessons()) {
+//            System.out.print(i + ") ");
+//            for (Lecture lec : lecturesSet) {
+//                System.out.print(lec.getSubject().getName() + " / " + lec.getGroup().getName() + " / "
+//                        + lec.getClassroom().getName() + " | ");
+//            }
+//            i++;
+//            System.out.println();
+//        }
+//
+//       
+//        
+//       
+//    }
+//
+//    private static void showTeacherScheduleForDay() {
+//        int teacherId = 9;
+//        LocalDate date = LocalDate.of(2018, 9, 29);
+//        
+//        Teacher teacher = itmo.getTeacherById(teacherId);
+//        System.out.println();
+//        System.out.println("______________________________");
+//        System.out.println("Расписание на " + date + "\nдля преподавателя: " + teacher.getLastName() + " "
+//                + teacher.getFirstName() + " " + teacher.getMiddleName());
+//        System.out.println("______________________________");
+//        
+//        DaySchedule TeacherDaySchedule = itmo.getSchedule().showTeacherDaySchedule(teacher, date);
+//        int i = 1;
+//        for (Set<Lecture> lecturesSet : TeacherDaySchedule.getLessons()) {
+//            System.out.print(i + ") ");
+//            for (Lecture lec : lecturesSet) {
+//                System.out.print(lec.getSubject().getName() + " / " + lec.getGroup().getName() + " / "
+//                        + lec.getClassroom().getName() + " | ");
+//            }
+//            i++;
+//            System.out.println();
+//        }
+//    }
 }
