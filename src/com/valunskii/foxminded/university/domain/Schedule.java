@@ -73,47 +73,43 @@ public class Schedule {
         }
     }
 
-//    public DaySchedule showStudentDaySchedule(Student student, LocalDate date) {
-//        DaySchedule studentDaySchedule = new DaySchedule(date.getDayOfWeek(), getParityByDate(date));
-//        System.out.println("(FOR CHECKOUT ONLY. REMOVE THIS LINE IN FUTURE)                  "
-//                + studentDaySchedule.getDayOfWeek() + " " + studentDaySchedule.getParityOfWeek());
-//        for (DaySchedule s : schedule) {
-//            if (s.getDayOfWeek() == studentDaySchedule.getDayOfWeek()
-//                    && s.getParityOfWeek() == studentDaySchedule.getParityOfWeek()) {
-//                for (Set<Lecture> l : s.getLessons()) {
-//                    Set<Lecture> studentLesson = new HashSet<>();
-//                    for (Lecture lec : l) {
-//                        if (lec.getGroup().equals(student.getGroup())) {
-//                            studentLesson.add(lec);
-//                        }
-//                    }
-//                    studentDaySchedule.addLesson(studentLesson);
-//                }
-//            }
-//        }
-//        return studentDaySchedule;
-//    }
-//
-//    public DaySchedule showTeacherDaySchedule(Teacher teacher, LocalDate date) {
-//        DaySchedule teacherDaySchedule = new DaySchedule(date.getDayOfWeek(), getParityByDate(date));
-//        System.out.println("(FOR CHECKOUT ONLY. REMOVE THIS LINE IN FUTURE)                  "
-//                + teacherDaySchedule.getDayOfWeek() + " " + teacherDaySchedule.getParityOfWeek());
-//        for (DaySchedule s : schedule) {
-//            if (s.getDayOfWeek() == teacherDaySchedule.getDayOfWeek()
-//                    && s.getParityOfWeek() == teacherDaySchedule.getParityOfWeek()) {
-//                for (Set<Lecture> l : s.getLessons()) {
-//                    Set<Lecture> teacherLesson = new HashSet<>();
-//                    for (Lecture lec : l) {
-//                        if (lec.getTeacher().equals(teacher)) {
-//                            teacherLesson.add(lec);
-//                        }
-//                    }
-//                    teacherDaySchedule.addLesson(teacherLesson);
-//                }
-//            }
-//        }
-//        return teacherDaySchedule;
-//    }
+    public DaySchedule showStudentDaySchedule(Student student, LocalDate date) {
+        DaySchedule studentDaySchedule = new DaySchedule(date.getDayOfWeek(), getParityByDate(date));
+        for (DaySchedule s : schedule) {
+            if (s.getDayOfWeek() == studentDaySchedule.getDayOfWeek()
+                    && s.getParityOfWeek() == studentDaySchedule.getParityOfWeek()) {
+                for (Map.Entry<Lesson, Set<Lecture>> universityLesson : s.getLessons().entrySet()) {
+                    Set<Lecture> studentLesson = new HashSet<>();
+                    for (Lecture lecture : universityLesson.getValue()) {
+                        if (lecture.getGroup().equals(student.getGroup())) {
+                            studentLesson.add(lecture);
+                        }
+                    }
+                    studentDaySchedule.addLesson(universityLesson.getKey(), studentLesson);
+                }
+            }
+        }
+        return studentDaySchedule;
+    }
+
+    public DaySchedule showTeacherDaySchedule(Teacher teacher, LocalDate date) {
+        DaySchedule teacherDaySchedule = new DaySchedule(date.getDayOfWeek(), getParityByDate(date));
+        for (DaySchedule s : schedule) {
+            if (s.getDayOfWeek() == teacherDaySchedule.getDayOfWeek()
+                    && s.getParityOfWeek() == teacherDaySchedule.getParityOfWeek()) {
+                for (Map.Entry<Lesson, Set<Lecture>> universityLesson : s.getLessons().entrySet()) {
+                    Set<Lecture> teacherLesson = new HashSet<>();
+                    for (Lecture lecture : universityLesson.getValue()) {
+                        if (lecture.getTeacher().equals(teacher)) {
+                            teacherLesson.add(lecture);
+                        }
+                    }
+                    teacherDaySchedule.addLesson(universityLesson.getKey(), teacherLesson);
+                }
+            }
+        }
+        return teacherDaySchedule;
+    }
 
     public Schedule showStudentSchedule(Student student) {
         Schedule studentSchedule = new Schedule();

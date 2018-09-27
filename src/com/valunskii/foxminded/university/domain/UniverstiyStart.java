@@ -12,14 +12,14 @@ public class UniverstiyStart {
 
     public static void main(String[] args) {
         createUniversity();
-        showCreatedUniversity();
+//        showCreatedUniversity();
 
         createUniversitySchedule();
-        showUniversitySchedule();
-        showStudentSchedule();
+//        showUniversitySchedule();
+//        showStudentSchedule();
         showTeacherSchedule();
 //        showStudentScheduleForDay();
-//        showTeacherScheduleForDay();
+        showTeacherScheduleForDay();
     }
 
     private static void showCreatedUniversity() {
@@ -521,7 +521,8 @@ public class UniverstiyStart {
                     if (lessons.getKey() == les) {
                         System.out.print("  - " + lessons.getKey().getDescription() + ": ");
                         for (Lecture lec : lessons.getValue()) {
-                            System.out.print(lec.getSubject().getName() + " группа " + lec.getGroup().getName() + ", аудитория " + lec.getClassroom().getName());
+                            System.out.print(lec.getSubject().getName() + " группа " + lec.getGroup().getName()
+                                    + ", аудитория " + lec.getClassroom().getName());
                         }
                         System.out.println();
                     }
@@ -531,55 +532,57 @@ public class UniverstiyStart {
         }
     }
 
-//    private static void showStudentScheduleForDay() {
-//        int studentId = 7;
-//        LocalDate date = LocalDate.of(2017, 10, 22); // пятница чет
-//        
-//        Student student = itmo.getStudentById(studentId);
-//        
-//        System.out.println("______________________________");
-//        System.out.println("Расписание на: " + date + " \nдля студента: " + student.getLastName() + " "
-//                + student.getFirstName() + " " + student.getMiddleName() + "\nгруппа: " + student.getGroup().getName());
-//        System.out.println("______________________________");
-//        
-//        DaySchedule StudentDaySchedule = itmo.getSchedule().showStudentDaySchedule(student, date);
-//        int i = 1;
-//        for (Set<Lecture> lecturesSet : StudentDaySchedule.getLessons()) {
-//            System.out.print(i + ") ");
-//            for (Lecture lec : lecturesSet) {
-//                System.out.print(lec.getSubject().getName() + " / " + lec.getGroup().getName() + " / "
-//                        + lec.getClassroom().getName() + " | ");
-//            }
-//            i++;
-//            System.out.println();
-//        }
-//
-//       
-//        
-//       
-//    }
-//
-//    private static void showTeacherScheduleForDay() {
-//        int teacherId = 9;
-//        LocalDate date = LocalDate.of(2018, 9, 29);
-//        
-//        Teacher teacher = itmo.getTeacherById(teacherId);
-//        System.out.println();
-//        System.out.println("______________________________");
-//        System.out.println("Расписание на " + date + "\nдля преподавателя: " + teacher.getLastName() + " "
-//                + teacher.getFirstName() + " " + teacher.getMiddleName());
-//        System.out.println("______________________________");
-//        
-//        DaySchedule TeacherDaySchedule = itmo.getSchedule().showTeacherDaySchedule(teacher, date);
-//        int i = 1;
-//        for (Set<Lecture> lecturesSet : TeacherDaySchedule.getLessons()) {
-//            System.out.print(i + ") ");
-//            for (Lecture lec : lecturesSet) {
-//                System.out.print(lec.getSubject().getName() + " / " + lec.getGroup().getName() + " / "
-//                        + lec.getClassroom().getName() + " | ");
-//            }
-//            i++;
-//            System.out.println();
-//        }
-//    }
+    private static void showStudentScheduleForDay() {
+        int studentId = 7;
+        LocalDate date = LocalDate.of(2018, 10, 22); // пятница чет
+
+        Student student = itmo.getStudentById(studentId);
+
+        System.out.println("______________________________");
+        System.out.println("Расписание на: " + date + " \nдля студента: " + student.getLastName() + " "
+                + student.getFirstName() + " " + student.getMiddleName() + "\nгруппа: " + student.getGroup().getName());
+        System.out.println("______________________________");
+
+        DaySchedule studentSchedule = itmo.getSchedule().showStudentDaySchedule(student, date);
+        System.out.println(studentSchedule.getDayOfWeek() + " " + studentSchedule.getParityOfWeek());
+        for (Lesson les : Lesson.values()) {
+            for (Map.Entry<Lesson, Set<Lecture>> lessons : studentSchedule.getLessons().entrySet()) {
+                if (lessons.getKey() == les) {
+                    System.out.print("  - " + lessons.getKey().getDescription() + ": ");
+                    for (Lecture lec : lessons.getValue()) {
+                        System.out.print(lec.getSubject().getName() + " (" + lec.getTeacher().getLastName() + ") "
+                                + lec.getGroup().getName() + " аудитория " + lec.getClassroom().getName());
+                    }
+                    System.out.println();
+                }
+            }
+        }
+    }
+
+    private static void showTeacherScheduleForDay() {
+        int teacherId = 9;
+        LocalDate date = LocalDate.of(2018, 10, 29);
+
+        Teacher teacher = itmo.getTeacherById(teacherId);
+        System.out.println();
+        System.out.println("______________________________");
+        System.out.println("Расписание на " + date + "\nдля преподавателя: " + teacher.getLastName() + " "
+                + teacher.getFirstName() + " " + teacher.getMiddleName());
+        System.out.println("______________________________");
+
+        DaySchedule TeacherSchedule = itmo.getSchedule().showTeacherDaySchedule(teacher, date);
+        System.out.println(TeacherSchedule.getDayOfWeek() + " " + TeacherSchedule.getParityOfWeek());
+        for (Lesson les : Lesson.values()) {
+            for (Map.Entry<Lesson, Set<Lecture>> lessons : TeacherSchedule.getLessons().entrySet()) {
+                if (lessons.getKey() == les) {
+                    System.out.print("  - " + lessons.getKey().getDescription() + ": ");
+                    for (Lecture lec : lessons.getValue()) {
+                        System.out.print(lec.getSubject().getName() + " группа " + lec.getGroup().getName()
+                                + ", аудитория " + lec.getClassroom().getName());
+                    }
+                    System.out.println();
+                }
+            }
+        }
+    }
 }
