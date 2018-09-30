@@ -13,7 +13,7 @@ public class University {
     private Set<Group> groups = new HashSet<>();
     private Set<Student> students = new HashSet<>();
     private Set<Classroom> classrooms = new HashSet<>();
-    private @Setter Schedule Schedule;
+    private @Setter Schedule schedule;
 
     public void addStudent(Student student) {
         students.add(student);

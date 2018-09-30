@@ -2,6 +2,7 @@ package com.valunskii.foxminded.university.domain;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
@@ -12,13 +13,13 @@ public class UniverstiyStart {
 
     public static void main(String[] args) {
         createUniversity();
-//        showCreatedUniversity();
+        showCreatedUniversity();
 
         createUniversitySchedule();
-//        showUniversitySchedule();
-//        showStudentSchedule();
+        showUniversitySchedule();
+        showStudentSchedule();
         showTeacherSchedule();
-//        showStudentScheduleForDay();
+        showStudentScheduleForDay();
         showTeacherScheduleForDay();
     }
 
@@ -362,7 +363,7 @@ public class UniverstiyStart {
         Set<Lecture> lesson25 = new HashSet<>();
         lesson25.add(lecture1);
         lesson25.add(lecture17);
-        lesson25.add(lecture8);
+        lesson25.add(lecture9);
         Set<Lecture> lesson26 = new HashSet<>();
         lesson26.add(lecture34);
         lesson26.add(lecture29);
@@ -372,109 +373,137 @@ public class UniverstiyStart {
         lesson27.add(lecture20);
         lesson27.add(lecture30);
 
-        DaySchedule oddMon = new DaySchedule(DayOfWeek.MONDAY, Parity.ODD);
-        oddMon.addLesson(Lesson.FIRST, lesson1);
-        oddMon.addLesson(Lesson.SECOND, lesson1);
-        oddMon.addLesson(Lesson.THIRD, lesson2);
-        oddMon.addLesson(Lesson.FOURTH, lesson3);
-        oddMon.addLesson(Lesson.FIFTH, lesson4);
-        DaySchedule oddTue = new DaySchedule(DayOfWeek.TUESDAY, Parity.ODD);
-        oddTue.addLesson(Lesson.FIRST, lesson5);
-        oddTue.addLesson(Lesson.SECOND, lesson5);
-        oddTue.addLesson(Lesson.THIRD, lesson6);
-        oddTue.addLesson(Lesson.FOURTH, lesson6);
-        oddTue.addLesson(Lesson.FIFTH, lesson7);
-        DaySchedule oddWen = new DaySchedule(DayOfWeek.WEDNESDAY, Parity.ODD);
-        oddWen.addLesson(Lesson.FIRST, lesson8);
-        oddWen.addLesson(Lesson.SECOND, lesson9);
-        oddWen.addLesson(Lesson.THIRD, lesson10);
-        oddWen.addLesson(Lesson.FOURTH, lesson10);
-        oddWen.addLesson(Lesson.FIFTH, lesson11);
-        DaySchedule oddThu = new DaySchedule(DayOfWeek.THURSDAY, Parity.ODD);
-        oddThu.addLesson(Lesson.FIRST, lesson7);
-        oddThu.addLesson(Lesson.SECOND, lesson12);
-        oddThu.addLesson(Lesson.THIRD, lesson12);
-        oddThu.addLesson(Lesson.FOURTH, lesson13);
-        oddThu.addLesson(Lesson.FIFTH, lesson14);
-        DaySchedule oddFri = new DaySchedule(DayOfWeek.FRIDAY, Parity.ODD);
-        oddFri.addLesson(Lesson.FIRST, lesson8);
-        oddFri.addLesson(Lesson.SECOND, lesson13);
-        oddFri.addLesson(Lesson.THIRD, lesson15);
-        oddFri.addLesson(Lesson.FOURTH, lesson16);
-        oddFri.addLesson(Lesson.FIFTH, lesson17);
-        DaySchedule oddSat = new DaySchedule(DayOfWeek.SATURDAY, Parity.ODD);
-        oddSat.addLesson(Lesson.FIRST, lesson10);
-        oddSat.addLesson(Lesson.SECOND, lesson18);
-        oddSat.addLesson(Lesson.THIRD, lesson18);
+        Map<Lesson, Set<Lecture>> oddMon = new HashMap<>();
+        oddMon.put(Lesson.FIRST, lesson1);
+        oddMon.put(Lesson.SECOND, lesson1);
+        oddMon.put(Lesson.THIRD, lesson2);
+        oddMon.put(Lesson.FOURTH, lesson3);
+        oddMon.put(Lesson.FIFTH, lesson4);
+        Map<Lesson, Set<Lecture>> oddTue = new HashMap<>();
+        oddTue.put(Lesson.FIRST, lesson5);
+        oddTue.put(Lesson.SECOND, lesson5);
+        oddTue.put(Lesson.THIRD, lesson6);
+        oddTue.put(Lesson.FOURTH, lesson6);
+        oddTue.put(Lesson.FIFTH, lesson7);
+        Map<Lesson, Set<Lecture>> oddWen = new HashMap<>();
+        oddWen.put(Lesson.FIRST, lesson8);
+        oddWen.put(Lesson.SECOND, lesson9);
+        oddWen.put(Lesson.THIRD, lesson10);
+        oddWen.put(Lesson.FOURTH, lesson10);
+        oddWen.put(Lesson.FIFTH, lesson11);
+        Map<Lesson, Set<Lecture>> oddThu = new HashMap<>();
+        oddThu.put(Lesson.FIRST, lesson7);
+        oddThu.put(Lesson.SECOND, lesson12);
+        oddThu.put(Lesson.THIRD, lesson12);
+        oddThu.put(Lesson.FOURTH, lesson13);
+        oddThu.put(Lesson.FIFTH, lesson14);
+        Map<Lesson, Set<Lecture>> oddFri = new HashMap<>();
+        oddFri.put(Lesson.FIRST, lesson8);
+        oddFri.put(Lesson.SECOND, lesson13);
+        oddFri.put(Lesson.THIRD, lesson15);
+        oddFri.put(Lesson.FOURTH, lesson16);
+        oddFri.put(Lesson.FIFTH, lesson17);
+        Map<Lesson, Set<Lecture>> oddSat = new HashMap<>();
+        oddSat.put(Lesson.FIRST, lesson10);
+        oddSat.put(Lesson.SECOND, lesson18);
+        oddSat.put(Lesson.THIRD, lesson18);
 
-        DaySchedule evenMon = new DaySchedule(DayOfWeek.MONDAY, Parity.EVEN);
-        evenMon.addLesson(Lesson.FIRST, lesson1);
-        evenMon.addLesson(Lesson.SECOND, lesson19);
-        evenMon.addLesson(Lesson.THIRD, lesson20);
-        evenMon.addLesson(Lesson.FOURTH, lesson2);
-        evenMon.addLesson(Lesson.FIFTH, lesson21);
-        evenMon.addLesson(Lesson.SIXTH, lesson21);
-        DaySchedule evenTue = new DaySchedule(DayOfWeek.TUESDAY, Parity.EVEN);
-        evenTue.addLesson(Lesson.FIRST, lesson22);
-        evenTue.addLesson(Lesson.SECOND, lesson5);
-        evenTue.addLesson(Lesson.THIRD, lesson6);
-        evenTue.addLesson(Lesson.FOURTH, lesson6);
-        evenTue.addLesson(Lesson.FIFTH, lesson7);
-        DaySchedule evenWen = new DaySchedule(DayOfWeek.WEDNESDAY, Parity.EVEN);
-        evenWen.addLesson(Lesson.FIRST, lesson8);
-        evenWen.addLesson(Lesson.SECOND, lesson9);
-        evenWen.addLesson(Lesson.THIRD, lesson23);
-        evenWen.addLesson(Lesson.FOURTH, lesson23);
-        evenWen.addLesson(Lesson.FIFTH, lesson11);
-        DaySchedule evenThu = new DaySchedule(DayOfWeek.THURSDAY, Parity.EVEN);
-        evenThu.addLesson(Lesson.FIRST, lesson7);
-        evenThu.addLesson(Lesson.SECOND, lesson12);
-        evenThu.addLesson(Lesson.THIRD, lesson12);
-        evenThu.addLesson(Lesson.FOURTH, lesson13);
-        evenThu.addLesson(Lesson.FIFTH, lesson14);
-        DaySchedule evenFri = new DaySchedule(DayOfWeek.FRIDAY, Parity.EVEN);
-        evenFri.addLesson(Lesson.FIRST, lesson24);
-        evenFri.addLesson(Lesson.SECOND, lesson13);
-        evenFri.addLesson(Lesson.THIRD, lesson25);
-        evenFri.addLesson(Lesson.FOURTH, lesson16);
-        evenFri.addLesson(Lesson.FIFTH, lesson26);
-        DaySchedule evenSat = new DaySchedule(DayOfWeek.SATURDAY, Parity.EVEN);
-        evenSat.addLesson(Lesson.FIRST, lesson27);
-        evenSat.addLesson(Lesson.SECOND, lesson18);
-        evenSat.addLesson(Lesson.THIRD, lesson18);
+        Map<Lesson, Set<Lecture>> evenMon = new HashMap<>();
+        evenMon.put(Lesson.FIRST, lesson1);
+        evenMon.put(Lesson.SECOND, lesson19);
+        evenMon.put(Lesson.THIRD, lesson20);
+        evenMon.put(Lesson.FOURTH, lesson2);
+        evenMon.put(Lesson.FIFTH, lesson21);
+        evenMon.put(Lesson.SIXTH, lesson21);
+        Map<Lesson, Set<Lecture>> evenTue = new HashMap<>();
+        evenTue.put(Lesson.FIRST, lesson22);
+        evenTue.put(Lesson.SECOND, lesson5);
+        evenTue.put(Lesson.THIRD, lesson6);
+        evenTue.put(Lesson.FOURTH, lesson6);
+        evenTue.put(Lesson.FIFTH, lesson7);
+        Map<Lesson, Set<Lecture>> evenWen = new HashMap<>();
+        evenWen.put(Lesson.FIRST, lesson8);
+        evenWen.put(Lesson.SECOND, lesson9);
+        evenWen.put(Lesson.THIRD, lesson23);
+        evenWen.put(Lesson.FOURTH, lesson23);
+        evenWen.put(Lesson.FIFTH, lesson11);
+        Map<Lesson, Set<Lecture>> evenThu = new HashMap<>();
+        evenThu.put(Lesson.FIRST, lesson7);
+        evenThu.put(Lesson.SECOND, lesson12);
+        evenThu.put(Lesson.THIRD, lesson12);
+        evenThu.put(Lesson.FOURTH, lesson13);
+        evenThu.put(Lesson.FIFTH, lesson14);
+        Map<Lesson, Set<Lecture>> evenFri = new HashMap<>();
+        evenFri.put(Lesson.FIRST, lesson24);
+        evenFri.put(Lesson.SECOND, lesson13);
+        evenFri.put(Lesson.THIRD, lesson25);
+        evenFri.put(Lesson.FOURTH, lesson16);
+        evenFri.put(Lesson.FIFTH, lesson26);
+        Map<Lesson, Set<Lecture>> evenSat = new HashMap<>();
+        evenSat.put(Lesson.FIRST, lesson27);
+        evenSat.put(Lesson.SECOND, lesson18);
+        evenSat.put(Lesson.THIRD, lesson18);
 
-        Schedule monthSchedule = new Schedule();
-        monthSchedule.addDaySchedule(oddMon);
-        monthSchedule.addDaySchedule(oddTue);
-        monthSchedule.addDaySchedule(oddWen);
-        monthSchedule.addDaySchedule(oddThu);
-        monthSchedule.addDaySchedule(oddFri);
-        monthSchedule.addDaySchedule(oddSat);
-        monthSchedule.addDaySchedule(evenMon);
-        monthSchedule.addDaySchedule(evenTue);
-        monthSchedule.addDaySchedule(evenWen);
-        monthSchedule.addDaySchedule(evenThu);
-        monthSchedule.addDaySchedule(evenFri);
-        monthSchedule.addDaySchedule(evenSat);
+        Map<Parity, Map<Lesson, Set<Lecture>>> monday = new HashMap<>();
+        monday.put(Parity.ODD, oddMon);
+        monday.put(Parity.EVEN, evenMon);
+        Map<Parity, Map<Lesson, Set<Lecture>>> tuesday = new HashMap<>();
+        tuesday.put(Parity.ODD, oddTue);
+        tuesday.put(Parity.EVEN, evenTue);
+        Map<Parity, Map<Lesson, Set<Lecture>>> wednesday = new HashMap<>();
+        wednesday.put(Parity.ODD, oddWen);
+        wednesday.put(Parity.EVEN, evenWen);
+        Map<Parity, Map<Lesson, Set<Lecture>>> thursday = new HashMap<>();
+        thursday.put(Parity.ODD, oddThu);
+        thursday.put(Parity.EVEN, evenThu);
+        Map<Parity, Map<Lesson, Set<Lecture>>> friday = new HashMap<>();
+        friday.put(Parity.ODD, oddFri);
+        friday.put(Parity.EVEN, evenFri);
+        Map<Parity, Map<Lesson, Set<Lecture>>> saturday = new HashMap<>();
+        saturday.put(Parity.ODD, oddSat);
+        saturday.put(Parity.EVEN, evenSat);
 
-        itmo.setSchedule(monthSchedule);
+        itmo.setSchedule(new Schedule());
+        itmo.getSchedule().addScheduleForDay(DayOfWeek.MONDAY, monday);
+        itmo.getSchedule().addScheduleForDay(DayOfWeek.TUESDAY, tuesday);
+        itmo.getSchedule().addScheduleForDay(DayOfWeek.WEDNESDAY, wednesday);
+        itmo.getSchedule().addScheduleForDay(DayOfWeek.THURSDAY, thursday);
+        itmo.getSchedule().addScheduleForDay(DayOfWeek.FRIDAY, friday);
+        itmo.getSchedule().addScheduleForDay(DayOfWeek.SATURDAY, saturday);
 
     }
 
     private static void showUniversitySchedule() {
-        Schedule allSchedule = itmo.getSchedule();
-        for (DaySchedule daySchedule : allSchedule.getSchedule()) {
-            System.out.println(daySchedule.getDayOfWeek() + " " + daySchedule.getParityOfWeek());
-            System.out.println("------------------");
-            for (Lesson les : Lesson.values()) {
-                for (Map.Entry<Lesson, Set<Lecture>> lessons : daySchedule.getLessons().entrySet()) {
-                    if (lessons.getKey() == les) {
-                        System.out.println("  - " + lessons.getKey().getDescription() + ": ");
-                        for (Lecture lec : lessons.getValue()) {
-                            System.out.print(lec.getSubject().getName() + " (" + lec.getTeacher().getLastName() + ") "
-                                    + lec.getGroup().getName() + " " + lec.getClassroom().getName() + " | ");
+        Schedule schedule = itmo.getSchedule();
+
+        for (Parity parity : Parity.values()) {
+            for (DayOfWeek dayOfWeek : DayOfWeek.values()) {
+                for (Map.Entry<DayOfWeek, Map<Parity, Map<Lesson, Set<Lecture>>>> daySchedule : schedule.getSchedule()
+                        .entrySet()) {
+                    if (daySchedule.getKey() == dayOfWeek) {
+                        System.out.print(dayOfWeek + " ");
+                        for (Map.Entry<Parity, Map<Lesson, Set<Lecture>>> dayParity : daySchedule.getValue()
+                                .entrySet()) {
+                            if (dayParity.getKey() == parity) {
+                                System.out.println(dayParity.getKey() + " ");
+                                System.out.println("------------------");
+                                for (Lesson les : Lesson.values()) {
+                                    for (Map.Entry<Lesson, Set<Lecture>> lessons : dayParity.getValue().entrySet()) {
+                                        if (lessons.getKey() == les) {
+                                            System.out.println("  - " + lessons.getKey().getDescription() + ": ");
+                                            for (Lecture lec : lessons.getValue()) {
+                                                System.out.print(lec.getSubject().getName() + " ("
+                                                        + lec.getTeacher().getLastName() + ") "
+                                                        + lec.getGroup().getName() + " " + lec.getClassroom().getName()
+                                                        + " | ");
+                                            }
+                                            System.out.println();
+                                        }
+                                    }
+                                }
+                                System.out.println();
+                            }
                         }
-                        System.out.println();
                     }
                 }
             }
@@ -483,23 +512,42 @@ public class UniverstiyStart {
     }
 
     private static void showStudentSchedule() {
-        int studentId = 7;
+        int studentId = 13;
         Student student = itmo.getStudentById(studentId);
         System.out.println("Расписание на месяц для: " + student.getLastName() + " " + student.getFirstName() + " "
                 + student.getMiddleName() + "\nгруппа " + student.getGroup().getName());
+        System.out.println();
+
         Schedule studentSchedule = itmo.getSchedule().showStudentSchedule(student);
-        for (DaySchedule daySchedule : studentSchedule.getSchedule()) {
-            System.out.println(daySchedule.getDayOfWeek() + " " + daySchedule.getParityOfWeek());
-            System.out.println("------------------");
-            for (Lesson les : Lesson.values()) {
-                for (Map.Entry<Lesson, Set<Lecture>> lessons : daySchedule.getLessons().entrySet()) {
-                    if (lessons.getKey() == les) {
-                        System.out.print("  - " + lessons.getKey().getDescription() + ": ");
-                        for (Lecture lec : lessons.getValue()) {
-                            System.out.print(lec.getSubject().getName() + " (" + lec.getTeacher().getLastName() + ") "
-                                    + lec.getGroup().getName() + " аудитория " + lec.getClassroom().getName());
+
+        for (Parity parity : Parity.values()) {
+            for (DayOfWeek dayOfWeek : DayOfWeek.values()) {
+                for (Map.Entry<DayOfWeek, Map<Parity, Map<Lesson, Set<Lecture>>>> daySchedule : studentSchedule
+                        .getSchedule().entrySet()) {
+                    if (daySchedule.getKey() == dayOfWeek) {
+                        System.out.print(dayOfWeek + " ");
+                        for (Map.Entry<Parity, Map<Lesson, Set<Lecture>>> dayParity : daySchedule.getValue()
+                                .entrySet()) {
+                            if (dayParity.getKey() == parity) {
+                                System.out.println(dayParity.getKey() + " ");
+                                System.out.println("------------------");
+                                for (Lesson les : Lesson.values()) {
+                                    for (Map.Entry<Lesson, Set<Lecture>> lessons : dayParity.getValue().entrySet()) {
+                                        if (lessons.getKey() == les) {
+                                            System.out.print("  - " + lessons.getKey().getDescription() + ": ");
+                                            for (Lecture lec : lessons.getValue()) {
+                                                System.out.println(lec.getSubject().getName() + " ("
+                                                        + lec.getTeacher().getLastName() + ") "
+                                                        + lec.getGroup().getName() + " "
+                                                        + lec.getClassroom().getName());
+                                            }
+                                            System.out.println();
+                                        }
+                                    }
+                                }
+                                System.out.println();
+                            }
                         }
-                        System.out.println();
                     }
                 }
             }
@@ -513,18 +561,37 @@ public class UniverstiyStart {
         System.out.println("______________________________");
         System.out.println("Расписание на месяц для преподавателя: " + teacher.getLastName() + " "
                 + teacher.getFirstName() + " " + teacher.getMiddleName() + "\n");
+
         Schedule teacherSchedule = itmo.getSchedule().showTeacherSchedule(teacher);
-        for (DaySchedule daySchedule : teacherSchedule.getSchedule()) {
-            System.out.println(daySchedule.getDayOfWeek() + " " + daySchedule.getParityOfWeek());
-            for (Lesson les : Lesson.values()) {
-                for (Map.Entry<Lesson, Set<Lecture>> lessons : daySchedule.getLessons().entrySet()) {
-                    if (lessons.getKey() == les) {
-                        System.out.print("  - " + lessons.getKey().getDescription() + ": ");
-                        for (Lecture lec : lessons.getValue()) {
-                            System.out.print(lec.getSubject().getName() + " группа " + lec.getGroup().getName()
-                                    + ", аудитория " + lec.getClassroom().getName());
+
+        for (Parity parity : Parity.values()) {
+            for (DayOfWeek dayOfWeek : DayOfWeek.values()) {
+                for (Map.Entry<DayOfWeek, Map<Parity, Map<Lesson, Set<Lecture>>>> daySchedule : teacherSchedule
+                        .getSchedule().entrySet()) {
+                    if (daySchedule.getKey() == dayOfWeek) {
+                        System.out.print(dayOfWeek + " ");
+                        for (Map.Entry<Parity, Map<Lesson, Set<Lecture>>> dayParity : daySchedule.getValue()
+                                .entrySet()) {
+                            if (dayParity.getKey() == parity) {
+                                System.out.println(dayParity.getKey() + " ");
+                                System.out.println("------------------");
+                                for (Lesson les : Lesson.values()) {
+                                    for (Map.Entry<Lesson, Set<Lecture>> lessons : dayParity.getValue().entrySet()) {
+                                        if (lessons.getKey() == les) {
+                                            System.out.print("  - " + lessons.getKey().getDescription() + ": ");
+                                            for (Lecture lec : lessons.getValue()) {
+                                                System.out.print(lec.getSubject().getName() + " ("
+                                                        + lec.getTeacher().getLastName() + ") "
+                                                        + lec.getGroup().getName() + " "
+                                                        + lec.getClassroom().getName());
+                                            }
+                                            System.out.println();
+                                        }
+                                    }
+                                }
+                                System.out.println();
+                            }
                         }
-                        System.out.println();
                     }
                 }
             }
@@ -534,7 +601,7 @@ public class UniverstiyStart {
 
     private static void showStudentScheduleForDay() {
         int studentId = 7;
-        LocalDate date = LocalDate.of(2018, 10, 22); // пятница чет
+        LocalDate date = LocalDate.of(2018, 10, 22); // понедельник чет
 
         Student student = itmo.getStudentById(studentId);
 
@@ -543,19 +610,40 @@ public class UniverstiyStart {
                 + student.getFirstName() + " " + student.getMiddleName() + "\nгруппа: " + student.getGroup().getName());
         System.out.println("______________________________");
 
-        DaySchedule studentSchedule = itmo.getSchedule().showStudentDaySchedule(student, date);
-        System.out.println(studentSchedule.getDayOfWeek() + " " + studentSchedule.getParityOfWeek());
-        for (Lesson les : Lesson.values()) {
-            for (Map.Entry<Lesson, Set<Lecture>> lessons : studentSchedule.getLessons().entrySet()) {
-                if (lessons.getKey() == les) {
-                    System.out.print("  - " + lessons.getKey().getDescription() + ": ");
-                    for (Lecture lec : lessons.getValue()) {
-                        System.out.print(lec.getSubject().getName() + " (" + lec.getTeacher().getLastName() + ") "
-                                + lec.getGroup().getName() + " аудитория " + lec.getClassroom().getName());
+        Schedule studentSchedule = itmo.getSchedule().showStudentDaySchedule(student, date);
+
+        for (Parity parity : Parity.values()) {
+            for (DayOfWeek dayOfWeek : DayOfWeek.values()) {
+                for (Map.Entry<DayOfWeek, Map<Parity, Map<Lesson, Set<Lecture>>>> daySchedule : studentSchedule
+                        .getSchedule().entrySet()) {
+                    if (daySchedule.getKey() == dayOfWeek) {
+                        System.out.print(dayOfWeek + " ");
+                        for (Map.Entry<Parity, Map<Lesson, Set<Lecture>>> dayParity : daySchedule.getValue()
+                                .entrySet()) {
+                            if (dayParity.getKey() == parity) {
+                                System.out.println(dayParity.getKey() + " ");
+                                System.out.println("------------------");
+                                for (Lesson les : Lesson.values()) {
+                                    for (Map.Entry<Lesson, Set<Lecture>> lessons : dayParity.getValue().entrySet()) {
+                                        if (lessons.getKey() == les) {
+                                            System.out.print("  - " + lessons.getKey().getDescription() + ": ");
+                                            for (Lecture lec : lessons.getValue()) {
+                                                System.out.println(lec.getSubject().getName() + " ("
+                                                        + lec.getTeacher().getLastName() + ") "
+                                                        + lec.getGroup().getName() + " "
+                                                        + lec.getClassroom().getName());
+                                            }
+                                            System.out.println();
+                                        }
+                                    }
+                                }
+                                System.out.println();
+                            }
+                        }
                     }
-                    System.out.println();
                 }
             }
+            System.out.println();
         }
     }
 
@@ -564,25 +652,47 @@ public class UniverstiyStart {
         LocalDate date = LocalDate.of(2018, 10, 29);
 
         Teacher teacher = itmo.getTeacherById(teacherId);
+        
         System.out.println();
         System.out.println("______________________________");
         System.out.println("Расписание на " + date + "\nдля преподавателя: " + teacher.getLastName() + " "
                 + teacher.getFirstName() + " " + teacher.getMiddleName());
         System.out.println("______________________________");
 
-        DaySchedule TeacherSchedule = itmo.getSchedule().showTeacherDaySchedule(teacher, date);
-        System.out.println(TeacherSchedule.getDayOfWeek() + " " + TeacherSchedule.getParityOfWeek());
-        for (Lesson les : Lesson.values()) {
-            for (Map.Entry<Lesson, Set<Lecture>> lessons : TeacherSchedule.getLessons().entrySet()) {
-                if (lessons.getKey() == les) {
-                    System.out.print("  - " + lessons.getKey().getDescription() + ": ");
-                    for (Lecture lec : lessons.getValue()) {
-                        System.out.print(lec.getSubject().getName() + " группа " + lec.getGroup().getName()
-                                + ", аудитория " + lec.getClassroom().getName());
+        Schedule teacherSchedule = itmo.getSchedule().showTeacherDaySchedule(teacher, date);
+                
+        for (Parity parity : Parity.values()) {
+            for (DayOfWeek dayOfWeek : DayOfWeek.values()) {
+                for (Map.Entry<DayOfWeek, Map<Parity, Map<Lesson, Set<Lecture>>>> daySchedule : teacherSchedule
+                        .getSchedule().entrySet()) {
+                    if (daySchedule.getKey() == dayOfWeek) {
+                        System.out.print(dayOfWeek + " ");
+                        for (Map.Entry<Parity, Map<Lesson, Set<Lecture>>> dayParity : daySchedule.getValue()
+                                .entrySet()) {
+                            if (dayParity.getKey() == parity) {
+                                System.out.println(dayParity.getKey() + " ");
+                                System.out.println("------------------");
+                                for (Lesson les : Lesson.values()) {
+                                    for (Map.Entry<Lesson, Set<Lecture>> lessons : dayParity.getValue().entrySet()) {
+                                        if (lessons.getKey() == les) {
+                                            System.out.print("  - " + lessons.getKey().getDescription() + ": ");
+                                            for (Lecture lec : lessons.getValue()) {
+                                                System.out.print(lec.getSubject().getName() + " ("
+                                                        + lec.getTeacher().getLastName() + ") "
+                                                        + lec.getGroup().getName() + " "
+                                                        + lec.getClassroom().getName());
+                                            }
+                                            System.out.println();
+                                        }
+                                    }
+                                }
+                                System.out.println();
+                            }
+                        }
                     }
-                    System.out.println();
                 }
             }
+            System.out.println();
         }
     }
 }

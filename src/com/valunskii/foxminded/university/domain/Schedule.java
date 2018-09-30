@@ -2,10 +2,8 @@ package com.valunskii.foxminded.university.domain;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.time.temporal.ChronoUnit;
@@ -14,20 +12,16 @@ import lombok.Getter;
 
 @Getter
 public class Schedule {
-    private List<DaySchedule> schedule = new ArrayList<>();
+    private Map<DayOfWeek, Map<Parity, Map<Lesson, Set<Lecture>>>> schedule = new HashMap<>();
 
-    public void setSchedule(List<DaySchedule> schedule) {
-        this.schedule = schedule;
+    public void addScheduleForDay(DayOfWeek day, Map<Parity, Map<Lesson, Set<Lecture>>> daySchedule) {
+        schedule.put(day, daySchedule);
     }
 
-    public void addDaySchedule(DaySchedule daySchedule) {
-        schedule.add(daySchedule);
+    public void removeScheduleForDay(DayOfWeek day, Map<Parity, Map<Lesson, Set<Lecture>>> daySchedule) {
+        schedule.remove(day, daySchedule);
     }
-
-    public void removeDaySchedule(DaySchedule daySchedule) {
-        schedule.remove(daySchedule);
-    }
-
+      
     /**
      * NOTE!
      * 
@@ -73,78 +67,114 @@ public class Schedule {
         }
     }
 
-    public DaySchedule showStudentDaySchedule(Student student, LocalDate date) {
-        DaySchedule studentDaySchedule = new DaySchedule(date.getDayOfWeek(), getParityByDate(date));
-        for (DaySchedule s : schedule) {
-            if (s.getDayOfWeek() == studentDaySchedule.getDayOfWeek()
-                    && s.getParityOfWeek() == studentDaySchedule.getParityOfWeek()) {
-                for (Map.Entry<Lesson, Set<Lecture>> universityLesson : s.getLessons().entrySet()) {
-                    Set<Lecture> studentLesson = new HashSet<>();
-                    for (Lecture lecture : universityLesson.getValue()) {
-                        if (lecture.getGroup().equals(student.getGroup())) {
-                            studentLesson.add(lecture);
-                        }
+    public Schedule showStudentDaySchedule(Student student, LocalDate date) {
+        Schedule studentDaySchedule = new Schedule();
+        Map<Lesson,Set<Lecture>> lessonsOfDay = schedule.get(date.getDayOfWeek()).get(getParityByDate(date));
+        Map<Lesson, Set<Lecture>> studentLesson = new HashMap<>();
+        for(Lesson lesson: Lesson.values()) {
+            if(lessonsOfDay.containsKey(lesson)) {
+                Set<Lecture> lectures = lessonsOfDay.get(lesson);
+                Set<Lecture> studentLecture = new HashSet<>();
+                for (Lecture lecture : lectures) {
+                    if (lecture.getGroup().equals(student.getGroup())) {
+                        studentLecture.add(lecture);
                     }
-                    studentDaySchedule.addLesson(universityLesson.getKey(), studentLesson);
                 }
+                studentLesson.put(lesson, studentLecture);
             }
         }
+        Map<Parity, Map<Lesson, Set<Lecture>>> studentParity = new HashMap<>();
+        studentParity.put(getParityByDate(date), studentLesson);
+        studentDaySchedule.addScheduleForDay(date.getDayOfWeek(), studentParity);
         return studentDaySchedule;
     }
 
-    public DaySchedule showTeacherDaySchedule(Teacher teacher, LocalDate date) {
-        DaySchedule teacherDaySchedule = new DaySchedule(date.getDayOfWeek(), getParityByDate(date));
-        for (DaySchedule s : schedule) {
-            if (s.getDayOfWeek() == teacherDaySchedule.getDayOfWeek()
-                    && s.getParityOfWeek() == teacherDaySchedule.getParityOfWeek()) {
-                for (Map.Entry<Lesson, Set<Lecture>> universityLesson : s.getLessons().entrySet()) {
-                    Set<Lecture> teacherLesson = new HashSet<>();
-                    for (Lecture lecture : universityLesson.getValue()) {
-                        if (lecture.getTeacher().equals(teacher)) {
-                            teacherLesson.add(lecture);
-                        }
+    public Schedule showTeacherDaySchedule(Teacher teacher, LocalDate date) {
+        Schedule teacherDaySchedule = new Schedule();
+        Map<Lesson,Set<Lecture>> lessonsOfDay = schedule.get(date.getDayOfWeek()).get(getParityByDate(date));
+        Map<Lesson, Set<Lecture>> teacherLesson = new HashMap<>();
+        for(Lesson lesson: Lesson.values()) {
+            if(lessonsOfDay.containsKey(lesson)) {
+                Set<Lecture> lectures = lessonsOfDay.get(lesson);
+                Set<Lecture> teacherLecture = new HashSet<>();
+                for (Lecture lecture : lectures) {
+                    if (lecture.getTeacher().equals(teacher)) {
+                        teacherLecture.add(lecture);
                     }
-                    teacherDaySchedule.addLesson(universityLesson.getKey(), teacherLesson);
                 }
+                teacherLesson.put(lesson, teacherLecture);
             }
         }
+        Map<Parity, Map<Lesson, Set<Lecture>>> teacherParity = new HashMap<>();
+        teacherParity.put(getParityByDate(date), teacherLesson);
+        teacherDaySchedule.addScheduleForDay(date.getDayOfWeek(), teacherParity);
         return teacherDaySchedule;
     }
 
     public Schedule showStudentSchedule(Student student) {
         Schedule studentSchedule = new Schedule();
-        for (DaySchedule universityDaySchedule : schedule) {
-            DaySchedule studentDaySchedule = new DaySchedule(universityDaySchedule.getDayOfWeek(),
-                    universityDaySchedule.getParityOfWeek());
-            for (Map.Entry<Lesson, Set<Lecture>> universityLesson : universityDaySchedule.getLessons().entrySet()) {
-                Set<Lecture> studentLesson = new HashSet<>();
-                for (Lecture lecture : universityLesson.getValue()) {
-                    if (lecture.getGroup().equals(student.getGroup())) {
-                        studentLesson.add(lecture);
+        Map<Parity, Map<Lesson, Set<Lecture>>> studentParity = new HashMap<>();
+        Map<Lesson, Set<Lecture>> studentLesson = new HashMap<>();
+
+        for (DayOfWeek dayOfWeek : DayOfWeek.values()) {
+            studentParity = new HashMap<>();
+            for (Parity parity : Parity.values()) {
+                studentLesson = new HashMap<>();
+                for (Lesson lesson : Lesson.values()) {
+                    if (schedule.containsKey(dayOfWeek)) {
+                        Map<Parity, Map<Lesson, Set<Lecture>>> lessonPair = schedule.get(dayOfWeek);
+                        if (lessonPair.containsKey(parity)) {
+                            Map<Lesson, Set<Lecture>> lessons = lessonPair.get(parity);
+                            if (lessons.containsKey(lesson)) {
+                                Set<Lecture> lectures = lessons.get(lesson);
+                                Set<Lecture> studentLecture = new HashSet<>();
+                                for (Lecture lecture : lectures) {
+                                    if (lecture.getGroup().equals(student.getGroup())) {
+                                        studentLecture.add(lecture);
+                                    }
+                                }
+                                studentLesson.put(lesson, studentLecture);
+                            }
+                        }
                     }
                 }
-                studentDaySchedule.addLesson(universityLesson.getKey(), studentLesson);
+                studentParity.put(parity, studentLesson);
             }
-            studentSchedule.addDaySchedule(studentDaySchedule);
+            studentSchedule.addScheduleForDay(dayOfWeek, studentParity);
         }
         return studentSchedule;
     }
 
     public Schedule showTeacherSchedule(Teacher teacher) {
         Schedule teacherSchedule = new Schedule();
-        for (DaySchedule universityDaySchedule : schedule) {
-            DaySchedule teacherDaySchedule = new DaySchedule(universityDaySchedule.getDayOfWeek(),
-                    universityDaySchedule.getParityOfWeek());
-            for (Map.Entry<Lesson, Set<Lecture>> universityLesson : universityDaySchedule.getLessons().entrySet()) {
-                Set<Lecture> teacherLesson = new HashSet<>();
-                for (Lecture lecture : universityLesson.getValue()) {
-                    if (lecture.getTeacher().equals(teacher)) {
-                        teacherLesson.add(lecture);
+        Map<Parity, Map<Lesson, Set<Lecture>>> teacherParity = new HashMap<>();
+        Map<Lesson, Set<Lecture>> teacherLesson = new HashMap<>();
+
+        for (DayOfWeek dayOfWeek : DayOfWeek.values()) {
+            teacherParity = new HashMap<>();
+            for (Parity parity : Parity.values()) {
+                teacherLesson = new HashMap<>();
+                for (Lesson lesson : Lesson.values()) {
+                    if (schedule.containsKey(dayOfWeek)) {
+                        Map<Parity, Map<Lesson, Set<Lecture>>> lessonPair = schedule.get(dayOfWeek);
+                        if (lessonPair.containsKey(parity)) {
+                            Map<Lesson, Set<Lecture>> lessons = lessonPair.get(parity);
+                            if (lessons.containsKey(lesson)) {
+                                Set<Lecture> lectures = lessons.get(lesson);
+                                Set<Lecture> studentLecture = new HashSet<>();
+                                for (Lecture lecture : lectures) {
+                                    if (lecture.getTeacher().equals(teacher)) {
+                                        studentLecture.add(lecture);
+                                    }
+                                }
+                                teacherLesson.put(lesson, studentLecture);
+                            }
+                        }
                     }
                 }
-                teacherDaySchedule.addLesson(universityLesson.getKey(), teacherLesson);
+                teacherParity.put(parity, teacherLesson);
             }
-            teacherSchedule.addDaySchedule(teacherDaySchedule);
+            teacherSchedule.addScheduleForDay(dayOfWeek, teacherParity);
         }
         return teacherSchedule;
     }
