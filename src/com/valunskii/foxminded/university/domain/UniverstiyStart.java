@@ -474,12 +474,11 @@ public class UniverstiyStart {
     }
 
     private static void showUniversitySchedule() {
-        Schedule schedule = itmo.getSchedule();
 
         for (Parity parity : Parity.values()) {
             for (DayOfWeek dayOfWeek : DayOfWeek.values()) {
-                for (Map.Entry<DayOfWeek, Map<Parity, Map<Lesson, Set<Lecture>>>> daySchedule : schedule.getSchedule()
-                        .entrySet()) {
+                for (Map.Entry<DayOfWeek, Map<Parity, Map<Lesson, Set<Lecture>>>> daySchedule : itmo.getSchedule()
+                        .getSchedule().entrySet()) {
                     if (daySchedule.getKey() == dayOfWeek) {
                         System.out.print(dayOfWeek + " ");
                         for (Map.Entry<Parity, Map<Lesson, Set<Lecture>>> dayParity : daySchedule.getValue()
@@ -518,12 +517,13 @@ public class UniverstiyStart {
                 + student.getMiddleName() + "\nгруппа " + student.getGroup().getName());
         System.out.println();
 
-        Schedule studentSchedule = itmo.getSchedule().showStudentSchedule(student);
+        Map<DayOfWeek, Map<Parity, Map<Lesson, Set<Lecture>>>> studentSchedule = itmo.getSchedule()
+                .showStudentSchedule(student);
 
         for (Parity parity : Parity.values()) {
             for (DayOfWeek dayOfWeek : DayOfWeek.values()) {
                 for (Map.Entry<DayOfWeek, Map<Parity, Map<Lesson, Set<Lecture>>>> daySchedule : studentSchedule
-                        .getSchedule().entrySet()) {
+                        .entrySet()) {
                     if (daySchedule.getKey() == dayOfWeek) {
                         System.out.print(dayOfWeek + " ");
                         for (Map.Entry<Parity, Map<Lesson, Set<Lecture>>> dayParity : daySchedule.getValue()
@@ -562,12 +562,13 @@ public class UniverstiyStart {
         System.out.println("Расписание на месяц для преподавателя: " + teacher.getLastName() + " "
                 + teacher.getFirstName() + " " + teacher.getMiddleName() + "\n");
 
-        Schedule teacherSchedule = itmo.getSchedule().showTeacherSchedule(teacher);
+        Map<DayOfWeek, Map<Parity, Map<Lesson, Set<Lecture>>>> teacherSchedule = itmo.getSchedule()
+                .showTeacherSchedule(teacher);
 
         for (Parity parity : Parity.values()) {
             for (DayOfWeek dayOfWeek : DayOfWeek.values()) {
                 for (Map.Entry<DayOfWeek, Map<Parity, Map<Lesson, Set<Lecture>>>> daySchedule : teacherSchedule
-                        .getSchedule().entrySet()) {
+                        .entrySet()) {
                     if (daySchedule.getKey() == dayOfWeek) {
                         System.out.print(dayOfWeek + " ");
                         for (Map.Entry<Parity, Map<Lesson, Set<Lecture>>> dayParity : daySchedule.getValue()
@@ -610,12 +611,13 @@ public class UniverstiyStart {
                 + student.getFirstName() + " " + student.getMiddleName() + "\nгруппа: " + student.getGroup().getName());
         System.out.println("______________________________");
 
-        Schedule studentSchedule = itmo.getSchedule().showStudentDaySchedule(student, date);
+        Map<DayOfWeek, Map<Parity, Map<Lesson, Set<Lecture>>>> studentSchedule = itmo.getSchedule()
+                .showStudentDaySchedule(student, date);
 
         for (Parity parity : Parity.values()) {
             for (DayOfWeek dayOfWeek : DayOfWeek.values()) {
                 for (Map.Entry<DayOfWeek, Map<Parity, Map<Lesson, Set<Lecture>>>> daySchedule : studentSchedule
-                        .getSchedule().entrySet()) {
+                        .entrySet()) {
                     if (daySchedule.getKey() == dayOfWeek) {
                         System.out.print(dayOfWeek + " ");
                         for (Map.Entry<Parity, Map<Lesson, Set<Lecture>>> dayParity : daySchedule.getValue()
@@ -652,19 +654,20 @@ public class UniverstiyStart {
         LocalDate date = LocalDate.of(2018, 10, 29);
 
         Teacher teacher = itmo.getTeacherById(teacherId);
-        
+
         System.out.println();
         System.out.println("______________________________");
         System.out.println("Расписание на " + date + "\nдля преподавателя: " + teacher.getLastName() + " "
                 + teacher.getFirstName() + " " + teacher.getMiddleName());
         System.out.println("______________________________");
 
-        Schedule teacherSchedule = itmo.getSchedule().showTeacherDaySchedule(teacher, date);
-                
+        Map<DayOfWeek, Map<Parity, Map<Lesson, Set<Lecture>>>> teacherSchedule = itmo.getSchedule()
+                .showTeacherDaySchedule(teacher, date);
+
         for (Parity parity : Parity.values()) {
             for (DayOfWeek dayOfWeek : DayOfWeek.values()) {
                 for (Map.Entry<DayOfWeek, Map<Parity, Map<Lesson, Set<Lecture>>>> daySchedule : teacherSchedule
-                        .getSchedule().entrySet()) {
+                        .entrySet()) {
                     if (daySchedule.getKey() == dayOfWeek) {
                         System.out.print(dayOfWeek + " ");
                         for (Map.Entry<Parity, Map<Lesson, Set<Lecture>>> dayParity : daySchedule.getValue()

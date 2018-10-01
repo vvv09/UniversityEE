@@ -21,7 +21,7 @@ public class Schedule {
     public void removeScheduleForDay(DayOfWeek day, Map<Parity, Map<Lesson, Set<Lecture>>> daySchedule) {
         schedule.remove(day, daySchedule);
     }
-      
+
     /**
      * NOTE!
      * 
@@ -67,12 +67,12 @@ public class Schedule {
         }
     }
 
-    public Schedule showStudentDaySchedule(Student student, LocalDate date) {
-        Schedule studentDaySchedule = new Schedule();
-        Map<Lesson,Set<Lecture>> lessonsOfDay = schedule.get(date.getDayOfWeek()).get(getParityByDate(date));
+    public Map<DayOfWeek, Map<Parity, Map<Lesson, Set<Lecture>>>> showStudentDaySchedule(Student student, LocalDate date) {
+        Map<DayOfWeek, Map<Parity, Map<Lesson, Set<Lecture>>>> studentDaySchedule = new HashMap<>();
+        Map<Lesson, Set<Lecture>> lessonsOfDay = schedule.get(date.getDayOfWeek()).get(getParityByDate(date));
         Map<Lesson, Set<Lecture>> studentLesson = new HashMap<>();
-        for(Lesson lesson: Lesson.values()) {
-            if(lessonsOfDay.containsKey(lesson)) {
+        for (Lesson lesson : Lesson.values()) {
+            if (lessonsOfDay.containsKey(lesson)) {
                 Set<Lecture> lectures = lessonsOfDay.get(lesson);
                 Set<Lecture> studentLecture = new HashSet<>();
                 for (Lecture lecture : lectures) {
@@ -85,16 +85,16 @@ public class Schedule {
         }
         Map<Parity, Map<Lesson, Set<Lecture>>> studentParity = new HashMap<>();
         studentParity.put(getParityByDate(date), studentLesson);
-        studentDaySchedule.addScheduleForDay(date.getDayOfWeek(), studentParity);
+        studentDaySchedule.put(date.getDayOfWeek(), studentParity);
         return studentDaySchedule;
     }
 
-    public Schedule showTeacherDaySchedule(Teacher teacher, LocalDate date) {
-        Schedule teacherDaySchedule = new Schedule();
-        Map<Lesson,Set<Lecture>> lessonsOfDay = schedule.get(date.getDayOfWeek()).get(getParityByDate(date));
+    public Map<DayOfWeek, Map<Parity, Map<Lesson, Set<Lecture>>>> showTeacherDaySchedule(Teacher teacher, LocalDate date) {
+        Map<DayOfWeek, Map<Parity, Map<Lesson, Set<Lecture>>>> teacherDaySchedule = new HashMap<>();
+        Map<Lesson, Set<Lecture>> lessonsOfDay = schedule.get(date.getDayOfWeek()).get(getParityByDate(date));
         Map<Lesson, Set<Lecture>> teacherLesson = new HashMap<>();
-        for(Lesson lesson: Lesson.values()) {
-            if(lessonsOfDay.containsKey(lesson)) {
+        for (Lesson lesson : Lesson.values()) {
+            if (lessonsOfDay.containsKey(lesson)) {
                 Set<Lecture> lectures = lessonsOfDay.get(lesson);
                 Set<Lecture> teacherLecture = new HashSet<>();
                 for (Lecture lecture : lectures) {
@@ -107,12 +107,12 @@ public class Schedule {
         }
         Map<Parity, Map<Lesson, Set<Lecture>>> teacherParity = new HashMap<>();
         teacherParity.put(getParityByDate(date), teacherLesson);
-        teacherDaySchedule.addScheduleForDay(date.getDayOfWeek(), teacherParity);
+        teacherDaySchedule.put(date.getDayOfWeek(), teacherParity);
         return teacherDaySchedule;
     }
 
-    public Schedule showStudentSchedule(Student student) {
-        Schedule studentSchedule = new Schedule();
+    public Map<DayOfWeek, Map<Parity, Map<Lesson, Set<Lecture>>>> showStudentSchedule(Student student) {
+        Map<DayOfWeek, Map<Parity, Map<Lesson, Set<Lecture>>>> studentSchedule = new HashMap<>();
         Map<Parity, Map<Lesson, Set<Lecture>>> studentParity = new HashMap<>();
         Map<Lesson, Set<Lecture>> studentLesson = new HashMap<>();
 
@@ -140,13 +140,13 @@ public class Schedule {
                 }
                 studentParity.put(parity, studentLesson);
             }
-            studentSchedule.addScheduleForDay(dayOfWeek, studentParity);
+            studentSchedule.put(dayOfWeek, studentParity);
         }
         return studentSchedule;
     }
 
-    public Schedule showTeacherSchedule(Teacher teacher) {
-        Schedule teacherSchedule = new Schedule();
+    public Map<DayOfWeek, Map<Parity, Map<Lesson, Set<Lecture>>>> showTeacherSchedule(Teacher teacher) {
+        Map<DayOfWeek, Map<Parity, Map<Lesson, Set<Lecture>>>> teacherSchedule = new HashMap<>();
         Map<Parity, Map<Lesson, Set<Lecture>>> teacherParity = new HashMap<>();
         Map<Lesson, Set<Lecture>> teacherLesson = new HashMap<>();
 
@@ -174,7 +174,7 @@ public class Schedule {
                 }
                 teacherParity.put(parity, teacherLesson);
             }
-            teacherSchedule.addScheduleForDay(dayOfWeek, teacherParity);
+            teacherSchedule.put(dayOfWeek, teacherParity);
         }
         return teacherSchedule;
     }
