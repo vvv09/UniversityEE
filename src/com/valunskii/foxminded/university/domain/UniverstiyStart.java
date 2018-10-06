@@ -2,77 +2,89 @@ package com.valunskii.foxminded.university.domain;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import com.valunskii.foxminded.university.dao.ClassroomDao;
+import com.valunskii.foxminded.university.dao.StudentDao;
+import com.valunskii.foxminded.university.dao.SubjectDao;
+import com.valunskii.foxminded.university.dao.TeacherDao;
 
 public class UniverstiyStart {
 
     private static University itmo;
 
     public static void main(String[] args) {
-        createUniversity();
+//        createUniversity();
         showCreatedUniversity();
 
-        createUniversitySchedule();
-        showUniversitySchedule();
-        showStudentSchedule();
-        showTeacherSchedule();
-        showStudentScheduleForDay();
-        showTeacherScheduleForDay();
+//        createUniversitySchedule();
+//        showUniversitySchedule();
+//        showStudentSchedule();
+//        showTeacherSchedule();
+//        showStudentScheduleForDay();
+//        showTeacherScheduleForDay();
     }
 
     private static void showCreatedUniversity() {
         System.out.println("---Список всех аудиторий университета---");
-        for (Classroom classroom : itmo.getClassrooms()) {
-            System.out.println(classroom.getName());
+        List<Classroom> classrooms = new ClassroomDao().getAllClassrooms();
+        for (Classroom classroom : classrooms) {
+            System.out.print(classroom.getName() + ", ");
         }
+        System.out.print(" - всего " + classrooms.size() + "\n");
         System.out.println();
+
         System.out.println("---Список всех предметов, изучаемых в университете---");
-        for (Subject subject : itmo.getSubjects()) {
+        List<Subject> subjects = new SubjectDao().getAllSubjects();
+        for (Subject subject : subjects) {
             System.out.println(subject.getName());
         }
+        System.out.print(" - всего " + subjects.size() + "\n");
         System.out.println();
+
         System.out.println("---Преподавательский состав университета---");
-        for (Teacher teacher : itmo.getTeachers()) {
-            System.out.println(teacher.getLastName() + " " + teacher.getFirstName() + " " + teacher.getMiddleName());
+        List<Teacher> teachers = new TeacherDao().getAllTeachers();
+        for (Teacher teacher : teachers) {
+            System.out.println(teacher.getId() + ") " + teacher.getLastName() + " " + teacher.getFirstName() + " "
+                    + teacher.getMiddleName());
         }
         System.out.println();
 
-        System.out.println("---Список всех групп университета и их студентов---");
-        for (Group group : itmo.getGroups()) {
-            System.out.println("        группа " + group.getName() + ":");
-            System.out.println("--------------------------------");
-            for (Student student : group.getStudents()) {
-                System.out.println(student.getFirstName() + " " + student.getMiddleName() + " " + student.getLastName()
-                        + " ( id = " + student.getId() + " )");
-            }
-            System.out.println();
+        System.out.println("---Список всех учаащихся в университете---");
+        List<Student> students = new StudentDao().getAllStudents();
+        for (Student student : students) {
+            System.out.println(student.getFirstName() + " " + student.getMiddleName() + " " + student.getLastName()
+                    + " ( id = " + student.getId() + " )");
         }
+        System.out.println();
     }
 
     private static void createUniversity() {
         itmo = new University();
 
-        Classroom classroom466 = new Classroom("466");
-        Classroom classroom331 = new Classroom("331");
-        Classroom classroom100s1 = new Classroom("100/1");
-        Classroom classroom190 = new Classroom("190");
-        Classroom classroom151 = new Classroom("151");
-        Classroom classroom2503 = new Classroom("2503");
-        Classroom classroom2504 = new Classroom("2504");
-        Classroom classroom99 = new Classroom("99");
-        Classroom classroom101 = new Classroom("101");
-        itmo.addClassroom(classroom466);
-        itmo.addClassroom(classroom331);
-        itmo.addClassroom(classroom100s1);
-        itmo.addClassroom(classroom190);
-        itmo.addClassroom(classroom151);
-        itmo.addClassroom(classroom2503);
-        itmo.addClassroom(classroom2504);
-        itmo.addClassroom(classroom99);
-        itmo.addClassroom(classroom101);
+//        Classroom classroom466 = new Classroom("466");
+//        Classroom classroom331 = new Classroom("331");
+//        Classroom classroom100s1 = new Classroom("100/1");
+//        Classroom classroom190 = new Classroom("190");
+//        Classroom classroom151 = new Classroom("151");
+//        Classroom classroom2503 = new Classroom("2503");
+//        Classroom classroom2504 = new Classroom("2504");
+//        Classroom classroom99 = new Classroom("99");
+//        Classroom classroom101 = new Classroom("101");
+//        itmo.addClassroom(classroom466);
+//        itmo.addClassroom(classroom331);
+//        itmo.addClassroom(classroom100s1);
+//        itmo.addClassroom(classroom190);
+//        itmo.addClassroom(classroom151);
+//        itmo.addClassroom(classroom2503);
+//        itmo.addClassroom(classroom2504);
+//        itmo.addClassroom(classroom99);
+//        itmo.addClassroom(classroom101);
 
         Subject infocomunicatSystemsTechnologies = new Subject("ИНФОКОММУНИКАЦИОННЫЕ СИСТЕМЫ И ТЕХНОЛОГИИ");
         Subject programming = new Subject("ПРОГРАММИРОВАНИЕ");
