@@ -49,7 +49,7 @@ INSERT INTO teachers VALUES
 
 INSERT INTO groups VALUES
 (1, 'K-3120'),
-(2, 'SM-3100'), 
+(2, 'M-3100'), 
 (3, 'N-3147')
 ;
 

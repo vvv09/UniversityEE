@@ -1,5 +1,7 @@
 package com.valunskii.foxminded.university.domain;
 
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -9,18 +11,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.valunskii.foxminded.university.dao.ClassroomDao;
-import com.valunskii.foxminded.university.dao.StudentDao;
-import com.valunskii.foxminded.university.dao.SubjectDao;
-import com.valunskii.foxminded.university.dao.TeacherDao;
+import com.valunskii.foxminded.university.dao.DaoFactory;
+import com.valunskii.foxminded.university.dao.GroupDao;
+import com.valunskii.foxminded.university.dao.postgres.PostgreSQLDaoFactory;
 
 public class UniverstiyStart {
 
     private static University itmo;
 
-    public static void main(String[] args) {
-//        createUniversity();
-        showCreatedUniversity();
+    public static void main(String[] args) throws SQLException {
+
+        showUniversity();
 
 //        createUniversitySchedule();
 //        showUniversitySchedule();
@@ -30,200 +31,55 @@ public class UniverstiyStart {
 //        showTeacherScheduleForDay();
     }
 
-    private static void showCreatedUniversity() {
-        System.out.println("---Список всех аудиторий университета---");
-        List<Classroom> classrooms = new ClassroomDao().getAllClassrooms();
-        for (Classroom classroom : classrooms) {
-            System.out.print(classroom.getName() + ", ");
+    private static void showUniversity() throws SQLException {
+        
+        System.out.println("Список всех групп в университете:");
+        DaoFactory daoFactory = new PostgreSQLDaoFactory();
+        List<Group> list;
+        try(Connection connection = daoFactory.getConnection()) {
+            GroupDao groups = daoFactory.getGroupDao(connection);
+            list = groups.getAll();
         }
-        System.out.print(" - всего " + classrooms.size() + "\n");
-        System.out.println();
-
-        System.out.println("---Список всех предметов, изучаемых в университете---");
-        List<Subject> subjects = new SubjectDao().getAllSubjects();
-        for (Subject subject : subjects) {
-            System.out.println(subject.getName());
-        }
-        System.out.print(" - всего " + subjects.size() + "\n");
-        System.out.println();
-
-        System.out.println("---Преподавательский состав университета---");
-        List<Teacher> teachers = new TeacherDao().getAllTeachers();
-        for (Teacher teacher : teachers) {
-            System.out.println(teacher.getId() + ") " + teacher.getLastName() + " " + teacher.getFirstName() + " "
-                    + teacher.getMiddleName());
+        
+        for (Group group:list) {
+            System.out.print(group.getName() + " ");
         }
         System.out.println();
-
-        System.out.println("---Список всех учаащихся в университете---");
-        List<Student> students = new StudentDao().getAllStudents();
-        for (Student student : students) {
-            System.out.println(student.getFirstName() + " " + student.getMiddleName() + " " + student.getLastName()
-                    + " ( id = " + student.getId() + " )");
-        }
-        System.out.println();
+        
+//        System.out.println("---Список всех аудиторий университета---");
+//        List<Classroom> classrooms = new ClassroomDao().getAllClassrooms();
+//        for (Classroom classroom : classrooms) {
+//            System.out.print(classroom.getName() + ", ");
+//        }
+//        System.out.print(" - всего " + classrooms.size() + "\n");
+//        System.out.println();
+//
+//        System.out.println("---Список всех предметов, изучаемых в университете---");
+//        List<Subject> subjects = new SubjectDao().getAllSubjects();
+//        for (Subject subject : subjects) {
+//            System.out.println(subject.getName());
+//        }
+//        System.out.print(" - всего " + subjects.size() + "\n");
+//        System.out.println();
+//
+//        System.out.println("---Преподавательский состав университета---");
+//        List<Teacher> teachers = new TeacherDao().getAllTeachers();
+//        for (Teacher teacher : teachers) {
+//            System.out.println(teacher.getId() + ") " + teacher.getLastName() + " " + teacher.getFirstName() + " "
+//                    + teacher.getMiddleName());
+//        }
+//        System.out.println();
+//
+//        System.out.println("---Список всех учаащихся в университете---");
+//        List<Student> students = new StudentDaoClass().getAllStudents();
+//        for (Student student : students) {
+//            System.out.println(student.getFirstName() + " " + student.getMiddleName() + " " + student.getLastName()
+//                    + " ( id = " + student.getId() + " )");
+//        }
+//        System.out.println();
     }
 
-    private static void createUniversity() {
-        itmo = new University();
 
-//        Classroom classroom466 = new Classroom("466");
-//        Classroom classroom331 = new Classroom("331");
-//        Classroom classroom100s1 = new Classroom("100/1");
-//        Classroom classroom190 = new Classroom("190");
-//        Classroom classroom151 = new Classroom("151");
-//        Classroom classroom2503 = new Classroom("2503");
-//        Classroom classroom2504 = new Classroom("2504");
-//        Classroom classroom99 = new Classroom("99");
-//        Classroom classroom101 = new Classroom("101");
-//        itmo.addClassroom(classroom466);
-//        itmo.addClassroom(classroom331);
-//        itmo.addClassroom(classroom100s1);
-//        itmo.addClassroom(classroom190);
-//        itmo.addClassroom(classroom151);
-//        itmo.addClassroom(classroom2503);
-//        itmo.addClassroom(classroom2504);
-//        itmo.addClassroom(classroom99);
-//        itmo.addClassroom(classroom101);
-
-        Subject infocomunicatSystemsTechnologies = new Subject("ИНФОКОММУНИКАЦИОННЫЕ СИСТЕМЫ И ТЕХНОЛОГИИ");
-        Subject programming = new Subject("ПРОГРАММИРОВАНИЕ");
-        Subject english = new Subject("АНГЛИЙСКИЙ ЯЗЫК");
-        Subject math = new Subject("МАТЕМАТИКА");
-        Subject history = new Subject("ИСТОРИЯ");
-        Subject computerEngineeringGraphics = new Subject("КОМПЬЮТЕРНАЯ ИНЖЕНЕРНАЯ ГРАФИКА");
-        Subject informatics = new Subject("ИНФОРМАТИКА");
-        Subject introductionDigitalCulture = new Subject("ВВЕДЕНИЕ В ЦИФРОВУЮ КУЛЬТУРУ");
-        Subject compArchitecture = new Subject("АРХИТЕКТУРА ЭВМ");
-        Subject algorithms = new Subject("АЛГОРИТМЫ И СТРУКТУРЫ ДАННЫХ");
-        Subject linearAlgebra = new Subject("ЛИНЕЙНАЯ АЛГЕБРА");
-        Subject discreteMath = new Subject("ДИСКРЕТНАЯ МАТЕМАТИКА");
-        Subject mathematicalAnalysis = new Subject("МАТЕМАТИЧЕСКИЙ АНАЛИЗ");
-        Subject physics = new Subject("ФИЗИКА");
-        Subject introductionProfessionalActivity = new Subject("ВВЕДЕНИЕ В ПРОФЕССИОНАЛЬНУЮ ДЕЯТЕЛЬНОСТЬ");
-        itmo.addSubject(infocomunicatSystemsTechnologies);
-        itmo.addSubject(programming);
-        itmo.addSubject(english);
-        itmo.addSubject(math);
-        itmo.addSubject(history);
-        itmo.addSubject(computerEngineeringGraphics);
-        itmo.addSubject(informatics);
-        itmo.addSubject(introductionDigitalCulture);
-        itmo.addSubject(compArchitecture);
-        itmo.addSubject(algorithms);
-        itmo.addSubject(linearAlgebra);
-        itmo.addSubject(discreteMath);
-        itmo.addSubject(mathematicalAnalysis);
-        itmo.addSubject(physics);
-        itmo.addSubject(introductionProfessionalActivity);
-
-        Teacher teacher1 = new Teacher(1, "Светлана", "Валерьевна", "Одиночкина"); // 1 ИНФОКОММУНИКАЦИОННЫЕ СИСТЕМЫ И
-                                                                                   // ТЕХНОЛОГИИ
-        Teacher teacher2 = new Teacher(2, "Елена", "Вадимовна", "Павлычева"); // 2 ПРОГРАММИРОВАНИЕ
-        Teacher teacher3 = new Teacher(3, "Семен", "Алексеевич", "Петухов"); // 3 АНГЛИЙСКИЙ ЯЗЫК @
-        Teacher teacher4 = new Teacher(4, "Юлия", "Валерьевна", "Танченко"); // 4 МАТЕМАТИКА
-        Teacher teacher5 = new Teacher(5, "Владимир", "Юрьевич", "Лукьянов"); // 5 ИСТОРИЯ
-        Teacher teacher6 = new Teacher(6, "Антон", "Сергеевич", "Супрун"); // 6 КОМПЬЮТЕРНАЯ ИНЖЕНЕРНАЯ ГРАФИКА
-        Teacher teacher7 = new Teacher(7, "Андрей", "Владимирович", "Лямин"); // 7 ИНФОРМАТИКА
-        Teacher teacher8 = new Teacher(8, "Наталья", "Генриховна", "Графеева"); // 8 ВВЕДЕНИЕ В ЦИФРОВУЮ КУЛЬТУРУ
-        Teacher teacher9 = new Teacher(9, "Владислав", "Вячеславович", "Повышев"); // 9 АРХИТЕКТУРА ЭВМ
-        Teacher teacher10 = new Teacher(10, "Нина", "Сергеевна", "Буланова"); // 10 АЛГОРИТМЫ И СТРУКТУРЫ ДАННЫХ
-        Teacher teacher11 = new Teacher(11, "Татьяна", "Федоровна", "Панкратова"); // 11 ЛИНЕЙНАЯ АЛГЕБРА,
-                                                                                   // МАТЕМАТИЧЕСКИЙ АНАЛИЗ
-        Teacher teacher12 = new Teacher(12, "Андрей", "Федорович", "Костко"); // 12 ФИЗИКА
-        Teacher teacher13 = new Teacher(13, "Данил", "Анатольевич", "Заколдаев"); // 13 ВВЕДЕНИЕ В ПРОФЕССИОНАЛЬНУЮ
-                                                                                  // ДЕЯТЕЛЬНОСТЬ
-        Teacher teacher14 = new Teacher(14, "Максим", "Валерьевич", "Хлопотов"); // 14 ВВЕДЕНИЕ В ЦИФРОВУЮ КУЛЬТУРУ
-        Teacher teacher15 = new Teacher(15, "Киселев", "Алексей", "Алексеевич"); // 15 ЛИНЕЙНАЯ АЛГЕБРА
-        Teacher teacher16 = new Teacher(16, "Антон", "Сергеевич", "Пермяков"); // 16 ДИСКРЕТНАЯ МАТЕМАТИКА
-        itmo.addTeacher(teacher1);
-        itmo.addTeacher(teacher2);
-        itmo.addTeacher(teacher3);
-        itmo.addTeacher(teacher4);
-        itmo.addTeacher(teacher5);
-        itmo.addTeacher(teacher6);
-        itmo.addTeacher(teacher7);
-        itmo.addTeacher(teacher8);
-        itmo.addTeacher(teacher9);
-        itmo.addTeacher(teacher10);
-        itmo.addTeacher(teacher11);
-        itmo.addTeacher(teacher12);
-        itmo.addTeacher(teacher13);
-        itmo.addTeacher(teacher14);
-        itmo.addTeacher(teacher15);
-        itmo.addTeacher(teacher16);
-
-        Group k3120 = new Group("K-3120");
-        Group m3100 = new Group("M-3100");
-        Group n3147 = new Group("N-3147");
-        itmo.addGroup(k3120);
-        itmo.addGroup(m3100);
-        itmo.addGroup(n3147);
-
-        Student student1 = new Student(1, "Иван", "Иванович", "Иванов");
-        Student student2 = new Student(2, "Петр", "Петрович", "Петров");
-        Student student3 = new Student(3, "Арсений", "Александрович", "Алешин");
-        Student student4 = new Student(4, "Григорий", "Романович", "Василевский");
-        Student student5 = new Student(5, "Алексей", "Антонович", "Веселовский");
-        Student student6 = new Student(6, "Анастасия", "Ивановна", "Вяликова");
-        Student student7 = new Student(7, "Катерина", "Сергеевна", "Иванова");
-        itmo.addStudent(student1);
-        itmo.addStudent(student2);
-        itmo.addStudent(student3);
-        itmo.addStudent(student4);
-        itmo.addStudent(student5);
-        itmo.addStudent(student6);
-        itmo.addStudent(student7);
-        itmo.addStudentToGroup(student1, k3120);
-        itmo.addStudentToGroup(student2, k3120);
-        itmo.addStudentToGroup(student3, k3120);
-        itmo.addStudentToGroup(student4, k3120);
-        itmo.addStudentToGroup(student5, k3120);
-        itmo.addStudentToGroup(student6, k3120);
-        itmo.addStudentToGroup(student7, k3120);
-        Student student8 = new Student(8, "Евгений", "Вадимович", "Ибрагимов");
-        Student student9 = new Student(9, "Алексей", "Алексеевич", "Федоров");
-        Student student10 = new Student(10, "Иван", "Петрович", "Иванов");
-        Student student11 = new Student(11, "Алексей", "Дмитриевич", "Туляков");
-        Student student12 = new Student(12, "Тамара", "Араратовна", "Мартирасян");
-        Student student13 = new Student(13, "Маргарита", "Вадимовна", "Валунская");
-        Student student14 = new Student(14, "Соня", "Кириловна", "Нохова");
-        itmo.addStudent(student8);
-        itmo.addStudent(student9);
-        itmo.addStudent(student10);
-        itmo.addStudent(student11);
-        itmo.addStudent(student12);
-        itmo.addStudent(student13);
-        itmo.addStudent(student14);
-        itmo.addStudentToGroup(student8, m3100);
-        itmo.addStudentToGroup(student9, m3100);
-        itmo.addStudentToGroup(student10, m3100);
-        itmo.addStudentToGroup(student11, m3100);
-        itmo.addStudentToGroup(student12, m3100);
-        itmo.addStudentToGroup(student13, m3100);
-        itmo.addStudentToGroup(student14, m3100);
-        Student student15 = new Student(15, "Анатолий", "Иванович", "Лобзик");
-        Student student16 = new Student(16, "Станислав", "Евгениевич", "Лацис");
-        Student student17 = new Student(17, "Ольга", "Петрововна", "Иванова");
-        Student student18 = new Student(18, "Семен", "Дмитриевич", "Краснов");
-        Student student19 = new Student(19, "Леонид", "Кирилович", "Попугалов");
-        Student student20 = new Student(20, "Антон", "Сергеевич", "Городецкий");
-        Student student21 = new Student(21, "Галина", "Антоновна", "Гордая");
-        itmo.addStudent(student15);
-        itmo.addStudent(student16);
-        itmo.addStudent(student17);
-        itmo.addStudent(student18);
-        itmo.addStudent(student19);
-        itmo.addStudent(student20);
-        itmo.addStudent(student21);
-        itmo.addStudentToGroup(student15, n3147);
-        itmo.addStudentToGroup(student16, n3147);
-        itmo.addStudentToGroup(student17, n3147);
-        itmo.addStudentToGroup(student18, n3147);
-        itmo.addStudentToGroup(student19, n3147);
-        itmo.addStudentToGroup(student20, n3147);
-        itmo.addStudentToGroup(student21, n3147);
-    }
 
     private static void createUniversitySchedule() {
 
