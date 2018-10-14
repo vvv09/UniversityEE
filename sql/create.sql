@@ -1,7 +1,3 @@
-﻿CREATE DATABASE foxuniversity ENCODING 'UTF8';
-
-CREATE SCHEMA public;
-
 CREATE TABLE public.subjects
 (
    subject_id serial primary key,
