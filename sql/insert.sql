@@ -79,7 +79,6 @@ INSERT INTO students VALUES
 (21, 'Галина', 'Антоновна', 'Гордая')
 ;
 
-
 --CREATE SCHEDULE
 
 INSERT INTO lectures VALUES

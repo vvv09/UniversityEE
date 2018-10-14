@@ -1,6 +1,5 @@
 package com.valunskii.foxminded.university.domain;
 
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 

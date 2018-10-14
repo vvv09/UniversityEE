@@ -3,7 +3,6 @@ package com.valunskii.foxminded.university.domain;
 import java.util.HashSet;
 import java.util.Set;
 
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
