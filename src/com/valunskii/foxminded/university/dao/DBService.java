@@ -59,12 +59,14 @@ public class DBService {
         }
     }
     
-    public void addStudent(int id, String firstName, String middleName, String lastName) throws DBException {
+    public int addStudent(String firstName, String middleName, String lastName) throws DBException {
         try {
             connection.setAutoCommit(false);
             StudentDao dao = new StudentDao(connection);
-            dao.add(id, firstName, middleName, lastName);
+            List<Student> list = dao.getAll();
+            dao.add(list.size() + 1, firstName, middleName, lastName);
             connection.commit();
+            return dao.getAll().size();
         } catch (SQLException e) {
             try {
                 connection.rollback();
@@ -87,10 +89,11 @@ public class DBService {
         }
     }
     
-    public void deleteStudent(int id) throws DBException {
+    public int deleteStudent(int id) throws DBException {
         try{
             StudentDao dao = new StudentDao(connection);
             dao.delete(id);
+            return dao.getAll().size();
         } catch (SQLException e) {
             throw new DBException(e);
         }
