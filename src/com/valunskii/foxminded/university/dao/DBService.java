@@ -51,6 +51,47 @@ public class DBService {
         }
     }
     
+    public int addTeacher(String firstName, String middleName, String lastName) throws DBException {
+        try {
+            connection.setAutoCommit(false);
+            TeacherDao dao = new TeacherDao(connection);
+            List<Teacher> list = dao.getAll();
+            dao.add(list.size() + 1, firstName, middleName, lastName);
+            connection.commit();
+            return dao.getAll().size();
+        } catch (SQLException e) {
+            try {
+                connection.rollback();
+            } catch (SQLException ignore) {                
+            }
+            throw new DBException(e);
+        } finally {
+            try {
+                connection.setAutoCommit(true);
+            } catch (SQLException ignore) {
+            } 
+        }
+    }
+    
+    public Teacher getTeacher(int id) throws DBException {
+        try {
+            return (new TeacherDao(connection).get(id));
+        } catch (SQLException e) {
+            throw new DBException(e);
+        }
+    }
+    
+    public int deleteTeacher(int id) throws DBException {
+        try{
+            TeacherDao dao = new TeacherDao(connection);
+            dao.delete(id);
+            return dao.getAll().size();
+        } catch (SQLException e) {
+            throw new DBException(e);
+        }
+        
+    }
+    
     public List<Student> getAllStudents() throws DBException{
         try {
             return (new StudentDao(connection).getAll());
@@ -106,6 +147,7 @@ public class DBService {
             System.out.println("DB version: " + connection.getMetaData().getDatabaseProductVersion());
             System.out.println("Driver: " + connection.getMetaData().getDriverName());
             System.out.println("Autocommit: " + connection.getAutoCommit());
+            System.out.println("______________\n");
         } catch (SQLException e) {
             e.printStackTrace();
         }

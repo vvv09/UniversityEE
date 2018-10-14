@@ -11,11 +11,17 @@ import com.valunskii.foxminded.university.domain.Subject;
 import com.valunskii.foxminded.university.domain.Teacher;
 
 public class Main {
+    static DBService dbService = new DBService();
+        
     public static void main(String[] args) {
-        DBService dbService = new DBService();
         dbService.printConnectInfo();
-        System.out.println("______________\n");
-
+             
+        showUniversity();
+        workWithStudents();
+        workWithTeachers();
+    }
+    
+    private static void showUniversity() {
         System.out.println("1_Список всех групп в университете:");
         List<Group> groups = null;
         try {
@@ -85,10 +91,13 @@ public class Main {
 
         System.out.println("________");
         System.out.println();
-
+    }
+    //TODO working with list size as id looks like a bad idea. consider this...
+    private static void workWithStudents() {
         System.out.println("Зачиляем нового студента ...");
+        int studentsCount = 0;
         try {
-            int studentsCount = dbService.addStudent("Моше", "Евкакиевич", "Попхадзе");
+            studentsCount = dbService.addStudent("Моше", "Евкакиевич", "Попхадзе");
             System.out.println("Новый студент успешно добавлен!\nКоличество студентов: " + studentsCount);
         } catch (DBException e) {
             e.printStackTrace();
@@ -96,10 +105,10 @@ public class Main {
 
         System.out.println("---");
 
-        System.out.println("Ищем тудента с id=22):");
+        System.out.println("Ищем последнего зачисленного студента...");
         Student student = null;
         try {
-            student = dbService.getStudent(22);
+            student = dbService.getStudent(studentsCount);
         } catch (DBException e) {
             e.printStackTrace();
         }
@@ -110,11 +119,43 @@ public class Main {
 
         System.out.println("Отчисляем студента с id = 22 ...");
         try {
-            int studentsCount = dbService.deleteStudent(22);
+            studentsCount = dbService.deleteStudent(22);
             System.out.println("Студент отчислен!\nКоличество студентов: " + studentsCount);
         } catch (DBException e) {
             e.printStackTrace();
         }
+    }
+    
+    private static void workWithTeachers() {
+        System.out.println("Нанимаем нового преподавателя ...");
+        int teacherCount = 0;
+        try {
+            teacherCount = dbService.addTeacher("Моше", "Евкакиевич", "Попхадзе");
+            System.out.println("Новый преподаватель успешно добавлен!\nКоличество преподавателей: " + teacherCount);
+        } catch (DBException e) {
+            e.printStackTrace();
+        }
 
+        System.out.println("---");
+
+        System.out.println("Ищем последнего нанятого преподавателя...");
+        Teacher teacher = null;
+        try {
+            teacher = dbService.getTeacher(teacherCount);
+        } catch (DBException e) {
+            e.printStackTrace();
+        }
+        System.out.println("  (id = " + teacher.getId() + ") " + teacher.getLastName() + " " + teacher.getFirstName()
+                + " " + teacher.getMiddleName());
+
+        System.out.println("---");
+
+        System.out.println("Увольняем последнего нанятого преподавателя...");
+        try {
+            teacherCount = dbService.deleteTeacher(teacherCount);
+            System.out.println("Преподаватель уволен!\nКоличество преподавателей: " + teacherCount);
+        } catch (DBException e) {
+            e.printStackTrace();
+        }
     }
 }
