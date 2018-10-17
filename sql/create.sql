@@ -71,46 +71,20 @@ CREATE TABLE public.lectures_sets_lectures
     FOREIGN KEY (lecture_id) REFERENCES lectures(lecture_id) ON DELETE RESTRICT
 );
 
-CREATE TABLE public.parity
-(
-    parity_id serial NOT NULL,
-    name varchar(10),
+CREATE TYPE day_of_week AS ENUM ('MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY');
+CREATE TYPE parity AS ENUM ('ODD', 'EVEN');
+CREATE TYPE lesson AS ENUM ('FIRST', 'SECOND', 'THIRD', 'FOURTH', 'FIFTH', 'SIXTH');
 
-    --CONSTRAINT pk_parity_parity_id
-    PRIMARY KEY (parity_id)
-);
-
-CREATE TABLE public.day_of_week
-(
-    day_of_week_id serial NOT NULL,
-    name varchar(15),
-
-    --CONSTRAINT pk_day_of_week_day_of_week_id
-    PRIMARY KEY (day_of_week_id)
-);
-
-CREATE TABLE public.lessons
-(
-    lesson_id serial NOT NULL,
-    name varchar(10),
-
-    --CONSTRAINT pk_lessons_lesson_id
-    PRIMARY KEY (lesson_id)
-
-);
 
 CREATE TABLE public.schedule
 (
-    day_of_week_id integer NOT NULL,
-    parity_id integer NOT NULL,
-    lesson_id integer NOT NULL,
+    day_of_week day_of_week NOT NULL,
+    parity parity NOT NULL,
+    lesson lesson NOT NULL,
     lecture_set_id integer NOT NULL,
 
-    --CONSTRAINT pk_schedule_schedule_id
-    PRIMARY KEY (day_of_week_id, parity_id, lesson_id),
+    PRIMARY KEY (day_of_week, parity, lesson),
 
-    FOREIGN KEY (day_of_week_id) REFERENCES day_of_week (day_of_week_id) ON DELETE RESTRICT,
-    FOREIGN KEY (parity_id) REFERENCES parity (parity_id) ON DELETE RESTRICT,
-    FOREIGN KEY (lesson_id) REFERENCES lessons (lesson_id) ON DELETE RESTRICT,
     FOREIGN KEY (lecture_set_id) REFERENCES lectures_sets (lectures_set_id) ON DELETE RESTRICT
 );
+
