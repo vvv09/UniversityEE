@@ -1,30 +1,17 @@
 package com.valunskii.foxminded.university.dao;
 
-import java.sql.Connection;
-import java.sql.Driver;
-import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.time.DayOfWeek;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 import com.valunskii.foxminded.university.domain.Classroom;
 import com.valunskii.foxminded.university.domain.Group;
-import com.valunskii.foxminded.university.domain.Lecture;
-import com.valunskii.foxminded.university.domain.Lesson;
-import com.valunskii.foxminded.university.domain.Parity;
+
 import com.valunskii.foxminded.university.domain.Schedule;
 import com.valunskii.foxminded.university.domain.Student;
 import com.valunskii.foxminded.university.domain.Subject;
 import com.valunskii.foxminded.university.domain.Teacher;
 
 public class DBService {
-//    private final Connection connection;
-
-//    public DBService() {
-//        this.connection = getPostgresqlConnection();
-//    }
 
     public List<Group> getAllGroups() throws DBException {
         try {
@@ -132,18 +119,4 @@ public class DBService {
             throw new DBException(e);
         }
     }
-
-//    public void printConnectInfo() {
-//        try {
-//            System.out.println("DB name: " + connection.getMetaData().getDatabaseProductName());
-//            System.out.println("DB version: " + connection.getMetaData().getDatabaseProductVersion());
-//            System.out.println("Driver: " + connection.getMetaData().getDriverName());
-//            System.out.println("Autocommit: " + connection.getAutoCommit());
-//            System.out.println("______________\n");
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//    }
-
-
 }

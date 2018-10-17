@@ -1,6 +1,5 @@
 package com.valunskii.foxminded.university.dao;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;

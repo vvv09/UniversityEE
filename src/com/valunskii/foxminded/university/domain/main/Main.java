@@ -1,17 +1,12 @@
 package com.valunskii.foxminded.university.domain.main;
 
-import java.time.DayOfWeek;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 import com.valunskii.foxminded.university.dao.DBException;
 import com.valunskii.foxminded.university.dao.DBService;
 import com.valunskii.foxminded.university.domain.Classroom;
 import com.valunskii.foxminded.university.domain.Group;
 import com.valunskii.foxminded.university.domain.Lecture;
-import com.valunskii.foxminded.university.domain.Lesson;
-import com.valunskii.foxminded.university.domain.Parity;
 import com.valunskii.foxminded.university.domain.Schedule;
 import com.valunskii.foxminded.university.domain.Student;
 import com.valunskii.foxminded.university.domain.Subject;
@@ -22,10 +17,10 @@ public class Main {
         
     public static void main(String[] args) {
              
-        showUniversity();
-        workWithStudents();
-        workWithTeachers();
-//        schowUnivwrsityShedule();
+//        showUniversity();
+//        workWithStudents();
+//        workWithTeachers();
+        schowUnivwrsityShedule();
     }
     
     private static void showUniversity() {
@@ -178,7 +173,7 @@ public class Main {
         for (Schedule row : schedule) {
             System.out.print(row.getDayOfWeek() + " " + row.getParity() + " " + row.getLesson() + ": \n");
             for(Lecture lecture : row.getLectures()) {
-                System.out.println(lecture.getSubject().getName() + " / " + lecture.getTeacher().getLastName() + " / " + lecture.getGroup().getName() + " / " + lecture.getClassroom());
+                System.out.println(lecture.getSubject().getName() + " / " + lecture.getTeacher().getLastName() + " / " + lecture.getGroup().getName() + " / " + lecture.getClassroom().getName());
             }
             System.out.println();
         }
