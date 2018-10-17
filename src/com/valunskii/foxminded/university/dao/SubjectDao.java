@@ -11,8 +11,8 @@ import com.valunskii.foxminded.university.domain.Subject;
 public class SubjectDao {
     private Executor executor;
 
-    public SubjectDao(Connection connection) {
-        this.executor = new Executor(connection);
+    public SubjectDao() {
+        this.executor = new Executor();
     }
 
     public List<Subject> getAll() throws SQLException {

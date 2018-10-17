@@ -1,6 +1,5 @@
 package com.valunskii.foxminded.university.dao;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,8 +10,8 @@ import com.valunskii.foxminded.university.domain.Group;
 public class GroupsDao {
     private Executor executor;
     
-    public GroupsDao(Connection connection) {
-        this.executor = new Executor(connection);
+    public GroupsDao() {
+        this.executor = new Executor();
     }
     
     public List<Group> getAll() throws SQLException{

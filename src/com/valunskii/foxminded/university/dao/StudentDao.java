@@ -12,8 +12,8 @@ import com.valunskii.foxminded.university.domain.Student;
 public class StudentDao {
     private Executor executor;
 
-    public StudentDao(Connection connection) {
-        this.executor = new Executor(connection);
+    public StudentDao() {
+        this.executor = new Executor();
     }
 
     public List<Student> getAll() throws SQLException{

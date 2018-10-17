@@ -1,11 +1,18 @@
 package com.valunskii.foxminded.university.domain.main;
 
+import java.time.DayOfWeek;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import com.valunskii.foxminded.university.dao.DBException;
 import com.valunskii.foxminded.university.dao.DBService;
 import com.valunskii.foxminded.university.domain.Classroom;
 import com.valunskii.foxminded.university.domain.Group;
+import com.valunskii.foxminded.university.domain.Lecture;
+import com.valunskii.foxminded.university.domain.Lesson;
+import com.valunskii.foxminded.university.domain.Parity;
+import com.valunskii.foxminded.university.domain.Schedule;
 import com.valunskii.foxminded.university.domain.Student;
 import com.valunskii.foxminded.university.domain.Subject;
 import com.valunskii.foxminded.university.domain.Teacher;
@@ -14,11 +21,11 @@ public class Main {
     static DBService dbService = new DBService();
         
     public static void main(String[] args) {
-        dbService.printConnectInfo();
              
         showUniversity();
         workWithStudents();
         workWithTeachers();
+//        schowUnivwrsityShedule();
     }
     
     private static void showUniversity() {
@@ -156,6 +163,24 @@ public class Main {
             System.out.println("Преподаватель уволен!\nКоличество преподавателей: " + teacherCount);
         } catch (DBException e) {
             e.printStackTrace();
+        }
+    }
+    
+    public static void schowUnivwrsityShedule() {
+        System.out.println("Расписание университета ...");
+        List<Schedule> schedule = null;
+        
+        try {
+            schedule = dbService.getAllSchedule();
+        } catch (DBException e) {
+            e.printStackTrace();
+        }
+        for (Schedule row : schedule) {
+            System.out.print(row.getDayOfWeek() + " " + row.getParity() + " " + row.getLesson() + ": \n");
+            for(Lecture lecture : row.getLectures()) {
+                System.out.println(lecture.getSubject().getName() + " / " + lecture.getTeacher().getLastName() + " / " + lecture.getGroup().getName() + " / " + lecture.getClassroom());
+            }
+            System.out.println();
         }
     }
 }

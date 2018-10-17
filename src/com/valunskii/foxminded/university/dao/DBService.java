@@ -4,24 +4,31 @@ import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.time.DayOfWeek;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import com.valunskii.foxminded.university.domain.Classroom;
 import com.valunskii.foxminded.university.domain.Group;
+import com.valunskii.foxminded.university.domain.Lecture;
+import com.valunskii.foxminded.university.domain.Lesson;
+import com.valunskii.foxminded.university.domain.Parity;
+import com.valunskii.foxminded.university.domain.Schedule;
 import com.valunskii.foxminded.university.domain.Student;
 import com.valunskii.foxminded.university.domain.Subject;
 import com.valunskii.foxminded.university.domain.Teacher;
 
 public class DBService {
-    private final Connection connection;
+//    private final Connection connection;
 
-    public DBService() {
-        this.connection = getPostgresqlConnection();
-    }
+//    public DBService() {
+//        this.connection = getPostgresqlConnection();
+//    }
 
     public List<Group> getAllGroups() throws DBException {
         try {
-            return (new GroupsDao(connection).getAll());
+            return (new GroupsDao().getAll());
         } catch (SQLException e) {
             throw new DBException(e);
         }
@@ -29,7 +36,7 @@ public class DBService {
 
     public List<Classroom> getAllClassrooms() throws DBException {
         try {
-            return (new ClassroomDao(connection).getAll());
+            return (new ClassroomDao().getAll());
         } catch (SQLException e) {
             throw new DBException(e);
         }
@@ -37,137 +44,106 @@ public class DBService {
 
     public List<Subject> getAllSubjects() throws DBException {
         try {
-            return (new SubjectDao(connection).getAll());
+            return (new SubjectDao().getAll());
         } catch (SQLException e) {
             throw new DBException(e);
         }
     }
-    
-    public List<Teacher> getAllTeachers() throws DBException{
+
+    public List<Teacher> getAllTeachers() throws DBException {
         try {
-            return (new TeacherDao(connection).getAll());
+            return (new TeacherDao().getAll());
         } catch (SQLException e) {
             throw new DBException(e);
         }
     }
-    
+
     public int addTeacher(String firstName, String middleName, String lastName) throws DBException {
         try {
-            connection.setAutoCommit(false);
-            TeacherDao dao = new TeacherDao(connection);
+            TeacherDao dao = new TeacherDao();
             List<Teacher> list = dao.getAll();
             dao.add(list.size() + 1, firstName, middleName, lastName);
-            connection.commit();
             return dao.getAll().size();
         } catch (SQLException e) {
-            try {
-                connection.rollback();
-            } catch (SQLException ignore) {                
-            }
             throw new DBException(e);
-        } finally {
-            try {
-                connection.setAutoCommit(true);
-            } catch (SQLException ignore) {
-            } 
-        }
+        } 
     }
-    
+
     public Teacher getTeacher(int id) throws DBException {
         try {
-            return (new TeacherDao(connection).get(id));
+            return (new TeacherDao().get(id));
         } catch (SQLException e) {
             throw new DBException(e);
         }
     }
-    
+
     public int deleteTeacher(int id) throws DBException {
-        try{
-            TeacherDao dao = new TeacherDao(connection);
+        try {
+            TeacherDao dao = new TeacherDao();
             dao.delete(id);
             return dao.getAll().size();
         } catch (SQLException e) {
             throw new DBException(e);
         }
-        
+
     }
-    
-    public List<Student> getAllStudents() throws DBException{
+
+    public List<Student> getAllStudents() throws DBException {
         try {
-            return (new StudentDao(connection).getAll());
+            return (new StudentDao().getAll());
         } catch (SQLException e) {
             throw new DBException(e);
         }
     }
-    
+
     public int addStudent(String firstName, String middleName, String lastName) throws DBException {
         try {
-            connection.setAutoCommit(false);
-            StudentDao dao = new StudentDao(connection);
+            StudentDao dao = new StudentDao();
             List<Student> list = dao.getAll();
             dao.add(list.size() + 1, firstName, middleName, lastName);
-            connection.commit();
             return dao.getAll().size();
         } catch (SQLException e) {
-            try {
-                connection.rollback();
-            } catch (SQLException ignore) {                
-            }
             throw new DBException(e);
-        } finally {
-            try {
-                connection.setAutoCommit(true);
-            } catch (SQLException ignore) {
-            } 
-        }
+        } 
     }
-    
+
     public Student getStudent(int id) throws DBException {
         try {
-            return (new StudentDao(connection).get(id));
+            return (new StudentDao().get(id));
         } catch (SQLException e) {
             throw new DBException(e);
         }
     }
-    
+
     public int deleteStudent(int id) throws DBException {
-        try{
-            StudentDao dao = new StudentDao(connection);
+        try {
+            StudentDao dao = new StudentDao();
             dao.delete(id);
             return dao.getAll().size();
         } catch (SQLException e) {
             throw new DBException(e);
         }
-        
     }
 
-    public void printConnectInfo() {
+    public List<Schedule> getAllSchedule() throws DBException{
         try {
-            System.out.println("DB name: " + connection.getMetaData().getDatabaseProductName());
-            System.out.println("DB version: " + connection.getMetaData().getDatabaseProductVersion());
-            System.out.println("Driver: " + connection.getMetaData().getDriverName());
-            System.out.println("Autocommit: " + connection.getAutoCommit());
-            System.out.println("______________\n");
+            return (new ScheduleDao().get());
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new DBException(e);
         }
     }
 
-    public static Connection getPostgresqlConnection() {
+//    public void printConnectInfo() {
+//        try {
+//            System.out.println("DB name: " + connection.getMetaData().getDatabaseProductName());
+//            System.out.println("DB version: " + connection.getMetaData().getDatabaseProductVersion());
+//            System.out.println("Driver: " + connection.getMetaData().getDriverName());
+//            System.out.println("Autocommit: " + connection.getAutoCommit());
+//            System.out.println("______________\n");
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
-        final String JDBC_DRIVER = "org.postgresql.Driver";
-        final String DB_NAME = "jdbc:postgresql://localhost:5432/foxuniversity";
-        final String USER = "postgres";
-        final String PASS = "1568996";
 
-        try {
-            DriverManager.registerDriver((Driver) Class.forName(JDBC_DRIVER).newInstance());
-            System.out.println("URL: " + DB_NAME + "\n");
-            Connection connection = DriverManager.getConnection(DB_NAME, USER, PASS);
-            return connection;
-        } catch (SQLException | InstantiationException | IllegalAccessException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
 }

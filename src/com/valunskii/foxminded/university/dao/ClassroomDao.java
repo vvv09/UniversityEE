@@ -11,15 +11,15 @@ import com.valunskii.foxminded.university.domain.Classroom;
 public class ClassroomDao {
     private Executor executor;
 
-    public ClassroomDao(Connection connection) {
-        this.executor = new Executor(connection);
+    public ClassroomDao() {
+        this.executor = new Executor();
     }
 
-    public List<Classroom> getAll() throws SQLException{
+    public List<Classroom> getAll() throws SQLException {
         return executor.execQuery("select * from classrooms", result -> {
-            List<Classroom> list = new ArrayList<>(); 
-            while(result.next()) {
-            list.add(new Classroom(result.getString("name")));
+            List<Classroom> list = new ArrayList<>();
+            while (result.next()) {
+                list.add(new Classroom(result.getString("name")));
             }
             return list;
         });
