@@ -132,29 +132,6 @@ INSERT INTO lectures VALUES
 (48, 12, 3, 16, 6)
 ;
 
-INSERT INTO parity VALUES
-(1, 'odd'),
-(2, 'even')
-;
-
-INSERT INTO lessons VALUES
-(1, 'first'),
-(2, 'second'),
-(3, 'third'),
-(4, 'fourth'),
-(5, 'fifth'),
-(6, 'sixth')
-;
-
-INSERT INTO day_of_week VALUES
-(1, 'monday'),
-(2, 'tuesday'),
-(3, 'wednesday'),
-(4, 'thursday'),
-(5, 'friday'),
-(6, 'saturday')
-;
-
 INSERT INTO lectures_sets VALUES
 (1, 'set1'),
 (2, 'set2'),
@@ -270,72 +247,72 @@ INSERT INTO lectures_sets_lectures VALUES
 ;
 
 INSERT INTO schedule VALUES
-(1,1,1,1),
-(1,1,2,1),
-(1,1,3,2),
-(1,1,4,3),
-(1,1,5,4),
+('MONDAY','ODD','FIRST',1),
+('MONDAY','ODD','SECOND',1),
+('MONDAY','ODD','THIRD',2),
+('MONDAY','ODD','FOURTH',3),
+('MONDAY','ODD','FIFTH',4),
 
-(2,1,1,5),
-(2,1,2,5),
-(2,1,3,6),
-(2,1,4,6),
-(2,1,5,7),
+('TUESDAY','ODD','FIRST',5),
+('TUESDAY','ODD','SECOND',5),
+('TUESDAY','ODD','THIRD',6),
+('TUESDAY','ODD','FOURTH',6),
+('TUESDAY','ODD','FIFTH',7),
 
-(3,1,1,8),
-(3,1,2,9),
-(3,1,3,10),
-(3,1,4,10),
-(3,1,5,11),
+('WEDNESDAY','ODD','FIRST',8),
+('WEDNESDAY','ODD','SECOND',9),
+('WEDNESDAY','ODD','THIRD',10),
+('WEDNESDAY','ODD','FOURTH',10),
+('WEDNESDAY','ODD','FIFTH',11),
 
-(4,1,1,7),
-(4,1,2,12),
-(4,1,3,12),
-(4,1,4,13),
-(4,1,5,4),
+('THURSDAY','ODD','FIRST',7),
+('THURSDAY','ODD','SECOND',12),
+('THURSDAY','ODD','THIRD',12),
+('THURSDAY','ODD','FOURTH',13),
+('THURSDAY','ODD','FIFTH',4),
 
-(5,1,1,8),
-(5,1,2,13),
-(5,1,3,15),
-(5,1,4,16),
-(5,1,5,17),
+('FRIDAY','ODD','FIRST',8),
+('FRIDAY','ODD','SECOND',13),
+('FRIDAY','ODD','THIRD',15),
+('FRIDAY','ODD','FOURTH',16),
+('FRIDAY','ODD','FIFTH',17),
 
-(6,1,1,10),
-(6,1,2,18),
-(6,1,3,18),
+('SATURDAY','ODD','FIRST',10),
+('SATURDAY','ODD','SECOND',18),
+('SATURDAY','ODD','THIRD',18),
 
 
-(1,2,1,1),
-(1,2,2,19),
-(1,2,3,20),
-(1,2,4,2),
-(1,2,5,21),
-(1,2,6,21),
-(2,2,1,22),
-(2,2,2,5),
-(2,2,3,6),
-(2,2,4,6),
-(2,2,5,7),
+('MONDAY','EVEN','FIRST',1),
+('MONDAY','EVEN','SECOND',19),
+('MONDAY','EVEN','THIRD',20),
+('MONDAY','EVEN','FOURTH',2),
+('MONDAY','EVEN','FIFTH',21),
+('MONDAY','EVEN','SIXTH',21),
+('TUESDAY','EVEN','FIRST',22),
+('TUESDAY','EVEN','SECOND',5),
+('TUESDAY','EVEN','THIRD',6),
+('TUESDAY','EVEN','FOURTH',6),
+('TUESDAY','EVEN','FIFTH',7),
 
-(3,2,1,8),
-(3,2,2,9),
-(3,2,3,23),
-(3,2,4,23),
-(3,2,5,11),
+('WEDNESDAY','EVEN','FIRST',8),
+('WEDNESDAY','EVEN','SECOND',9),
+('WEDNESDAY','EVEN','THIRD',23),
+('WEDNESDAY','EVEN','FOURTH',23),
+('WEDNESDAY','EVEN','FIFTH',11),
 
-(4,2,1,7),
-(4,2,2,12),
-(4,2,3,12),
-(4,2,4,13),
-(4,2,5,14),
+('THURSDAY','EVEN','FIRST',7),
+('THURSDAY','EVEN','SECOND',12),
+('THURSDAY','EVEN','THIRD',12),
+('THURSDAY','EVEN','FOURTH',13),
+('THURSDAY','EVEN','FIFTH',14),
 
-(5,2,1,24),
-(5,2,2,13),
-(5,2,3,25),
-(5,2,4,16),
-(5,2,5,26),
+('FRIDAY','EVEN','FIRST',24),
+('FRIDAY','EVEN','SECOND',13),
+('FRIDAY','EVEN','THIRD',25),
+('FRIDAY','EVEN','FOURTH',16),
+('FRIDAY','EVEN','FIFTH',26),
 
-(6,2,1,27),
-(6,2,2,18),
-(6,2,3,18)
+('SATURDAY','EVEN','FIRST',27),
+('SATURDAY','EVEN','SECOND',18),
+('SATURDAY','EVEN','THIRD',18)
 ;
