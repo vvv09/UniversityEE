@@ -1,10 +1,8 @@
 package com.valunskii.foxminded.university.domain;
 
 import lombok.Getter;
-import lombok.Setter;
 
 @Getter
-@Setter
 public class Lecture {
     private Subject subject;
     private Teacher teacher;
@@ -21,5 +19,4 @@ public class Lecture {
     public void createNoSubject() { // TODO Consider situation with "window" in schedule. add to UML
 
     }
-
 }

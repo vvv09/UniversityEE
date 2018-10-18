@@ -13,5 +13,4 @@ public class GroupService {
             throw new DBException(e);
         }
     }
-
 }

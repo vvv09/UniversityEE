@@ -1,5 +1,6 @@
 package com.valunskii.foxminded.university.domain.main;
 
+import java.time.DayOfWeek;
 import java.util.List;
 
 import com.valunskii.foxminded.university.dao.ClassroomService;
@@ -12,21 +13,28 @@ import com.valunskii.foxminded.university.dao.TeacherService;
 import com.valunskii.foxminded.university.domain.Classroom;
 import com.valunskii.foxminded.university.domain.Group;
 import com.valunskii.foxminded.university.domain.Lecture;
+import com.valunskii.foxminded.university.domain.Parity;
 import com.valunskii.foxminded.university.domain.Schedule;
 import com.valunskii.foxminded.university.domain.Student;
 import com.valunskii.foxminded.university.domain.Subject;
 import com.valunskii.foxminded.university.domain.Teacher;
 
 public class Main {
-        
+
     public static void main(String[] args) {
-             
-        showUniversity();
-        workWithStudents();
-        workWithTeachers();
-        schowUnivwrsityShedule();
+
+//        showUniversity();
+//        workWithStudents();
+//        workWithTeachers();
+//        schowUnivwrsityShedule();
+//        schowGroupShedule("N-3147");
+//        schowGroupDayShedule("N-3147", DayOfWeek.MONDAY, Parity.EVEN);
+        schowTeacherSchedule(1);
+        schowTeacherDaySchedule(1, DayOfWeek.MONDAY, Parity.EVEN);
+
+
     }
-    
+
     private static void showUniversity() {
         System.out.println("1_Список всех групп в университете:");
         List<Group> groups = null;
@@ -98,7 +106,8 @@ public class Main {
         System.out.println("________");
         System.out.println();
     }
-    //TODO working with list size as id looks like a bad idea. consider this...
+
+    // TODO working with list size as id looks like a bad idea. consider this...
     private static void workWithStudents() {
         System.out.println("Зачиляем нового студента ...");
         int studentsCount = 0;
@@ -131,7 +140,7 @@ public class Main {
             e.printStackTrace();
         }
     }
-    
+
     private static void workWithTeachers() {
         System.out.println("Нанимаем нового преподавателя ...");
         int teacherCount = 0;
@@ -164,20 +173,102 @@ public class Main {
             e.printStackTrace();
         }
     }
-    
+
     public static void schowUnivwrsityShedule() {
         System.out.println("Расписание университета ...");
         List<Schedule> schedule = null;
-        
+
         try {
             schedule = ScheduleService.getAllSchedule();
+            System.out.println(schedule.size());
         } catch (DBException e) {
             e.printStackTrace();
         }
         for (Schedule row : schedule) {
             System.out.print(row.getDayOfWeek() + " " + row.getParity() + " " + row.getLesson() + ": \n");
-            for(Lecture lecture : row.getLectures()) {
-                System.out.println(lecture.getSubject().getName() + " / " + lecture.getTeacher().getLastName() + " / " + lecture.getGroup().getName() + " / " + lecture.getClassroom().getName());
+            for (Lecture lecture : row.getLectures()) {
+                System.out.println(lecture.getSubject().getName() + " / " + lecture.getTeacher().getLastName() + " / "
+                        + lecture.getGroup().getName() + " / " + lecture.getClassroom().getName());
+            }
+            System.out.println();
+        }
+    }
+// TODO make better appearance for schedule reports (if necessary)
+    public static void schowGroupShedule(String groupName) {
+        System.out.println("Расписание занятий для группы " + groupName);
+        List<Schedule> schedule = null;
+
+        try {
+            schedule = ScheduleService.getGroupSchedule(groupName);
+            System.out.println(schedule.size());
+        } catch (DBException e) {
+            e.printStackTrace();
+        }
+        for (Schedule row : schedule) {
+            System.out.print(row.getDayOfWeek() + " " + row.getParity() + " " + row.getLesson() + ": \n");
+            for (Lecture lecture : row.getLectures()) {
+                System.out.println(lecture.getSubject().getName() + " / " + lecture.getTeacher().getLastName() + " / "
+                        + lecture.getGroup().getName() + " / " + lecture.getClassroom().getName());
+            }
+            System.out.println();
+        }
+    }
+    
+    public static void schowGroupDayShedule(String groupName, DayOfWeek day, Parity parity) {
+        System.out.println("Расписание занятий для группы " + groupName);
+        List<Schedule> schedule = null;
+
+        try {
+            schedule = ScheduleService.getGroupDaySchedule(groupName, day, parity);
+            System.out.println(schedule.size());
+        } catch (DBException e) {
+            e.printStackTrace();
+        }
+        for (Schedule row : schedule) {
+            System.out.print(row.getDayOfWeek() + " " + row.getParity() + " " + row.getLesson() + ": \n");
+            for (Lecture lecture : row.getLectures()) {
+                System.out.println(lecture.getSubject().getName() + " / " + lecture.getTeacher().getLastName() + " / "
+                        + lecture.getGroup().getName() + " / " + lecture.getClassroom().getName());
+            }
+            System.out.println();
+        }
+    }
+    
+    public static void schowTeacherSchedule(int teacherId) {
+        System.out.println("Расписание занятий для преподавателя с id = " + teacherId);
+        List<Schedule> schedule = null;
+
+        try {
+            schedule = ScheduleService.getTacherSchedule(teacherId);
+            System.out.println(schedule.size());
+        } catch (DBException e) {
+            e.printStackTrace();
+        }
+        for (Schedule row : schedule) {
+            System.out.print(row.getDayOfWeek() + " " + row.getParity() + " " + row.getLesson() + ": \n");
+            for (Lecture lecture : row.getLectures()) {
+                System.out.println(lecture.getSubject().getName() + " / " + lecture.getTeacher().getLastName() + " / "
+                        + lecture.getGroup().getName() + " / " + lecture.getClassroom().getName());
+            }
+            System.out.println();
+        }
+    }
+    
+    public static void schowTeacherDaySchedule(int teacherId, DayOfWeek day, Parity parity) {
+        System.out.println("Расписание занятий для преподавателя с id = " + teacherId);
+        List<Schedule> schedule = null;
+
+        try {
+            schedule = ScheduleService.getTeacherDaySchedule(teacherId, day, parity);
+            System.out.println(schedule.size());
+        } catch (DBException e) {
+            e.printStackTrace();
+        }
+        for (Schedule row : schedule) {
+            System.out.print(row.getDayOfWeek() + " " + row.getParity() + " " + row.getLesson() + ": \n");
+            for (Lecture lecture : row.getLectures()) {
+                System.out.println(lecture.getSubject().getName() + " / " + lecture.getTeacher().getLastName() + " / "
+                        + lecture.getGroup().getName() + " / " + lecture.getClassroom().getName());
             }
             System.out.println();
         }

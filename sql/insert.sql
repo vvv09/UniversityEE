@@ -220,7 +220,7 @@ INSERT INTO lectures_sets_lectures VALUES
 (19, 7),
 (19, 5),
 (19, 3),
-(20, 7),
+(20, 6),
 (20, 23),
 (20, 31),
 (21, 34),

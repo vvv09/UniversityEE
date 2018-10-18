@@ -87,4 +87,3 @@ CREATE TABLE public.schedule
 
     FOREIGN KEY (lecture_set_id) REFERENCES lectures_sets (lectures_set_id) ON DELETE RESTRICT
 );
-

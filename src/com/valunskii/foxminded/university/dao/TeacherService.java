@@ -41,6 +41,5 @@ public class TeacherService {
         } catch (SQLException e) {
             throw new DBException(e);
         }
-
     }
 }
