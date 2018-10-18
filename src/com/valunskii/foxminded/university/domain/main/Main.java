@@ -2,8 +2,13 @@ package com.valunskii.foxminded.university.domain.main;
 
 import java.util.List;
 
+import com.valunskii.foxminded.university.dao.ClassroomService;
 import com.valunskii.foxminded.university.dao.DBException;
-import com.valunskii.foxminded.university.dao.DBService;
+import com.valunskii.foxminded.university.dao.GroupService;
+import com.valunskii.foxminded.university.dao.ScheduleService;
+import com.valunskii.foxminded.university.dao.StudentService;
+import com.valunskii.foxminded.university.dao.SubjectService;
+import com.valunskii.foxminded.university.dao.TeacherService;
 import com.valunskii.foxminded.university.domain.Classroom;
 import com.valunskii.foxminded.university.domain.Group;
 import com.valunskii.foxminded.university.domain.Lecture;
@@ -13,13 +18,12 @@ import com.valunskii.foxminded.university.domain.Subject;
 import com.valunskii.foxminded.university.domain.Teacher;
 
 public class Main {
-    static DBService dbService = new DBService();
         
     public static void main(String[] args) {
              
-//        showUniversity();
-//        workWithStudents();
-//        workWithTeachers();
+        showUniversity();
+        workWithStudents();
+        workWithTeachers();
         schowUnivwrsityShedule();
     }
     
@@ -27,7 +31,7 @@ public class Main {
         System.out.println("1_Список всех групп в университете:");
         List<Group> groups = null;
         try {
-            groups = dbService.getAllGroups();
+            groups = GroupService.getAllGroups();
         } catch (DBException e) {
             e.printStackTrace();
         }
@@ -40,7 +44,7 @@ public class Main {
         System.out.println("2_Список всех аудиторий университета:");
         List<Classroom> rooms = null;
         try {
-            rooms = dbService.getAllClassrooms();
+            rooms = ClassroomService.getAllClassrooms();
         } catch (DBException e) {
             e.printStackTrace();
         }
@@ -53,7 +57,7 @@ public class Main {
         System.out.println("3_Список всех предметов, изучаемых в университете:");
         List<Subject> subjects = null;
         try {
-            subjects = dbService.getAllSubjects();
+            subjects = SubjectService.getAllSubjects();
         } catch (DBException e) {
             e.printStackTrace();
         }
@@ -66,7 +70,7 @@ public class Main {
         System.out.println("4_Преподавательский состав университета:");
         List<Teacher> teachers = null;
         try {
-            teachers = dbService.getAllTeachers();
+            teachers = TeacherService.getAllTeachers();
         } catch (DBException e) {
             e.printStackTrace();
         }
@@ -80,7 +84,7 @@ public class Main {
         System.out.println("5_Список всех учаащихся в университете:");
         List<Student> students = null;
         try {
-            students = dbService.getAllStudents();
+            students = StudentService.getAllStudents();
         } catch (DBException e) {
             e.printStackTrace();
         }
@@ -99,7 +103,7 @@ public class Main {
         System.out.println("Зачиляем нового студента ...");
         int studentsCount = 0;
         try {
-            studentsCount = dbService.addStudent("Моше", "Евкакиевич", "Попхадзе");
+            studentsCount = StudentService.addStudent("Моше", "Евкакиевич", "Попхадзе");
             System.out.println("Новый студент успешно добавлен!\nКоличество студентов: " + studentsCount);
         } catch (DBException e) {
             e.printStackTrace();
@@ -110,7 +114,7 @@ public class Main {
         System.out.println("Ищем последнего зачисленного студента...");
         Student student = null;
         try {
-            student = dbService.getStudent(studentsCount);
+            student = StudentService.getStudent(studentsCount);
         } catch (DBException e) {
             e.printStackTrace();
         }
@@ -121,7 +125,7 @@ public class Main {
 
         System.out.println("Отчисляем студента с id = 22 ...");
         try {
-            studentsCount = dbService.deleteStudent(22);
+            studentsCount = StudentService.deleteStudent(22);
             System.out.println("Студент отчислен!\nКоличество студентов: " + studentsCount);
         } catch (DBException e) {
             e.printStackTrace();
@@ -132,7 +136,7 @@ public class Main {
         System.out.println("Нанимаем нового преподавателя ...");
         int teacherCount = 0;
         try {
-            teacherCount = dbService.addTeacher("Моше", "Евкакиевич", "Попхадзе");
+            teacherCount = TeacherService.addTeacher("Моше", "Евкакиевич", "Попхадзе");
             System.out.println("Новый преподаватель успешно добавлен!\nКоличество преподавателей: " + teacherCount);
         } catch (DBException e) {
             e.printStackTrace();
@@ -143,7 +147,7 @@ public class Main {
         System.out.println("Ищем последнего нанятого преподавателя...");
         Teacher teacher = null;
         try {
-            teacher = dbService.getTeacher(teacherCount);
+            teacher = TeacherService.getTeacher(teacherCount);
         } catch (DBException e) {
             e.printStackTrace();
         }
@@ -154,7 +158,7 @@ public class Main {
 
         System.out.println("Увольняем последнего нанятого преподавателя...");
         try {
-            teacherCount = dbService.deleteTeacher(teacherCount);
+            teacherCount = TeacherService.deleteTeacher(teacherCount);
             System.out.println("Преподаватель уволен!\nКоличество преподавателей: " + teacherCount);
         } catch (DBException e) {
             e.printStackTrace();
@@ -166,7 +170,7 @@ public class Main {
         List<Schedule> schedule = null;
         
         try {
-            schedule = dbService.getAllSchedule();
+            schedule = ScheduleService.getAllSchedule();
         } catch (DBException e) {
             e.printStackTrace();
         }

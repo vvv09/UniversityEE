@@ -1,6 +1,7 @@
 package com.valunskii.foxminded.university.dao;
 
 import java.sql.SQLException;
+import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -10,6 +11,8 @@ import com.valunskii.foxminded.university.dao.executor.Executor;
 import com.valunskii.foxminded.university.domain.Classroom;
 import com.valunskii.foxminded.university.domain.Group;
 import com.valunskii.foxminded.university.domain.Lecture;
+import com.valunskii.foxminded.university.domain.Lesson;
+import com.valunskii.foxminded.university.domain.Parity;
 import com.valunskii.foxminded.university.domain.Schedule;
 import com.valunskii.foxminded.university.domain.Subject;
 import com.valunskii.foxminded.university.domain.Teacher;
@@ -35,25 +38,25 @@ public class ScheduleDao {
                 result -> {
                     List<Schedule> list = new ArrayList<>();
                     Schedule schedule = new Schedule();
-                    Set<Lecture> l = new HashSet<>();
+                    Set<Lecture> lectures = new HashSet<>();
                     while (result.next()) {
                         if (!result.getString("day_of_week").equals(schedule.getDayOfWeek())
                                 || !result.getString("parity").equals(schedule.getParity())
                                 || !result.getString("lesson").equals(schedule.getLesson())) {
-                            schedule.setLectures(l);
-                            l = new HashSet<>();
-                            schedule = new Schedule(result.getString("day_of_week"), result.getString("parity"),
-                                    result.getString("lesson"));
+                            schedule.setLectures(lectures);
+                            lectures = new HashSet<>();
+                            schedule = new Schedule(DayOfWeek.valueOf(result.getString("day_of_week")), Parity.valueOf(result.getString("parity")),
+                                    Lesson.valueOf(result.getString("lesson")));
                             list.add(schedule);
                         }
-                        Subject s = new Subject(result.getString("subject"));
-                        Teacher t = new Teacher(result.getInt("teacher_id"), result.getString("first_name"),
+                        Subject subject = new Subject(result.getString("subject"));
+                        Teacher teacher = new Teacher(result.getInt("teacher_id"), result.getString("first_name"),
                                 result.getString("middle_name"), result.getString("last_name"));
-                        Group g = new Group(result.getString("group_name"));
-                        Classroom c = new Classroom(result.getString("classroom"));
+                        Group group = new Group(result.getString("group_name"));
+                        Classroom classroom = new Classroom(result.getString("classroom"));
 
-                        Lecture lecture = new Lecture(s, t, g, c);
-                        l.add(lecture);
+                        Lecture lecture = new Lecture(subject, teacher, group, classroom);
+                        lectures.add(lecture);
                         
 
                     }
@@ -61,5 +64,3 @@ public class ScheduleDao {
                 });
     }
 }
-
-//new Student(result.getInt("student_id"), result.getString("first_name"), result.getString("middle_name"), result.getString("last_name"));
