@@ -8,11 +8,7 @@ import com.valunskii.foxminded.university.dao.executor.Executor;
 import com.valunskii.foxminded.university.domain.Group;
 
 public class GroupsDao {
-    private Executor executor;
-    
-    public GroupsDao() {
-        this.executor = new Executor();
-    }
+    private Executor executor = new Executor();
     
     public List<Group> getAll() throws SQLException{
         return executor.execQuery("select * from groups", result -> {

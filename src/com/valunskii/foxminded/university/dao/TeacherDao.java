@@ -8,11 +8,7 @@ import com.valunskii.foxminded.university.dao.executor.Executor;
 import com.valunskii.foxminded.university.domain.Teacher;
 
 public class TeacherDao {
-    private Executor executor;
-
-    public TeacherDao() {
-        this.executor = new Executor();
-    }
+    private Executor executor = new Executor();
 
     public List<Teacher> getAll() throws SQLException{
         return executor.execQuery("select * from teachers", result -> {

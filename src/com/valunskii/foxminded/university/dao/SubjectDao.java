@@ -8,11 +8,7 @@ import com.valunskii.foxminded.university.dao.executor.Executor;
 import com.valunskii.foxminded.university.domain.Subject;
 
 public class SubjectDao {
-    private Executor executor;
-
-    public SubjectDao() {
-        this.executor = new Executor();
-    }
+    private Executor executor = new Executor();
 
     public List<Subject> getAll() throws SQLException {
         return executor.execQuery("select * from subjects", result -> {

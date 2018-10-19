@@ -9,11 +9,7 @@ import com.valunskii.foxminded.university.domain.Student;
 
 
 public class StudentDao {
-    private Executor executor;
-
-    public StudentDao() {
-        this.executor = new Executor();
-    }
+    private Executor executor = new Executor();
 
     public List<Student> getAll() throws SQLException{
         return executor.execQuery("select * from students", result -> {

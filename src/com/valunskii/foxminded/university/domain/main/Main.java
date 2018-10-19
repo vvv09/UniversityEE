@@ -23,12 +23,12 @@ public class Main {
 
     public static void main(String[] args) {
 
-//        showUniversity();
-//        workWithStudents();
-//        workWithTeachers();
-//        schowUnivwrsityShedule();
-//        schowGroupShedule("N-3147");
-//        schowGroupDayShedule("N-3147", DayOfWeek.MONDAY, Parity.EVEN);
+        showUniversity();
+        workWithStudents();
+        workWithTeachers();
+        schowUnivwrsityShedule();
+        schowGroupShedule("N-3147");
+        schowGroupDayShedule("N-3147", DayOfWeek.MONDAY, Parity.EVEN);
         schowTeacherSchedule(1);
         schowTeacherDaySchedule(1, DayOfWeek.MONDAY, Parity.EVEN);
 
