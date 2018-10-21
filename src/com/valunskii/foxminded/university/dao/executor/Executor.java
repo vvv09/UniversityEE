@@ -10,18 +10,25 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
 
+import org.apache.log4j.Logger;
+
 public class Executor {
+    private static Logger log = Logger.getLogger(Executor.class);
+    
     private Connection connection;
 
     public void execUpdate(String update) throws SQLException {
+        log.info("Open connection");
         Connection connection = this.getConnection();
         Statement stmt = connection.createStatement();
         stmt.execute(update);
         stmt.close();
         connection.close();
+        log.info("Connection closed");
     }
 
     public <T> T execQuery(String query, ResultHandler<T> handler) throws SQLException {
+        log.info("Open connection");
         Connection connection = this.getConnection();
         Statement stmt = connection.createStatement();
         stmt.execute(query);
@@ -30,12 +37,13 @@ public class Executor {
         result.close();
         stmt.close();
         connection.close();
-
+        log.info("Connection closed");
         return value;
     }
 
     public Connection getConnection() {
         
+        log.info("Get connection settings from db.properties");
         Properties props = readDbProperties();
 
         final String JDBC_DRIVER = props.getProperty("jdbc.driver");
@@ -57,15 +65,19 @@ public class Executor {
         Properties props = new Properties();
         FileInputStream in = null;
         try {
-            in = new FileInputStream("db.properties");
+            log.info("Read properties file");
+            in = new FileInputStream("src\\db.properties");
             props.load(in);
             return props;
         } catch (IOException e) {
             e.printStackTrace();
+            log.error("Cannot read file");
         } finally {
             try {
                 in.close();
+                log.info("File closed");
             } catch (IOException ignore) {
+                log.error("Cannot close file");
             }
         }
         return props;

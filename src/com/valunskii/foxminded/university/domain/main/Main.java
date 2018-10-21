@@ -3,6 +3,8 @@ package com.valunskii.foxminded.university.domain.main;
 import java.time.DayOfWeek;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import com.valunskii.foxminded.university.dao.ClassroomService;
 import com.valunskii.foxminded.university.dao.DBException;
 import com.valunskii.foxminded.university.dao.GroupService;
@@ -20,12 +22,15 @@ import com.valunskii.foxminded.university.domain.Subject;
 import com.valunskii.foxminded.university.domain.Teacher;
 
 public class Main {
+    final static Logger log = Logger.getLogger(Main.class);
 
     public static void main(String[] args) {
+        
+        log.info("START APPLICATION");
 
-        showUniversity();
-        workWithStudents();
-        workWithTeachers();
+//        showUniversity();
+//        workWithStudents();
+//        workWithTeachers();
         schowUnivwrsityShedule();
         schowGroupShedule("N-3147");
         schowGroupDayShedule("N-3147", DayOfWeek.MONDAY, Parity.EVEN);
@@ -42,6 +47,7 @@ public class Main {
             groups = GroupService.getAllGroups();
         } catch (DBException e) {
             e.printStackTrace();
+            log.error(e);
         }
         for (Group group : groups) {
             System.out.print(group.getName() + " ");
@@ -55,6 +61,7 @@ public class Main {
             rooms = ClassroomService.getAllClassrooms();
         } catch (DBException e) {
             e.printStackTrace();
+            log.error(e);
         }
         for (Classroom room : rooms) {
             System.out.print(room.getName() + " ");
@@ -68,6 +75,7 @@ public class Main {
             subjects = SubjectService.getAllSubjects();
         } catch (DBException e) {
             e.printStackTrace();
+            log.error(e);
         }
         for (Subject subject : subjects) {
             System.out.println("    " + subject.getName() + " ");
@@ -81,6 +89,7 @@ public class Main {
             teachers = TeacherService.getAllTeachers();
         } catch (DBException e) {
             e.printStackTrace();
+            log.error(e);
         }
         for (Teacher teacher : teachers) {
             System.out.println("  (id = " + teacher.getId() + ") " + teacher.getLastName() + " "
@@ -89,12 +98,13 @@ public class Main {
         System.out.println("\t -всего " + teachers.size());
         System.out.println();
 
-        System.out.println("5_Список всех учаащихся в университете:");
+        System.out.println("5_Список всех учащихся в университете:");
         List<Student> students = null;
         try {
             students = StudentService.getAllStudents();
         } catch (DBException e) {
             e.printStackTrace();
+            log.error(e);
         }
         for (Student student : students) {
             System.out.println("  (id = " + student.getId() + ") " + student.getLastName() + " "
@@ -116,6 +126,7 @@ public class Main {
             System.out.println("Новый студент успешно добавлен!\nКоличество студентов: " + studentsCount);
         } catch (DBException e) {
             e.printStackTrace();
+            log.error(e);
         }
 
         System.out.println("---");
@@ -138,6 +149,7 @@ public class Main {
             System.out.println("Студент отчислен!\nКоличество студентов: " + studentsCount);
         } catch (DBException e) {
             e.printStackTrace();
+            log.error(e);
         }
     }
 
@@ -159,6 +171,7 @@ public class Main {
             teacher = TeacherService.getTeacher(teacherCount);
         } catch (DBException e) {
             e.printStackTrace();
+            log.error(e);
         }
         System.out.println("  (id = " + teacher.getId() + ") " + teacher.getLastName() + " " + teacher.getFirstName()
                 + " " + teacher.getMiddleName());
@@ -171,6 +184,7 @@ public class Main {
             System.out.println("Преподаватель уволен!\nКоличество преподавателей: " + teacherCount);
         } catch (DBException e) {
             e.printStackTrace();
+            log.error(e);
         }
     }
 
@@ -183,6 +197,7 @@ public class Main {
             System.out.println(schedule.size());
         } catch (DBException e) {
             e.printStackTrace();
+            log.error(e);
         }
         for (Schedule row : schedule) {
             System.out.print(row.getDayOfWeek() + " " + row.getParity() + " " + row.getLesson() + ": \n");
@@ -203,6 +218,7 @@ public class Main {
             System.out.println(schedule.size());
         } catch (DBException e) {
             e.printStackTrace();
+            log.error(e);
         }
         for (Schedule row : schedule) {
             System.out.print(row.getDayOfWeek() + " " + row.getParity() + " " + row.getLesson() + ": \n");
@@ -223,6 +239,7 @@ public class Main {
             System.out.println(schedule.size());
         } catch (DBException e) {
             e.printStackTrace();
+            log.error(e);
         }
         for (Schedule row : schedule) {
             System.out.print(row.getDayOfWeek() + " " + row.getParity() + " " + row.getLesson() + ": \n");
@@ -243,6 +260,7 @@ public class Main {
             System.out.println(schedule.size());
         } catch (DBException e) {
             e.printStackTrace();
+            log.error(e);
         }
         for (Schedule row : schedule) {
             System.out.print(row.getDayOfWeek() + " " + row.getParity() + " " + row.getLesson() + ": \n");
@@ -263,6 +281,7 @@ public class Main {
             System.out.println(schedule.size());
         } catch (DBException e) {
             e.printStackTrace();
+            log.error(e);
         }
         for (Schedule row : schedule) {
             System.out.print(row.getDayOfWeek() + " " + row.getParity() + " " + row.getLesson() + ": \n");

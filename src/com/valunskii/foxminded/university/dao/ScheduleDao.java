@@ -7,6 +7,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.log4j.Logger;
+
 import com.valunskii.foxminded.university.dao.executor.Executor;
 import com.valunskii.foxminded.university.domain.Classroom;
 import com.valunskii.foxminded.university.domain.Group;
@@ -18,9 +20,11 @@ import com.valunskii.foxminded.university.domain.Subject;
 import com.valunskii.foxminded.university.domain.Teacher;
 
 public class ScheduleDao {
+    private static Logger log = Logger.getLogger(ScheduleDao.class);
     private Executor executor = new Executor();
 
     public List<Schedule> get() throws SQLException {
+        log.info("Looking for university schedule");
         return executor.execQuery(
                 "  SELECT schedule.day_of_week, schedule.parity, schedule.lesson, subjects.name AS subject, teachers.teacher_id, teachers.first_name,"
                         + " teachers.middle_name, teachers.last_name, groups.name AS group_name, classrooms.name AS classroom"
@@ -61,11 +65,13 @@ public class ScheduleDao {
                     }
                     schedule.setLectures(lectures);
                     list.add(schedule);
+                    log.info("Return university schedule");
                     return list;
                 });
     }
 
     public List<Schedule> getGroupSchedule(String groupName) throws SQLException {
+        log.info("Looking for schedule for group: " + groupName);
         return executor.execQuery(
                 "  SELECT schedule.day_of_week, schedule.parity, schedule.lesson, subjects.name AS subject, teachers.teacher_id, teachers.first_name,"
                         + " teachers.middle_name, teachers.last_name, groups.name AS group_name, classrooms.name AS classroom"
@@ -107,11 +113,13 @@ public class ScheduleDao {
                     }
                     schedule.setLectures(lectures);
                     list.add(schedule);
+                    log.info("Return schedule for the group");
                     return list;
                 });
     }
 
     public List<Schedule> getGroupDaySchedule(String groupName, DayOfWeek day, Parity parity) throws SQLException {
+        log.info("Looking for schedule for group: " + groupName + ", day: " + day.toString() + " " + parity.toString());
         return executor.execQuery(
                 "  SELECT schedule.day_of_week, schedule.parity, schedule.lesson, subjects.name AS subject, teachers.teacher_id, teachers.first_name,"
                         + " teachers.middle_name, teachers.last_name, groups.name AS group_name, classrooms.name AS classroom"
@@ -152,11 +160,13 @@ public class ScheduleDao {
                     }
                     schedule.setLectures(lectures);
                     list.add(schedule);
+                    log.info("Return day schedule for the group");
                     return list;
                 });
     }
 
     public List<Schedule> getTeacherSchedule(int teacherId) throws SQLException {
+        log.info("Looking for schedule for teacher with id: " + teacherId);
         return executor.execQuery(
                 "  SELECT schedule.day_of_week, schedule.parity, schedule.lesson, subjects.name AS subject, teachers.teacher_id, teachers.first_name,"
                         + " teachers.middle_name, teachers.last_name, groups.name AS group_name, classrooms.name AS classroom"
@@ -198,11 +208,13 @@ public class ScheduleDao {
                     }
                     schedule.setLectures(lectures);
                     list.add(schedule);
+                    log.info("Return schedule for the teacher");
                     return list;
                 });
     }
 
     public List<Schedule> getTeacherDaySchedule(int teacherId, DayOfWeek day, Parity parity) throws SQLException {
+        log.info("Looking for schedule for teacher with id: " + teacherId + ", day: " + day.toString() + " " + parity.toString());
         return executor.execQuery(
                 "  SELECT schedule.day_of_week, schedule.parity, schedule.lesson, subjects.name AS subject, teachers.teacher_id, teachers.first_name,"
                         + " teachers.middle_name, teachers.last_name, groups.name AS group_name, classrooms.name AS classroom"
@@ -243,6 +255,7 @@ public class ScheduleDao {
                     }
                     schedule.setLectures(lectures);
                     list.add(schedule);
+                    log.info("Return day schedule for the teacher");
                     return list;
                 });
     }
