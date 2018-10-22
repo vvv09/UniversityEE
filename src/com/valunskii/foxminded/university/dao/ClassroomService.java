@@ -6,11 +6,11 @@ import java.util.List;
 import com.valunskii.foxminded.university.domain.Classroom;
 
 public class ClassroomService {
-    public static List<Classroom> getAllClassrooms() throws DBException {
+    public static List<Classroom> getAllClassrooms() throws DAOException {
         try {
             return (new ClassroomDao().getAll());
         } catch (SQLException e) {
-            throw new DBException(e);
+            throw new DAOException(e);
         }
     }
 }

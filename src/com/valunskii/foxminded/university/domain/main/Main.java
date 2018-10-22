@@ -6,7 +6,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import com.valunskii.foxminded.university.dao.ClassroomService;
-import com.valunskii.foxminded.university.dao.DBException;
+import com.valunskii.foxminded.university.dao.DAOException;
 import com.valunskii.foxminded.university.dao.GroupService;
 import com.valunskii.foxminded.university.dao.ScheduleService;
 import com.valunskii.foxminded.university.dao.StudentService;
@@ -45,7 +45,7 @@ public class Main {
         List<Group> groups = null;
         try {
             groups = GroupService.getAllGroups();
-        } catch (DBException e) {
+        } catch (DAOException e) {
             e.printStackTrace();
             log.error(e);
         }
@@ -59,7 +59,7 @@ public class Main {
         List<Classroom> rooms = null;
         try {
             rooms = ClassroomService.getAllClassrooms();
-        } catch (DBException e) {
+        } catch (DAOException e) {
             e.printStackTrace();
             log.error(e);
         }
@@ -73,7 +73,7 @@ public class Main {
         List<Subject> subjects = null;
         try {
             subjects = SubjectService.getAllSubjects();
-        } catch (DBException e) {
+        } catch (DAOException e) {
             e.printStackTrace();
             log.error(e);
         }
@@ -87,7 +87,7 @@ public class Main {
         List<Teacher> teachers = null;
         try {
             teachers = TeacherService.getAllTeachers();
-        } catch (DBException e) {
+        } catch (DAOException e) {
             e.printStackTrace();
             log.error(e);
         }
@@ -102,7 +102,7 @@ public class Main {
         List<Student> students = null;
         try {
             students = StudentService.getAllStudents();
-        } catch (DBException e) {
+        } catch (DAOException e) {
             e.printStackTrace();
             log.error(e);
         }
@@ -124,7 +124,7 @@ public class Main {
         try {
             studentsCount = StudentService.addStudent("Моше", "Евкакиевич", "Попхадзе");
             System.out.println("Новый студент успешно добавлен!\nКоличество студентов: " + studentsCount);
-        } catch (DBException e) {
+        } catch (DAOException e) {
             e.printStackTrace();
             log.error(e);
         }
@@ -135,7 +135,7 @@ public class Main {
         Student student = null;
         try {
             student = StudentService.getStudent(studentsCount);
-        } catch (DBException e) {
+        } catch (DAOException e) {
             e.printStackTrace();
         }
         System.out.println("  (id = " + student.getId() + ") " + student.getLastName() + " " + student.getFirstName()
@@ -147,7 +147,7 @@ public class Main {
         try {
             studentsCount = StudentService.deleteStudent(22);
             System.out.println("Студент отчислен!\nКоличество студентов: " + studentsCount);
-        } catch (DBException e) {
+        } catch (DAOException e) {
             e.printStackTrace();
             log.error(e);
         }
@@ -159,7 +159,7 @@ public class Main {
         try {
             teacherCount = TeacherService.addTeacher("Моше", "Евкакиевич", "Попхадзе");
             System.out.println("Новый преподаватель успешно добавлен!\nКоличество преподавателей: " + teacherCount);
-        } catch (DBException e) {
+        } catch (DAOException e) {
             e.printStackTrace();
         }
 
@@ -169,7 +169,7 @@ public class Main {
         Teacher teacher = null;
         try {
             teacher = TeacherService.getTeacher(teacherCount);
-        } catch (DBException e) {
+        } catch (DAOException e) {
             e.printStackTrace();
             log.error(e);
         }
@@ -182,7 +182,7 @@ public class Main {
         try {
             teacherCount = TeacherService.deleteTeacher(teacherCount);
             System.out.println("Преподаватель уволен!\nКоличество преподавателей: " + teacherCount);
-        } catch (DBException e) {
+        } catch (DAOException e) {
             e.printStackTrace();
             log.error(e);
         }
@@ -195,7 +195,7 @@ public class Main {
         try {
             schedule = ScheduleService.getAllSchedule();
             System.out.println(schedule.size());
-        } catch (DBException e) {
+        } catch (DAOException e) {
             e.printStackTrace();
             log.error(e);
         }
@@ -216,7 +216,7 @@ public class Main {
         try {
             schedule = ScheduleService.getGroupSchedule(groupName);
             System.out.println(schedule.size());
-        } catch (DBException e) {
+        } catch (DAOException e) {
             e.printStackTrace();
             log.error(e);
         }
@@ -237,7 +237,7 @@ public class Main {
         try {
             schedule = ScheduleService.getGroupDaySchedule(groupName, day, parity);
             System.out.println(schedule.size());
-        } catch (DBException e) {
+        } catch (DAOException e) {
             e.printStackTrace();
             log.error(e);
         }
@@ -258,7 +258,7 @@ public class Main {
         try {
             schedule = ScheduleService.getTacherSchedule(teacherId);
             System.out.println(schedule.size());
-        } catch (DBException e) {
+        } catch (DAOException e) {
             e.printStackTrace();
             log.error(e);
         }
@@ -279,7 +279,7 @@ public class Main {
         try {
             schedule = ScheduleService.getTeacherDaySchedule(teacherId, day, parity);
             System.out.println(schedule.size());
-        } catch (DBException e) {
+        } catch (DAOException e) {
             e.printStackTrace();
             log.error(e);
         }

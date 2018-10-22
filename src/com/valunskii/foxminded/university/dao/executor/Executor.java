@@ -43,7 +43,7 @@ public class Executor {
 
     public Connection getConnection() {
         
-        log.info("Get connection settings from db.properties");
+        log.trace("Get connection settings from db.properties");
         Properties props = readDbProperties();
 
         final String JDBC_DRIVER = props.getProperty("jdbc.driver");
@@ -65,7 +65,7 @@ public class Executor {
         Properties props = new Properties();
         FileInputStream in = null;
         try {
-            log.info("Read properties file");
+            log.trace("Read properties file");
             in = new FileInputStream("src\\db.properties");
             props.load(in);
             return props;
@@ -75,7 +75,7 @@ public class Executor {
         } finally {
             try {
                 in.close();
-                log.info("File closed");
+                log.trace("File closed");
             } catch (IOException ignore) {
                 log.error("Cannot close file");
             }

@@ -6,40 +6,40 @@ import java.util.List;
 import com.valunskii.foxminded.university.domain.Teacher;
 
 public class TeacherService {
-    public static List<Teacher> getAllTeachers() throws DBException {
+    public static List<Teacher> getAllTeachers() throws DAOException {
         try {
             return (new TeacherDao().getAll());
         } catch (SQLException e) {
-            throw new DBException(e);
+            throw new DAOException(e);
         }
     }
 
-    public static int addTeacher(String firstName, String middleName, String lastName) throws DBException {
+    public static int addTeacher(String firstName, String middleName, String lastName) throws DAOException {
         try {
             TeacherDao dao = new TeacherDao();
             List<Teacher> list = dao.getAll();
             dao.add(list.size() + 1, firstName, middleName, lastName);
             return dao.getAll().size();
         } catch (SQLException e) {
-            throw new DBException(e);
+            throw new DAOException(e);
         } 
     }
 
-    public static Teacher getTeacher(int id) throws DBException {
+    public static Teacher getTeacher(int id) throws DAOException {
         try {
             return (new TeacherDao().get(id));
         } catch (SQLException e) {
-            throw new DBException(e);
+            throw new DAOException(e);
         }
     }
 
-    public static int deleteTeacher(int id) throws DBException {
+    public static int deleteTeacher(int id) throws DAOException {
         try {
             TeacherDao dao = new TeacherDao();
             dao.delete(id);
             return dao.getAll().size();
         } catch (SQLException e) {
-            throw new DBException(e);
+            throw new DAOException(e);
         }
     }
 }

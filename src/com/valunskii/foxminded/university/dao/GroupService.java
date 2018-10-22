@@ -6,11 +6,11 @@ import java.util.List;
 import com.valunskii.foxminded.university.domain.Group;
 
 public class GroupService {
-    public static List<Group> getAllGroups() throws DBException {
+    public static List<Group> getAllGroups() throws DAOException {
         try {
             return (new GroupsDao().getAll());
         } catch (SQLException e) {
-            throw new DBException(e);
+            throw new DAOException(e);
         }
     }
 }
