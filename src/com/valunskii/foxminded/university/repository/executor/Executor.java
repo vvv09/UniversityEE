@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -15,50 +16,58 @@ import org.apache.log4j.Logger;
 public class Executor {
     private static Logger log = Logger.getLogger(Executor.class);
 
-    private Connection connection;
-
     public void execUpdate(String update) throws SQLException {
-        log.info("Open connection");
-        Connection connection = this.getConnection();
-        Statement stmt = connection.createStatement();
-        stmt.execute(update);
-        stmt.close();
-        connection.close();
-        log.info("Connection closed");
-    }
-
-    public <T> T execQuery(String query, ResultHandler<T> handler) throws SQLException {
-        log.info("Open connection");
-        Connection connection = this.getConnection();
-        Statement stmt = connection.createStatement();
-        stmt.execute(query);
-        ResultSet result = stmt.getResultSet();
-        T value = handler.handle(result);
-        result.close();
-        stmt.close();
-        connection.close();
-        log.info("Connection closed");
-        return value;
-    }
-
-    public Connection getConnection() {
-
+        Connection connection = null;
+        Statement stmt = null;
         log.trace("Get connection settings from db.properties");
         Properties props = readDbProperties();
-
         final String JDBC_DRIVER = props.getProperty("jdbc.driver");
         final String DB_URL = props.getProperty("jdbc.url");
         final String USER = props.getProperty("jdbc.username");
         final String PASS = props.getProperty("jdbc.password");
-
         try {
             DriverManager.registerDriver((Driver) Class.forName(JDBC_DRIVER).newInstance());
+            log.info("Open connection");
             connection = DriverManager.getConnection(DB_URL, USER, PASS);
-            return connection;
+            stmt = connection.createStatement();
+            stmt.execute(update);
         } catch (SQLException | InstantiationException | IllegalAccessException | ClassNotFoundException e) {
             e.printStackTrace();
+        } finally {
+            stmt.close();
+            connection.close();
+            log.info("Connection closed");
         }
-        return null;
+    }
+
+    public <T> T execQuery(String query, ResultHandler<T> handler) throws SQLException {
+        Connection connection = null;
+        Statement stmt = null;
+        ResultSet result = null;
+        T value = null;
+        log.trace("Get connection settings from db.properties");
+        Properties props = readDbProperties();
+        final String JDBC_DRIVER = props.getProperty("jdbc.driver");
+        final String DB_URL = props.getProperty("jdbc.url");
+        final String USER = props.getProperty("jdbc.username");
+        final String PASS = props.getProperty("jdbc.password");
+        try {
+            DriverManager.registerDriver((Driver) Class.forName(JDBC_DRIVER).newInstance());
+            log.info("Open connection");
+            connection = DriverManager.getConnection(DB_URL, USER, PASS);
+            stmt = connection.createStatement();
+            stmt.execute(query);
+            result = stmt.getResultSet();
+            value = handler.handle(result);
+        } catch (SQLException | InstantiationException | IllegalAccessException | ClassNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            result.close();
+            stmt.close();
+            connection.close();
+            log.info("Connection closed");
+        }
+        return value;
     }
 
     private Properties readDbProperties() {
