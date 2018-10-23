@@ -25,18 +25,17 @@ public class Main {
     final static Logger log = Logger.getLogger(Main.class);
 
     public static void main(String[] args) {
-        
+
         log.info("START APPLICATION");
 
-//        showUniversity();
-//        workWithStudents();
-//        workWithTeachers();
+        showUniversity();
+        workWithStudents();
+        workWithTeachers();
         schowUnivwrsityShedule();
         schowGroupShedule("N-3147");
         schowGroupDayShedule("N-3147", DayOfWeek.MONDAY, Parity.EVEN);
         schowTeacherSchedule(1);
         schowTeacherDaySchedule(1, DayOfWeek.MONDAY, Parity.EVEN);
-
 
     }
 
@@ -208,6 +207,7 @@ public class Main {
             System.out.println();
         }
     }
+
 // TODO make better appearance for schedule reports (if necessary)
     public static void schowGroupShedule(String groupName) {
         System.out.println("Расписание занятий для группы " + groupName);
@@ -229,7 +229,7 @@ public class Main {
             System.out.println();
         }
     }
-    
+
     public static void schowGroupDayShedule(String groupName, DayOfWeek day, Parity parity) {
         System.out.println("Расписание занятий для группы " + groupName);
         List<Schedule> schedule = null;
@@ -250,7 +250,7 @@ public class Main {
             System.out.println();
         }
     }
-    
+
     public static void schowTeacherSchedule(int teacherId) {
         System.out.println("Расписание занятий для преподавателя с id = " + teacherId);
         List<Schedule> schedule = null;
@@ -271,7 +271,7 @@ public class Main {
             System.out.println();
         }
     }
-    
+
     public static void schowTeacherDaySchedule(int teacherId, DayOfWeek day, Parity parity) {
         System.out.println("Расписание занятий для преподавателя с id = " + teacherId);
         List<Schedule> schedule = null;

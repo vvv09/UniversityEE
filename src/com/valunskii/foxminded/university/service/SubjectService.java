@@ -8,9 +8,11 @@ import com.valunskii.foxminded.university.repository.entity.Subject;
 import com.valunskii.foxminded.university.repository.exception.DAOException;
 
 public class SubjectService {
+    private static SubjectDao dao = new SubjectDao();
+    
     public static List<Subject> getAllSubjects() throws DAOException {
         try {
-            return (new SubjectDao().getAll());
+            return (dao.getAll());
         } catch (SQLException e) {
             throw new DAOException(e);
         }

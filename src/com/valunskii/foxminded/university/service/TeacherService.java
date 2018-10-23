@@ -8,9 +8,11 @@ import com.valunskii.foxminded.university.repository.entity.Teacher;
 import com.valunskii.foxminded.university.repository.exception.DAOException;
 
 public class TeacherService {
+    private static TeacherDao dao = new TeacherDao();
+    
     public static List<Teacher> getAllTeachers() throws DAOException {
         try {
-            return (new TeacherDao().getAll());
+            return (dao.getAll());
         } catch (SQLException e) {
             throw new DAOException(e);
         }
@@ -18,7 +20,6 @@ public class TeacherService {
 
     public static int addTeacher(String firstName, String middleName, String lastName) throws DAOException {
         try {
-            TeacherDao dao = new TeacherDao();
             List<Teacher> list = dao.getAll();
             dao.add(list.size() + 1, firstName, middleName, lastName);
             return dao.getAll().size();
@@ -29,7 +30,7 @@ public class TeacherService {
 
     public static Teacher getTeacher(int id) throws DAOException {
         try {
-            return (new TeacherDao().get(id));
+            return (dao.get(id));
         } catch (SQLException e) {
             throw new DAOException(e);
         }
@@ -37,7 +38,6 @@ public class TeacherService {
 
     public static int deleteTeacher(int id) throws DAOException {
         try {
-            TeacherDao dao = new TeacherDao();
             dao.delete(id);
             return dao.getAll().size();
         } catch (SQLException e) {

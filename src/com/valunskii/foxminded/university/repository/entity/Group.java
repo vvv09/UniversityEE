@@ -10,7 +10,7 @@ import lombok.Setter;
 public class Group {
     private @Setter String name;
     private Set<Student> students = new HashSet<>();
-        
+
     public Group(String name) {
         this.name = name;
     }
@@ -32,7 +32,7 @@ public class Group {
     }
 
     @Override
-    public boolean equals(Object obj) { //name is enough, since groups can't be called identically...
+    public boolean equals(Object obj) { // name is enough, since groups can't be called identically...
         if (this == obj)
             return true;
         if (obj == null)
@@ -46,5 +46,5 @@ public class Group {
         } else if (!name.equals(other.name))
             return false;
         return true;
-    }    
+    }
 }

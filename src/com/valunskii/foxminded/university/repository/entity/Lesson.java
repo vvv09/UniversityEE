@@ -16,6 +16,6 @@ public enum Lesson {
     }
 
     String getDescription() {
-        return (name + " ( начало в " + timeBegin + " / окончание в " + timeEnd +" )");
+        return (name + " ( начало в " + timeBegin + " / окончание в " + timeEnd + " )");
     }
 }

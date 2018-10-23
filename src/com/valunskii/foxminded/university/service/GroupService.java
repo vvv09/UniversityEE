@@ -8,9 +8,11 @@ import com.valunskii.foxminded.university.repository.entity.Group;
 import com.valunskii.foxminded.university.repository.exception.DAOException;
 
 public class GroupService {
+    private static GroupsDao dao = new GroupsDao();
+
     public static List<Group> getAllGroups() throws DAOException {
         try {
-            return (new GroupsDao().getAll());
+            return (dao.getAll());
         } catch (SQLException e) {
             throw new DAOException(e);
         }

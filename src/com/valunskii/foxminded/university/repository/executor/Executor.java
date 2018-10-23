@@ -14,7 +14,7 @@ import org.apache.log4j.Logger;
 
 public class Executor {
     private static Logger log = Logger.getLogger(Executor.class);
-    
+
     private Connection connection;
 
     public void execUpdate(String update) throws SQLException {
@@ -42,7 +42,7 @@ public class Executor {
     }
 
     public Connection getConnection() {
-        
+
         log.trace("Get connection settings from db.properties");
         Properties props = readDbProperties();
 
@@ -52,7 +52,7 @@ public class Executor {
         final String PASS = props.getProperty("jdbc.password");
 
         try {
-            DriverManager.registerDriver((Driver) Class.forName(JDBC_DRIVER).newInstance());            
+            DriverManager.registerDriver((Driver) Class.forName(JDBC_DRIVER).newInstance());
             connection = DriverManager.getConnection(DB_URL, USER, PASS);
             return connection;
         } catch (SQLException | InstantiationException | IllegalAccessException | ClassNotFoundException e) {

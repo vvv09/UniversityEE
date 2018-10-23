@@ -214,7 +214,8 @@ public class ScheduleDao {
     }
 
     public List<Schedule> getTeacherDaySchedule(int teacherId, DayOfWeek day, Parity parity) throws SQLException {
-        log.info("Looking for schedule for teacher with id: " + teacherId + ", day: " + day.toString() + " " + parity.toString());
+        log.info("Looking for schedule for teacher with id: " + teacherId + ", day: " + day.toString() + " "
+                + parity.toString());
         return executor.execQuery(
                 "  SELECT schedule.day_of_week, schedule.parity, schedule.lesson, subjects.name AS subject, teachers.teacher_id, teachers.first_name,"
                         + " teachers.middle_name, teachers.last_name, groups.name AS group_name, classrooms.name AS classroom"

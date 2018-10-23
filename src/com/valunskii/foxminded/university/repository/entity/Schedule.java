@@ -12,7 +12,7 @@ public class Schedule {
     private Parity parity;
     private Lesson lesson;
     private @Setter Set<Lecture> lectures;
-    
+
     public Schedule(DayOfWeek dayOfWeek, Parity parity, Lesson lesson) {
         this.dayOfWeek = dayOfWeek;
         this.parity = parity;
@@ -20,6 +20,6 @@ public class Schedule {
     }
 
     public Schedule() {
-        
-    } 
+
+    }
 }
