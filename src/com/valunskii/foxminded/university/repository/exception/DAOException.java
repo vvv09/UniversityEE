@@ -1,4 +1,4 @@
-package com.valunskii.foxminded.university.dao;
+package com.valunskii.foxminded.university.repository.exception;
 
 @SuppressWarnings("serial")
 public class DAOException extends Exception {

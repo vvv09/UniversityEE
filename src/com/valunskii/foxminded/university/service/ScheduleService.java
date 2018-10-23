@@ -1,11 +1,13 @@
-package com.valunskii.foxminded.university.dao;
+package com.valunskii.foxminded.university.service;
 
 import java.sql.SQLException;
 import java.time.DayOfWeek;
 import java.util.List;
 
-import com.valunskii.foxminded.university.domain.Parity;
-import com.valunskii.foxminded.university.domain.Schedule;
+import com.valunskii.foxminded.university.repository.dao.ScheduleDao;
+import com.valunskii.foxminded.university.repository.entity.Parity;
+import com.valunskii.foxminded.university.repository.entity.Schedule;
+import com.valunskii.foxminded.university.repository.exception.DAOException;
 
 public class ScheduleService {
     public static List<Schedule> getAllSchedule() throws DAOException {

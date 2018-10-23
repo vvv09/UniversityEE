@@ -29,7 +29,6 @@ CREATE TABLE public.teachers
     last_name character varying(30)
 );
 
-
 CREATE TABLE public.classrooms
 (
 	classroom_id serial primary key,

@@ -1,4 +1,4 @@
-package com.valunskii.foxminded.university.dao;
+package com.valunskii.foxminded.university.repository.dao;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -6,8 +6,8 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import com.valunskii.foxminded.university.dao.executor.Executor;
-import com.valunskii.foxminded.university.domain.Teacher;
+import com.valunskii.foxminded.university.repository.entity.Teacher;
+import com.valunskii.foxminded.university.repository.executor.Executor;
 
 public class TeacherDao {
     private static Logger log = Logger.getLogger(TeacherDao.class);

@@ -1,4 +1,4 @@
-package com.valunskii.foxminded.university.dao;
+package com.valunskii.foxminded.university.repository.dao;
 
 import java.sql.SQLException;
 import java.time.DayOfWeek;
@@ -9,15 +9,15 @@ import java.util.Set;
 
 import org.apache.log4j.Logger;
 
-import com.valunskii.foxminded.university.dao.executor.Executor;
-import com.valunskii.foxminded.university.domain.Classroom;
-import com.valunskii.foxminded.university.domain.Group;
-import com.valunskii.foxminded.university.domain.Lecture;
-import com.valunskii.foxminded.university.domain.Lesson;
-import com.valunskii.foxminded.university.domain.Parity;
-import com.valunskii.foxminded.university.domain.Schedule;
-import com.valunskii.foxminded.university.domain.Subject;
-import com.valunskii.foxminded.university.domain.Teacher;
+import com.valunskii.foxminded.university.repository.entity.Classroom;
+import com.valunskii.foxminded.university.repository.entity.Group;
+import com.valunskii.foxminded.university.repository.entity.Lecture;
+import com.valunskii.foxminded.university.repository.entity.Lesson;
+import com.valunskii.foxminded.university.repository.entity.Parity;
+import com.valunskii.foxminded.university.repository.entity.Schedule;
+import com.valunskii.foxminded.university.repository.entity.Subject;
+import com.valunskii.foxminded.university.repository.entity.Teacher;
+import com.valunskii.foxminded.university.repository.executor.Executor;
 
 public class ScheduleDao {
     private static Logger log = Logger.getLogger(ScheduleDao.class);

@@ -1,25 +1,25 @@
-package com.valunskii.foxminded.university.domain.main;
+package com.valunskii.foxminded.university.main;
 
 import java.time.DayOfWeek;
 import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import com.valunskii.foxminded.university.dao.ClassroomService;
-import com.valunskii.foxminded.university.dao.DAOException;
-import com.valunskii.foxminded.university.dao.GroupService;
-import com.valunskii.foxminded.university.dao.ScheduleService;
-import com.valunskii.foxminded.university.dao.StudentService;
-import com.valunskii.foxminded.university.dao.SubjectService;
-import com.valunskii.foxminded.university.dao.TeacherService;
-import com.valunskii.foxminded.university.domain.Classroom;
-import com.valunskii.foxminded.university.domain.Group;
-import com.valunskii.foxminded.university.domain.Lecture;
-import com.valunskii.foxminded.university.domain.Parity;
-import com.valunskii.foxminded.university.domain.Schedule;
-import com.valunskii.foxminded.university.domain.Student;
-import com.valunskii.foxminded.university.domain.Subject;
-import com.valunskii.foxminded.university.domain.Teacher;
+import com.valunskii.foxminded.university.repository.entity.Classroom;
+import com.valunskii.foxminded.university.repository.entity.Group;
+import com.valunskii.foxminded.university.repository.entity.Lecture;
+import com.valunskii.foxminded.university.repository.entity.Parity;
+import com.valunskii.foxminded.university.repository.entity.Schedule;
+import com.valunskii.foxminded.university.repository.entity.Student;
+import com.valunskii.foxminded.university.repository.entity.Subject;
+import com.valunskii.foxminded.university.repository.entity.Teacher;
+import com.valunskii.foxminded.university.repository.exception.DAOException;
+import com.valunskii.foxminded.university.service.ClassroomService;
+import com.valunskii.foxminded.university.service.GroupService;
+import com.valunskii.foxminded.university.service.ScheduleService;
+import com.valunskii.foxminded.university.service.StudentService;
+import com.valunskii.foxminded.university.service.SubjectService;
+import com.valunskii.foxminded.university.service.TeacherService;
 
 public class Main {
     final static Logger log = Logger.getLogger(Main.class);

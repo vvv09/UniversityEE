@@ -1,4 +1,4 @@
-package com.valunskii.foxminded.university.domain;
+package com.valunskii.foxminded.university.repository.entity;
 
 public enum Lesson {
     FIRST("Первая пара", "9:00", "10:30"), SECOND("Вторая пара", "10:45", "12:15"),

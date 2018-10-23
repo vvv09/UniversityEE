@@ -1,4 +1,4 @@
-package com.valunskii.foxminded.university.dao.executor;
+package com.valunskii.foxminded.university.repository.executor;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

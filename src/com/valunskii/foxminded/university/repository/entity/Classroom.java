@@ -1,12 +1,12 @@
-package com.valunskii.foxminded.university.domain;
+package com.valunskii.foxminded.university.repository.entity;
 
 import lombok.Getter;
 
 @Getter
-public class Subject {
+public class Classroom {
     private String name;
 
-    public Subject(String name) {
+    public Classroom(String name) {
         this.name = name;
     }
 
@@ -26,7 +26,7 @@ public class Subject {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        Subject other = (Subject) obj;
+        Classroom other = (Classroom) obj;
         if (name == null) {
             if (other.name != null)
                 return false;

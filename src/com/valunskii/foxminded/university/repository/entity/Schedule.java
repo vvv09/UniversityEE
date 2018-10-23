@@ -1,4 +1,4 @@
-package com.valunskii.foxminded.university.domain;
+package com.valunskii.foxminded.university.repository.entity;
 
 import java.util.Set;
 import java.time.DayOfWeek;

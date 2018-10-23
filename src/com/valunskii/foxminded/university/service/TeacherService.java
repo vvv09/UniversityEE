@@ -1,9 +1,11 @@
-package com.valunskii.foxminded.university.dao;
+package com.valunskii.foxminded.university.service;
 
 import java.sql.SQLException;
 import java.util.List;
 
-import com.valunskii.foxminded.university.domain.Teacher;
+import com.valunskii.foxminded.university.repository.dao.TeacherDao;
+import com.valunskii.foxminded.university.repository.entity.Teacher;
+import com.valunskii.foxminded.university.repository.exception.DAOException;
 
 public class TeacherService {
     public static List<Teacher> getAllTeachers() throws DAOException {
