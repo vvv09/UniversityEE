@@ -1,6 +1,5 @@
 package com.valunskii.foxminded.university.repository.dao;
 
-import java.sql.SQLException;
 import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -17,13 +16,14 @@ import com.valunskii.foxminded.university.repository.entity.Parity;
 import com.valunskii.foxminded.university.repository.entity.Schedule;
 import com.valunskii.foxminded.university.repository.entity.Subject;
 import com.valunskii.foxminded.university.repository.entity.Teacher;
+import com.valunskii.foxminded.university.repository.exception.DAOException;
 import com.valunskii.foxminded.university.repository.executor.Executor;
 
 public class ScheduleDao {
     private static Logger log = Logger.getLogger(ScheduleDao.class);
     private Executor executor = new Executor();
 
-    public List<Schedule> get() throws SQLException {
+    public List<Schedule> get() throws DAOException {
         log.info("Looking for university schedule");
         return executor.execQuery(
                 "  SELECT schedule.day_of_week, schedule.parity, schedule.lesson, subjects.name AS subject, teachers.teacher_id, teachers.first_name,"
@@ -70,7 +70,7 @@ public class ScheduleDao {
                 });
     }
 
-    public List<Schedule> getGroupSchedule(String groupName) throws SQLException {
+    public List<Schedule> getGroupSchedule(String groupName) throws DAOException {
         log.info("Looking for schedule for group: " + groupName);
         return executor.execQuery(
                 "  SELECT schedule.day_of_week, schedule.parity, schedule.lesson, subjects.name AS subject, teachers.teacher_id, teachers.first_name,"
@@ -118,7 +118,7 @@ public class ScheduleDao {
                 });
     }
 
-    public List<Schedule> getGroupDaySchedule(String groupName, DayOfWeek day, Parity parity) throws SQLException {
+    public List<Schedule> getGroupDaySchedule(String groupName, DayOfWeek day, Parity parity) throws DAOException {
         log.info("Looking for schedule for group: " + groupName + ", day: " + day.toString() + " " + parity.toString());
         return executor.execQuery(
                 "  SELECT schedule.day_of_week, schedule.parity, schedule.lesson, subjects.name AS subject, teachers.teacher_id, teachers.first_name,"
@@ -165,7 +165,7 @@ public class ScheduleDao {
                 });
     }
 
-    public List<Schedule> getTeacherSchedule(int teacherId) throws SQLException {
+    public List<Schedule> getTeacherSchedule(int teacherId) throws DAOException {
         log.info("Looking for schedule for teacher with id: " + teacherId);
         return executor.execQuery(
                 "  SELECT schedule.day_of_week, schedule.parity, schedule.lesson, subjects.name AS subject, teachers.teacher_id, teachers.first_name,"
@@ -213,7 +213,7 @@ public class ScheduleDao {
                 });
     }
 
-    public List<Schedule> getTeacherDaySchedule(int teacherId, DayOfWeek day, Parity parity) throws SQLException {
+    public List<Schedule> getTeacherDaySchedule(int teacherId, DayOfWeek day, Parity parity) throws DAOException {
         log.info("Looking for schedule for teacher with id: " + teacherId + ", day: " + day.toString() + " "
                 + parity.toString());
         return executor.execQuery(

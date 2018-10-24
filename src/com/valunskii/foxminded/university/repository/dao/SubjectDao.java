@@ -1,19 +1,19 @@
 package com.valunskii.foxminded.university.repository.dao;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
 
 import com.valunskii.foxminded.university.repository.entity.Subject;
+import com.valunskii.foxminded.university.repository.exception.DAOException;
 import com.valunskii.foxminded.university.repository.executor.Executor;
 
 public class SubjectDao {
     private static Logger log = Logger.getLogger(SubjectDao.class);
     private Executor executor = new Executor();
 
-    public List<Subject> getAll() throws SQLException {
+    public List<Subject> getAll() throws DAOException {
         log.info("Looking for subject list");
         return executor.execQuery("select * from subjects", result -> {
             List<Subject> list = new ArrayList<>();

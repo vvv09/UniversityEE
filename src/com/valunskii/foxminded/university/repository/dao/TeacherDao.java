@@ -1,19 +1,19 @@
 package com.valunskii.foxminded.university.repository.dao;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
 
 import com.valunskii.foxminded.university.repository.entity.Teacher;
+import com.valunskii.foxminded.university.repository.exception.DAOException;
 import com.valunskii.foxminded.university.repository.executor.Executor;
 
 public class TeacherDao {
     private static Logger log = Logger.getLogger(TeacherDao.class);
     private Executor executor = new Executor();
 
-    public List<Teacher> getAll() throws SQLException {
+    public List<Teacher> getAll() throws DAOException {
         log.info("Looking for teacher list");
         return executor.execQuery("select * from teachers", result -> {
             List<Teacher> list = new ArrayList<>();
@@ -26,7 +26,7 @@ public class TeacherDao {
         });
     }
 
-    public Teacher get(int id) throws SQLException {
+    public Teacher get(int id) throws DAOException {
         log.info("Looking for teacher with id = " + id);
         return executor.execQuery("select * from teachers where teacher_id=" + id, result -> {
             result.next();
@@ -36,14 +36,14 @@ public class TeacherDao {
         });
     }
 
-    public void add(int id, String firstName, String middleName, String lastName) throws SQLException {
+    public void add(int id, String firstName, String middleName, String lastName) throws DAOException {
         log.info("Add new teacher");
         executor.execUpdate("INSERT INTO teachers VALUES (" + id + ",'" + firstName + "','" + middleName + "','"
                 + lastName + "');");
         log.info("Teacher added");
     }
 
-    public void delete(int id) throws SQLException {
+    public void delete(int id) throws DAOException {
         log.info("Delete teacher");
         executor.execUpdate("DELETE FROM teachers WHERE teacher_id = " + id);
         log.info("Teacher deleted");
