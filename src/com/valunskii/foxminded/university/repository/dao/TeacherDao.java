@@ -15,7 +15,7 @@ public class TeacherDao {
 
     public List<Teacher> getAll() throws DAOException {
         log.info("Looking for teacher list");
-        return executor.execQuery("select * from teachers", result -> {
+        return executor.execQuery(result -> {
             List<Teacher> list = new ArrayList<>();
             while (result.next()) {
                 list.add(new Teacher(result.getInt("teacher_id"), result.getString("first_name"),
@@ -23,29 +23,28 @@ public class TeacherDao {
             }
             log.info("Return teacher list");
             return list;
-        });
+        }, "SELECT * FROM teachers");
     }
 
     public Teacher get(int id) throws DAOException {
         log.info("Looking for teacher with id = " + id);
-        return executor.execQuery("select * from teachers where teacher_id=" + id, result -> {
+        return executor.execQuery(result -> {
             result.next();
             log.info("Return teacher");
             return new Teacher(result.getInt("teacher_id"), result.getString("first_name"),
                     result.getString("middle_name"), result.getString("last_name"));
-        });
+        }, "SELECT * FROM teachers WHERE teacher_id = ?", id);
     }
 
     public void add(int id, String firstName, String middleName, String lastName) throws DAOException {
         log.info("Add new teacher");
-        executor.execUpdate("INSERT INTO teachers VALUES (" + id + ",'" + firstName + "','" + middleName + "','"
-                + lastName + "');");
+        executor.execUpdate("INSERT INTO teachers VALUES (?, ?, ?, ?);", id, firstName, middleName, lastName);
         log.info("Teacher added");
     }
 
     public void delete(int id) throws DAOException {
         log.info("Delete teacher");
-        executor.execUpdate("DELETE FROM teachers WHERE teacher_id = " + id);
+        executor.execUpdate("DELETE FROM teachers WHERE teacher_id = ?", id);
         log.info("Teacher deleted");
     }
 }

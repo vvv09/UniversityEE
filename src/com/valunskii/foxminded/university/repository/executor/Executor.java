@@ -3,11 +3,10 @@ package com.valunskii.foxminded.university.repository.executor;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.Driver;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.Properties;
 
 import org.apache.log4j.Logger;
@@ -17,20 +16,23 @@ import com.valunskii.foxminded.university.repository.exception.DAOException;
 public class Executor {
     private static Logger log = Logger.getLogger(Executor.class);
 
-    public void execUpdate(String update) throws DAOException {
+    public void execUpdate(String query, Object... parameters) throws DAOException {
         Connection connection = null;
-        Statement statement = null;
+        PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
         try {
             log.trace("Open connection");
             connection = this.getConnection();
             try {
                 log.trace("Create statement");
-                statement = connection.createStatement();
-                statement.execute(update);
+                preparedStatement = connection.prepareStatement(query);
+                for(int i = 0; i < parameters.length; i++) {
+                    preparedStatement.setObject(i+1, parameters[i]);
+                 }
+                preparedStatement.execute();
                 try {
                     log.trace("Get result set");
-                    resultSet = statement.getResultSet();
+                    resultSet = preparedStatement.getResultSet();
                     log.trace("Create object to return");
                 } finally {
                     if(resultSet != null) {
@@ -43,9 +45,9 @@ public class Executor {
                     }
                 }
             } finally {
-                if(statement != null) {
+                if(preparedStatement != null) {
                     try {
-                        statement.close();
+                        preparedStatement.close();
                         log.trace("Statement closed");
                     } catch (SQLException e) {
                         log.warn("Cannot close statement", e);
@@ -66,22 +68,25 @@ public class Executor {
             }
         }
     }
-
-    public <T> T execQuery(String query, ResultHandler<T> handler) throws DAOException {
+    
+    public <T> T execQuery(ResultHandler<T> handler, String query, Object... parameters) throws DAOException {
         T value = null;
         Connection connection = null;
-        Statement statement = null;
+        PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
         try {
             log.trace("Open connection");
             connection = this.getConnection();
             try {
                 log.trace("Create statement");
-                statement = connection.createStatement();
-                statement.execute(query);
+                preparedStatement = connection.prepareStatement(query);
+                for(int i = 0; i < parameters.length; i++) {
+                    preparedStatement.setObject(i+1, parameters[i]);
+                 }
+                preparedStatement.execute();
                 try {
                     log.trace("Get result set");
-                    resultSet = statement.getResultSet();
+                    resultSet = preparedStatement.getResultSet();
                     log.trace("Create object to return");
                     value = handler.handle(resultSet);
                 } finally {
@@ -95,9 +100,9 @@ public class Executor {
                     }
                 }
             } finally {
-                if(statement != null) {
+                if(preparedStatement != null) {
                     try {
-                        statement.close();
+                        preparedStatement.close();
                         log.trace("Statement closed");
                     } catch (SQLException e) {
                         log.warn("Cannot close statement", e);

@@ -15,14 +15,14 @@ public class GroupsDao {
 
     public List<Group> getAll() throws DAOException {
         log.info("Looking for group list");
-        return executor.execQuery("select * from groups", result -> {
+        return executor.execQuery(result -> {
             List<Group> list = new ArrayList<>();
             while (result.next()) {
                 list.add(new Group(result.getString("name")));
             }
             log.info("return group list");
             return list;
-        });
+        }, "SELECT * FROM groups");
     }
 
 }

@@ -15,13 +15,13 @@ public class SubjectDao {
 
     public List<Subject> getAll() throws DAOException {
         log.info("Looking for subject list");
-        return executor.execQuery("select * from subjects", result -> {
+        return executor.execQuery(result -> {
             List<Subject> list = new ArrayList<>();
             while (result.next()) {
                 list.add(new Subject(result.getString("name")));
             }
             log.info("return subject list");
             return list;
-        });
+        }, "SELECT * FROM subjects");
     }
 }

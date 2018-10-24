@@ -15,13 +15,13 @@ public class ClassroomDao {
 
     public List<Classroom> getAll() throws DAOException {
         log.info("Looking for classroom list");
-        return executor.execQuery("select * from classrooms", result -> {
+        return executor.execQuery(result -> {
             List<Classroom> list = new ArrayList<>();
             while (result.next()) {
                 list.add(new Classroom(result.getString("name")));
             }
             log.info("Return classroom list");
             return list;
-        });
+        }, "SELECT * FROM classrooms");
     }
 }
