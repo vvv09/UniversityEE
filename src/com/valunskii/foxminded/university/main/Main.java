@@ -27,10 +27,10 @@ public class Main {
     public static void main(String[] args) {
 
         log.info("START APPLICATION");
-//
-//        showUniversity();
-//        workWithStudents();
-//        workWithTeachers();
+
+        showUniversity();
+        workWithStudents();
+        workWithTeachers();
         schowUnivwrsityShedule();
         schowGroupShedule("N-3147");
         schowGroupDayShedule("N-3147", DayOfWeek.MONDAY, Parity.EVEN);

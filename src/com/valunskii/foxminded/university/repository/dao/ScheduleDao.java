@@ -110,7 +110,7 @@ public class ScheduleDao {
     }
 
     public List<Schedule> getGroupDaySchedule(String groupName, DayOfWeek day, Parity parity) throws DAOException {
-        log.info("Looking for schedule for group: " + groupName + ", day: " + day.toString() + " " + parity.toString());
+        log.info("Looking for schedule for group: " + groupName + ", day: " + day.name() + " " + parity.name());
         return executor.execQuery(result -> {
             List<Schedule> list = new ArrayList<>();
             Schedule schedule = null;
@@ -146,8 +146,10 @@ public class ScheduleDao {
                 + " JOIN subjects ON lectures.subject_id = subjects.subject_id"
                 + " JOIN teachers ON lectures.teacher_id = teachers.teacher_id"
                 + " JOIN groups ON lectures.group_id = groups.group_id"
-                + " JOIN classrooms ON lectures.classroom_id = classrooms.classroom_id" + " WHERE groups.name = ? AND schedule.day_of_week = '" + day.toString() + "' AND schedule.parity = '"
-                + parity.toString() + "' ORDER BY schedule.parity, schedule.day_of_week, schedule.lesson;", groupName);
+                + " JOIN classrooms ON lectures.classroom_id = classrooms.classroom_id"
+                + " WHERE groups.name = ? AND schedule.day_of_week = CAST ( ? AS day_of_week) AND schedule.parity = CAST (? As parity)"
+                + " ORDER BY schedule.parity, schedule.day_of_week, schedule.lesson;", groupName, day.name(),
+                parity.name());
     }
 
     public List<Schedule> getTeacherSchedule(int teacherId) throws DAOException {
@@ -190,7 +192,8 @@ public class ScheduleDao {
                 + " JOIN teachers ON lectures.teacher_id = teachers.teacher_id"
                 + " JOIN groups ON lectures.group_id = groups.group_id"
                 + " JOIN classrooms ON lectures.classroom_id = classrooms.classroom_id"
-                + " WHERE teachers.teacher_id = ? ORDER BY schedule.parity,schedule.day_of_week, schedule.lesson;", teacherId);
+                + " WHERE teachers.teacher_id = ? ORDER BY schedule.parity,schedule.day_of_week, schedule.lesson;",
+                teacherId);
     }
 
     public List<Schedule> getTeacherDaySchedule(int teacherId, DayOfWeek day, Parity parity) throws DAOException {
@@ -232,8 +235,8 @@ public class ScheduleDao {
                 + " JOIN teachers ON lectures.teacher_id = teachers.teacher_id"
                 + " JOIN groups ON lectures.group_id = groups.group_id"
                 + " JOIN classrooms ON lectures.classroom_id = classrooms.classroom_id"
-                + " WHERE teachers.teacher_id = ? AND schedule.day_of_week = '" + day.name()
-                + "' AND schedule.parity = '" + parity.toString()
-                + "' ORDER BY schedule.parity,schedule.day_of_week, schedule.lesson;", teacherId);
+                + " WHERE teachers.teacher_id = ? AND schedule.day_of_week = CAST ( ? AS day_of_week) AND schedule.parity = CAST (? As parity) "
+                + "ORDER BY schedule.parity,schedule.day_of_week, schedule.lesson;", teacherId, day.name(),
+                parity.name());
     }
 }
