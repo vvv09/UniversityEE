@@ -2,6 +2,7 @@ package com.valunskii.foxminded.university.repository.executor;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -145,21 +146,24 @@ public class Executor {
 
     private Properties readDbProperties() {
         Properties props = new Properties();
-        FileInputStream in = null;
+        InputStream in = null;
         try {
             log.trace("Read properties file");
-            in = new FileInputStream("src\\db.properties");
-            props.load(in);
-            return props;
+            in = getClass().getClassLoader().getResourceAsStream("db.properties");
+            if (in != null) {
+                props.load(in);
+            }
         } catch (IOException e) {
             e.printStackTrace();
             log.error("Cannot read file");
         } finally {
-            try {
-                in.close();
-                log.trace("File closed");
-            } catch (IOException ignore) {
-                log.error("Cannot close file");
+            if(in != null) {
+                try {       
+                    in.close();
+                    log.trace("File closed");
+                } catch (IOException ignore) {
+                    log.error("Cannot close file");
+                }
             }
         }
         return props;
