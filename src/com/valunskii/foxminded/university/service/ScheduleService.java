@@ -12,24 +12,24 @@ public class ScheduleService {
     private static ScheduleDao dao = new ScheduleDao();
 
     public static List<Schedule> getAllSchedule() throws DAOException {
-            return (dao.get());
+            return dao.get();
     }
 
     public static List<Schedule> getGroupSchedule(String groupName) throws DAOException {
-            return (dao.getGroupSchedule(groupName));
+            return dao.getGroupSchedule(groupName);
     }
 
     public static List<Schedule> getGroupDaySchedule(String groupName, DayOfWeek day, Parity parity)
             throws DAOException {
-            return (dao.getGroupDaySchedule(groupName, day, parity));
+            return dao.getGroupDaySchedule(groupName, day, parity);
     }
 
     public static List<Schedule> getTacherSchedule(int teacherId) throws DAOException {
-            return (dao.getTeacherSchedule(teacherId));
+            return dao.getTeacherSchedule(teacherId);
     }
 
     public static List<Schedule> getTeacherDaySchedule(int teacherId, DayOfWeek day, Parity parity)
             throws DAOException {
-            return (dao.getTeacherDaySchedule(teacherId, day, parity));
+            return dao.getTeacherDaySchedule(teacherId, day, parity);
     }
 }

@@ -10,6 +10,6 @@ public class ClassroomService {
     private static ClassroomDao dao = new ClassroomDao();
 
     public static List<Classroom> getAllClassrooms() throws DAOException {
-            return (dao.getAll());
+            return dao.getAll();
     }
 }

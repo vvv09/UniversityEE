@@ -10,7 +10,7 @@ public class TeacherService {
     private static TeacherDao dao = new TeacherDao();
     
     public static List<Teacher> getAllTeachers() throws DAOException {
-            return (dao.getAll());
+            return dao.getAll();
     }
 
     public static int addTeacher(String firstName, String middleName, String lastName) throws DAOException {
@@ -20,7 +20,7 @@ public class TeacherService {
     }
 
     public static Teacher getTeacher(int id) throws DAOException {
-            return (dao.get(id));
+            return dao.get(id);
     }
 
     public static int deleteTeacher(int id) throws DAOException {

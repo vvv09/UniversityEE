@@ -10,6 +10,6 @@ public class GroupService {
     private static GroupsDao dao = new GroupsDao();
 
     public static List<Group> getAllGroups() throws DAOException {
-            return (dao.getAll());
+            return dao.getAll();
     }
 }

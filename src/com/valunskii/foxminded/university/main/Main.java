@@ -31,11 +31,11 @@ public class Main {
         showUniversity();
         workWithStudents();
         workWithTeachers();
-        schowUnivwrsityShedule();
-        schowGroupShedule("N-3147");
-        schowGroupDayShedule("N-3147", DayOfWeek.MONDAY, Parity.EVEN);
-        schowTeacherSchedule(1);
-        schowTeacherDaySchedule(1, DayOfWeek.MONDAY, Parity.EVEN);
+        showUnivwrsityShedule();
+        showGroupShedule("N-3147");
+        showGroupDayShedule("N-3147", DayOfWeek.MONDAY, Parity.EVEN);
+        showTeacherSchedule(1);
+        showTeacherDaySchedule(1, DayOfWeek.MONDAY, Parity.EVEN);
 
     }
 
@@ -187,7 +187,7 @@ public class Main {
         }
     }
 
-    public static void schowUnivwrsityShedule() {
+    public static void showUnivwrsityShedule() {
         System.out.println("Расписание университета ...");
         List<Schedule> schedule = null;
 
@@ -199,17 +199,18 @@ public class Main {
             log.error(e);
         }
         for (Schedule row : schedule) {
-            System.out.print(row.getDayOfWeek() + " " + row.getParity() + " " + row.getLesson() + ": \n");
+            System.out.printf("%s %s %s: \n", row.getDayOfWeek(), row.getParity(), row.getLesson());
             for (Lecture lecture : row.getLectures()) {
-                System.out.println(lecture.getSubject().getName() + " / " + lecture.getTeacher().getLastName() + " / "
-                        + lecture.getGroup().getName() + " / " + lecture.getClassroom().getName());
+                System.out.printf("%s  / %s  /  %s / %s \n", lecture.getSubject().getName(),
+                        lecture.getTeacher().getLastName(), lecture.getGroup().getName(),
+                        lecture.getClassroom().getName());
             }
             System.out.println();
         }
     }
 
 // TODO make better appearance for schedule reports (if necessary)
-    public static void schowGroupShedule(String groupName) {
+    public static void showGroupShedule(String groupName) {
         System.out.println("Расписание занятий для группы " + groupName);
         List<Schedule> schedule = null;
 
@@ -221,16 +222,17 @@ public class Main {
             log.error(e);
         }
         for (Schedule row : schedule) {
-            System.out.print(row.getDayOfWeek() + " " + row.getParity() + " " + row.getLesson() + ": \n");
+            System.out.printf("%s %s %s: \n", row.getDayOfWeek(), row.getParity(), row.getLesson());
             for (Lecture lecture : row.getLectures()) {
-                System.out.println(lecture.getSubject().getName() + " / " + lecture.getTeacher().getLastName() + " / "
-                        + lecture.getGroup().getName() + " / " + lecture.getClassroom().getName());
+                System.out.printf("%s  / %s  /  %s / %s \n", lecture.getSubject().getName(),
+                        lecture.getTeacher().getLastName(), lecture.getGroup().getName(),
+                        lecture.getClassroom().getName());
             }
             System.out.println();
         }
     }
 
-    public static void schowGroupDayShedule(String groupName, DayOfWeek day, Parity parity) {
+    public static void showGroupDayShedule(String groupName, DayOfWeek day, Parity parity) {
         System.out.println("Расписание занятий для группы " + groupName);
         List<Schedule> schedule = null;
 
@@ -242,16 +244,17 @@ public class Main {
             log.error(e);
         }
         for (Schedule row : schedule) {
-            System.out.print(row.getDayOfWeek() + " " + row.getParity() + " " + row.getLesson() + ": \n");
+            System.out.printf("%s %s %s: \n", row.getDayOfWeek(), row.getParity(), row.getLesson());
             for (Lecture lecture : row.getLectures()) {
-                System.out.println(lecture.getSubject().getName() + " / " + lecture.getTeacher().getLastName() + " / "
-                        + lecture.getGroup().getName() + " / " + lecture.getClassroom().getName());
+                System.out.printf("%s  / %s  /  %s / %s \n", lecture.getSubject().getName(),
+                        lecture.getTeacher().getLastName(), lecture.getGroup().getName(),
+                        lecture.getClassroom().getName());
             }
             System.out.println();
         }
     }
 
-    public static void schowTeacherSchedule(int teacherId) {
+    public static void showTeacherSchedule(int teacherId) {
         System.out.println("Расписание занятий для преподавателя с id = " + teacherId);
         List<Schedule> schedule = null;
 
@@ -263,16 +266,17 @@ public class Main {
             log.error(e);
         }
         for (Schedule row : schedule) {
-            System.out.print(row.getDayOfWeek() + " " + row.getParity() + " " + row.getLesson() + ": \n");
+            System.out.printf("%s %s %s: \n", row.getDayOfWeek(), row.getParity(), row.getLesson());
             for (Lecture lecture : row.getLectures()) {
-                System.out.println(lecture.getSubject().getName() + " / " + lecture.getTeacher().getLastName() + " / "
-                        + lecture.getGroup().getName() + " / " + lecture.getClassroom().getName());
+                System.out.printf("%s  / %s  /  %s / %s \n", lecture.getSubject().getName(),
+                        lecture.getTeacher().getLastName(), lecture.getGroup().getName(),
+                        lecture.getClassroom().getName());
             }
             System.out.println();
         }
     }
 
-    public static void schowTeacherDaySchedule(int teacherId, DayOfWeek day, Parity parity) {
+    public static void showTeacherDaySchedule(int teacherId, DayOfWeek day, Parity parity) {
         System.out.println("Расписание занятий для преподавателя с id = " + teacherId);
         List<Schedule> schedule = null;
 
@@ -284,10 +288,11 @@ public class Main {
             log.error(e);
         }
         for (Schedule row : schedule) {
-            System.out.print(row.getDayOfWeek() + " " + row.getParity() + " " + row.getLesson() + ": \n");
+            System.out.printf("%s %s %s: \n", row.getDayOfWeek(), row.getParity(), row.getLesson());
             for (Lecture lecture : row.getLectures()) {
-                System.out.println(lecture.getSubject().getName() + " / " + lecture.getTeacher().getLastName() + " / "
-                        + lecture.getGroup().getName() + " / " + lecture.getClassroom().getName());
+                System.out.printf("%s  / %s  /  %s / %s \n", lecture.getSubject().getName(),
+                        lecture.getTeacher().getLastName(), lecture.getGroup().getName(),
+                        lecture.getClassroom().getName());
             }
             System.out.println();
         }

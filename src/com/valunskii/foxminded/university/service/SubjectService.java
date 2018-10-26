@@ -10,6 +10,6 @@ public class SubjectService {
     private static SubjectDao dao = new SubjectDao();
     
     public static List<Subject> getAllSubjects() throws DAOException {
-            return (dao.getAll());
+            return dao.getAll();
     }
 }
