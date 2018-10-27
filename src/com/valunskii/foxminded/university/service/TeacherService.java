@@ -13,18 +13,16 @@ public class TeacherService {
             return dao.getAll();
     }
 
-    public static int addTeacher(String firstName, String middleName, String lastName) throws DAOException {
+    public static void addTeacher(String firstName, String middleName, String lastName) throws DAOException {
             List<Teacher> list = dao.getAll();
             dao.add(list.size() + 1, firstName, middleName, lastName);
-            return dao.getAll().size();
     }
 
     public static Teacher getTeacher(int id) throws DAOException {
             return dao.get(id);
     }
 
-    public static int deleteTeacher(int id) throws DAOException {
+    public static void deleteTeacher(int id) throws DAOException {
             dao.delete(id);
-            return dao.getAll().size();
     }
 }

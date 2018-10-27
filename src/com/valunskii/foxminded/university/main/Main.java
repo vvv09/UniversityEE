@@ -121,7 +121,8 @@ public class Main {
         System.out.println("Зачиляем нового студента ...");
         int studentsCount = 0;
         try {
-            studentsCount = StudentService.addStudent("Моше", "Евкакиевич", "Попхадзе");
+            StudentService.addStudent("Моше", "Евкакиевич", "Попхадзе");
+            studentsCount = StudentService.getAllStudents().size(); 
             System.out.println("Новый студент успешно добавлен!\nКоличество студентов: " + studentsCount);
         } catch (DAOException e) {
             e.printStackTrace();
@@ -144,7 +145,8 @@ public class Main {
 
         System.out.println("Отчисляем студента с id = 22 ...");
         try {
-            studentsCount = StudentService.deleteStudent(22);
+            StudentService.deleteStudent(22);
+            studentsCount = StudentService.getAllStudents().size();
             System.out.println("Студент отчислен!\nКоличество студентов: " + studentsCount);
         } catch (DAOException e) {
             e.printStackTrace();
@@ -156,7 +158,8 @@ public class Main {
         System.out.println("Нанимаем нового преподавателя ...");
         int teacherCount = 0;
         try {
-            teacherCount = TeacherService.addTeacher("Моше", "Евкакиевич", "Попхадзе");
+            TeacherService.addTeacher("Моше", "Евкакиевич", "Попхадзе");
+            teacherCount = TeacherService.getAllTeachers().size();
             System.out.println("Новый преподаватель успешно добавлен!\nКоличество преподавателей: " + teacherCount);
         } catch (DAOException e) {
             e.printStackTrace();
@@ -179,7 +182,8 @@ public class Main {
 
         System.out.println("Увольняем последнего нанятого преподавателя...");
         try {
-            teacherCount = TeacherService.deleteTeacher(teacherCount);
+            TeacherService.deleteTeacher(teacherCount);
+            teacherCount = TeacherService.getAllTeachers().size();
             System.out.println("Преподаватель уволен!\nКоличество преподавателей: " + teacherCount);
         } catch (DAOException e) {
             e.printStackTrace();
