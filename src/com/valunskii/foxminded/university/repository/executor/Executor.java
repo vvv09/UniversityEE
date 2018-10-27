@@ -17,25 +17,30 @@ public class Executor {
     private static Logger log = Logger.getLogger(Executor.class);
 
     public void execUpdate(String query, Object... parameters) throws DAOException {
+        log.trace("Open connection to database");
         try (Connection connection = this.getConnection();
                 PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             for (int i = 0; i < parameters.length; i++) {
                 preparedStatement.setObject(i + 1, parameters[i]);
             }
+            log.trace("Update data in database");
             preparedStatement.execute();
         } catch (SQLException e) {
             log.warn("Update execution failed", e);
             throw new DAOException("Update execution failed", e);
         }
+        log.trace("Close connection to database");
     }
 
     public <T> T execQuery(ResultHandler<T> handler, String query, Object... parameters) throws DAOException {
         T value = null;
+        log.trace("Open connection to database");
         try (Connection connection = this.getConnection();
                 PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             for (int i = 0; i < parameters.length; i++) {
                 preparedStatement.setObject(i + 1, parameters[i]);
             }
+            log.trace("Get data from database");
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 value = handler.handle(resultSet);
             }
@@ -43,6 +48,7 @@ public class Executor {
             log.warn("Update execution failed", e);
             throw new DAOException("Update execution failed", e);
         }
+        log.trace("Close connection to database");
         return value;
     }
 
