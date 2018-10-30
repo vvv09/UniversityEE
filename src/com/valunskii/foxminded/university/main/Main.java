@@ -29,8 +29,8 @@ public class Main {
         log.info("START APPLICATION");
 
         showUniversity();
-        workWithStudents();
-        workWithTeachers();
+        showAllStudents();
+        showAllTeachers();
         showUnivwrsityShedule();
         showGroupShedule("N-3147");
         showGroupDayShedule("N-3147", DayOfWeek.MONDAY, Parity.EVEN);
@@ -81,8 +81,10 @@ public class Main {
         }
         System.out.println("\t -всего " + subjects.size());
         System.out.println();
+    }
 
-        System.out.println("4_Преподавательский состав университета:");
+    private static void showAllTeachers() {
+        System.out.println("Преподавательский состав университета:");
         List<Teacher> teachers = null;
         try {
             teachers = TeacherService.getAllTeachers();
@@ -96,8 +98,10 @@ public class Main {
         }
         System.out.println("\t -всего " + teachers.size());
         System.out.println();
+    }
 
-        System.out.println("5_Список всех учащихся в университете:");
+    private static void showAllStudents() {
+        System.out.println("Список всех учащихся в университете:");
         List<Student> students = null;
         try {
             students = StudentService.getAllStudents();
@@ -116,81 +120,7 @@ public class Main {
         System.out.println();
     }
 
-    // TODO working with list size as id looks like a bad idea. consider this...
-    private static void workWithStudents() {
-        System.out.println("Зачиляем нового студента ...");
-        int studentsCount = 0;
-        try {
-            StudentService.addStudent("Моше", "Евкакиевич", "Попхадзе");
-            studentsCount = StudentService.getAllStudents().size(); 
-            System.out.println("Новый студент успешно добавлен!\nКоличество студентов: " + studentsCount);
-        } catch (DAOException e) {
-            e.printStackTrace();
-            log.error(e);
-        }
-
-        System.out.println("---");
-
-        System.out.println("Ищем последнего зачисленного студента...");
-        Student student = null;
-        try {
-            student = StudentService.getStudent(studentsCount);
-        } catch (DAOException e) {
-            e.printStackTrace();
-        }
-        System.out.println("  (id = " + student.getId() + ") " + student.getLastName() + " " + student.getFirstName()
-                + " " + student.getMiddleName());
-
-        System.out.println("---");
-
-        System.out.println("Отчисляем студента с id = 22 ...");
-        try {
-            StudentService.deleteStudent(22);
-            studentsCount = StudentService.getAllStudents().size();
-            System.out.println("Студент отчислен!\nКоличество студентов: " + studentsCount);
-        } catch (DAOException e) {
-            e.printStackTrace();
-            log.error(e);
-        }
-    }
-
-    private static void workWithTeachers() {
-        System.out.println("Нанимаем нового преподавателя ...");
-        int teacherCount = 0;
-        try {
-            TeacherService.addTeacher("Моше", "Евкакиевич", "Попхадзе");
-            teacherCount = TeacherService.getAllTeachers().size();
-            System.out.println("Новый преподаватель успешно добавлен!\nКоличество преподавателей: " + teacherCount);
-        } catch (DAOException e) {
-            e.printStackTrace();
-        }
-
-        System.out.println("---");
-
-        System.out.println("Ищем последнего нанятого преподавателя...");
-        Teacher teacher = null;
-        try {
-            teacher = TeacherService.getTeacher(teacherCount);
-        } catch (DAOException e) {
-            e.printStackTrace();
-            log.error(e);
-        }
-        System.out.println("  (id = " + teacher.getId() + ") " + teacher.getLastName() + " " + teacher.getFirstName()
-                + " " + teacher.getMiddleName());
-
-        System.out.println("---");
-
-        System.out.println("Увольняем последнего нанятого преподавателя...");
-        try {
-            TeacherService.deleteTeacher(teacherCount);
-            teacherCount = TeacherService.getAllTeachers().size();
-            System.out.println("Преподаватель уволен!\nКоличество преподавателей: " + teacherCount);
-        } catch (DAOException e) {
-            e.printStackTrace();
-            log.error(e);
-        }
-    }
-
+   
     public static void showUnivwrsityShedule() {
         System.out.println("Расписание университета ...");
         List<Schedule> schedule = null;

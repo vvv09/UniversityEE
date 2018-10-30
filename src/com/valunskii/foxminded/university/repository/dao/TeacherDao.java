@@ -36,9 +36,9 @@ public class TeacherDao {
         }, "SELECT * FROM teachers WHERE teacher_id = ?", id);
     }
 
-    public void add(int id, String firstName, String middleName, String lastName) throws DAOException {
+    public void add(String firstName, String middleName, String lastName) throws DAOException {
         log.info("Add new teacher");
-        executor.execUpdate("INSERT INTO teachers VALUES (?, ?, ?, ?);", id, firstName, middleName, lastName);
+        executor.execUpdate("INSERT INTO teachers (first_name, middle_name, last_name) VALUES (?, ?, ?);", firstName, middleName, lastName);
         log.info("Teacher added");
     }
 

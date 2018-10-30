@@ -23,7 +23,7 @@ public class StudentDao {
             }
             log.info("Return student list");
             return list;
-        }, "SELECT * FROM students");
+        }, "SELECT * FROM students ORDER BY student_id");
     }
 
     public Student get(int id) throws DAOException {
@@ -36,9 +36,9 @@ public class StudentDao {
         }, "SELECT * FROM public.students WHERE student_id = ?", id);
     }
 
-    public void add(int id, String firstName, String middleName, String lastName) throws DAOException {
+    public void add(String firstName, String middleName, String lastName) throws DAOException {
         log.info("Add new student");
-        executor.execUpdate("INSERT INTO students VALUES (?, ?, ?, ?);", id, firstName, middleName, lastName);
+        executor.execUpdate("INSERT INTO students(first_name, middle_name, last_name) VALUES (?, ?, ?);", firstName, middleName, lastName);
         log.info("Student added");
     }
 

@@ -48,7 +48,7 @@ public class Executor {
             log.warn("Quary execution failed", e);
             throw new DAOException("Quary execution failed", e);
         }
-        log.trace("debug connection to database");
+        log.debug("Open connection to database");
         return value;
     }
 

@@ -14,8 +14,7 @@ public class TeacherService {
     }
 
     public static void addTeacher(String firstName, String middleName, String lastName) throws DAOException {
-            List<Teacher> list = dao.getAll();
-            dao.add(list.size() + 1, firstName, middleName, lastName);
+            dao.add(firstName, middleName, lastName);
     }
 
     public static Teacher getTeacher(int id) throws DAOException {

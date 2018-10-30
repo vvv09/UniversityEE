@@ -14,15 +14,16 @@ public class StudentService {
     }
 
     public static void addStudent(String firstName, String middleName, String lastName) throws DAOException {
-            List<Student> list = dao.getAll();
-            dao.add(list.size() + 1, firstName, middleName, lastName);
+            
+            dao.add(firstName, middleName, lastName);
     }
 
     public static Student getStudent(int id) throws DAOException {
             return dao.get(id);
     }
 
-    public static void deleteStudent(int id) throws DAOException {
+    public static int deleteStudent(int id) throws DAOException {
             dao.delete(id);
+            return dao.getAll().size();
     }
 }
