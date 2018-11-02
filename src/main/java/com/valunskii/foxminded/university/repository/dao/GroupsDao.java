@@ -24,5 +24,4 @@ public class GroupsDao {
             return list;
         }, "SELECT * FROM groups");
     }
-
 }
