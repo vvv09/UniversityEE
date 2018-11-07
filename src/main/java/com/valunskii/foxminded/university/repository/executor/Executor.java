@@ -35,6 +35,7 @@ public class Executor {
     public <T> T execQuery(ResultHandler<T> handler, String query, Object... parameters) throws DAOException {
         T value = null;
         log.debug("Open connection to database");
+        
         try (Connection connection = this.getConnection();
                 PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             for (int i = 0; i < parameters.length; i++) {
@@ -57,14 +58,16 @@ public class Executor {
         log.trace("Get connection settings from db.properties");
         Properties props = readDbProperties();
 
+        final String DRIVER = props.getProperty("jdbc.driver");
         final String DB_URL = props.getProperty("jdbc.url");
         final String USER = props.getProperty("jdbc.username");
         final String PASS = props.getProperty("jdbc.password");
 
         try {
+            Class.forName(DRIVER);
             Connection connection = DriverManager.getConnection(DB_URL, USER, PASS);
             return connection;
-        } catch (SQLException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
         return null;
