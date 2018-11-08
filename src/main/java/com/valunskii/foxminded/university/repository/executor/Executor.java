@@ -49,7 +49,7 @@ public class Executor {
             log.warn("Quary execution failed", e);
             throw new DAOException("Quary execution failed", e);
         }
-        log.debug("Open connection to database");
+        log.debug("Close connection to database");
         return value;
     }
 
