@@ -24,4 +24,22 @@ public class SubjectDao {
             return list;
         }, "SELECT * FROM subjects");
     }
+    
+    public void add(String name) throws DAOException {
+        log.info("Add new subject");
+        executor.execUpdate("INSERT INTO subjects (name) VALUES (?);", name);
+        log.info("Subject added");
+    }
+
+    public void delete(int id) throws DAOException {
+        log.info("Delete subject with id = " + id);
+        executor.execUpdate("DELETE FROM subjects WHERE subject_id = ?", id);
+        log.info("Subject deleted");
+    }
+    
+    public void update(int id, String name) throws DAOException {
+        log.info("Update subject with id = " + id);
+        executor.execUpdate("UPDATE subjects SET name = ? WHERE subject_id = ?", name, id);
+        log.info("Subject updated");
+    }
 }

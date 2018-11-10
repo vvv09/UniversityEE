@@ -47,4 +47,10 @@ public class StudentDao {
         executor.execUpdate("DELETE FROM students WHERE student_id = ?", id);
         log.info("Student deleted");
     }
+    
+    public void update(int id, String firstName, String middleName, String lastName) throws DAOException {
+        log.info("Update student with id = " + id);
+        executor.execUpdate("UPDATE students SET first_name = ?, middle_name = ?, last_name = ? WHERE student_id = ?", firstName, middleName, lastName, id);
+        log.info("Student updated");
+    }
 }

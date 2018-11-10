@@ -12,4 +12,16 @@ public class SubjectService {
     public static List<Subject> getAllSubjects() throws DAOException {
             return dao.getAll();
     }
+    
+    public static void addSubject(String name) throws DAOException {
+        dao.add(name);
+    }
+
+    public static void deleteSubject(int id) throws DAOException {
+        dao.delete(id);
+    }
+
+    public static void updateSubject(int id, String name) throws DAOException {
+        dao.update(id, name);
+    }
 }

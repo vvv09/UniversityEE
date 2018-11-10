@@ -24,4 +24,22 @@ public class ClassroomDao {
             return list;
         }, "SELECT * FROM classrooms");
     }
+    
+    public void add(String name) throws DAOException {
+        log.info("Add new classroom");
+        executor.execUpdate("INSERT INTO classrooms (name) VALUES (?);", name);
+        log.info("Classroom added");
+    }
+
+    public void delete(int id) throws DAOException {
+        log.info("Delete classroom with id = " + id);
+        executor.execUpdate("DELETE FROM classrooms WHERE classroom_id = ?", id);
+        log.info("Classroom deleted");
+    }
+    
+    public void update(int id, String name) throws DAOException {
+        log.info("Update classroom with id = " + id);
+        executor.execUpdate("UPDATE classrooms SET name = ? WHERE classroom_id = ?", name, id);
+        log.info("Classroom updated");
+    }
 }

@@ -12,4 +12,16 @@ public class ClassroomService {
     public static List<Classroom> getAllClassrooms() throws DAOException {
             return dao.getAll();
     }
+    
+    public static void addClassroom(String name) throws DAOException {
+        dao.add(name);
+    }
+
+    public static void deleteClassroom(int id) throws DAOException {
+        dao.delete(id);
+    }
+
+    public static void updateClassroom(int id, String name) throws DAOException {
+        dao.update(id, name);
+    }
 }

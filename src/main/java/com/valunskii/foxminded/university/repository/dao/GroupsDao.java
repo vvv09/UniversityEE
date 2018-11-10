@@ -24,4 +24,22 @@ public class GroupsDao {
             return list;
         }, "SELECT * FROM groups");
     }
+    
+    public void add(String name) throws DAOException {
+        log.info("Add new group");
+        executor.execUpdate("INSERT INTO groups (name) VALUES (?);", name);
+        log.info("Group added");
+    }
+
+    public void delete(int id) throws DAOException {
+        log.info("Delete group with id = " + id);
+        executor.execUpdate("DELETE FROM groups WHERE group_id = ?", id);
+        log.info("Group deleted");
+    }
+    
+    public void update(int id, String name) throws DAOException {
+        log.info("Update group with id = " + id);
+        executor.execUpdate("UPDATE subjects SET groups = ? WHERE group_id = ?", name, id);
+        log.info("Group updated");
+    }
 }

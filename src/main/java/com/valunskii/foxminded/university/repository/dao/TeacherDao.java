@@ -43,8 +43,14 @@ public class TeacherDao {
     }
 
     public void delete(int id) throws DAOException {
-        log.info("Delete teacher");
+        log.info("Delete teacher with id = " + id);
         executor.execUpdate("DELETE FROM teachers WHERE teacher_id = ?", id);
         log.info("Teacher deleted");
+    }
+    
+    public void update(int id, String firstName, String middleName, String lastName) throws DAOException {
+        log.info("Update teacher with id = " + id);
+        executor.execUpdate("UPDATE teachers SET first_name = ?, middle_name = ?, last_name = ? WHERE teacher_id = ?", firstName, middleName, lastName, id);
+        log.info("Teacher updated");
     }
 }
