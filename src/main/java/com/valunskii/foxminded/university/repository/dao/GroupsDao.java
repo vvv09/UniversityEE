@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import com.valunskii.foxminded.university.repository.entity.Classroom;
 import com.valunskii.foxminded.university.repository.entity.Group;
 import com.valunskii.foxminded.university.repository.exception.DAOException;
 import com.valunskii.foxminded.university.repository.executor.Executor;
@@ -49,7 +48,7 @@ public class GroupsDao {
     
     public void update(int id, String name) throws DAOException {
         log.info("Update group with id = " + id);
-        executor.execUpdate("UPDATE subjects SET groups = ? WHERE group_id = ?", name, id);
+        executor.execUpdate("UPDATE groups SET name = ? WHERE group_id = ?", name, id);
         log.info("Group updated");
     }
 }

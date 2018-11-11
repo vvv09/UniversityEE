@@ -1,7 +1,6 @@
 package com.valunskii.foxminded.university.ui;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,25 +10,23 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
-import com.valunskii.foxminded.university.repository.entity.Group;
 import com.valunskii.foxminded.university.repository.exception.DAOException;
 import com.valunskii.foxminded.university.service.GroupService;
 
-
-@WebServlet("/groupServlet")
-public class GroupServlet extends HttpServlet {
-final static Logger log = Logger.getLogger(ClassroomServlet.class);
+@WebServlet("/editGroupServlet")
+public class EditGroupServlet extends HttpServlet {
+final static Logger log = Logger.getLogger(EditGroupServlet.class);
     
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Group> groups = null;
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        String name = request.getParameter("name");
+        
         try {
-            groups = GroupService.getAllGroups();
+            GroupService.updateGroup(id, name);
         } catch (DAOException e) {
             log.error(e);
             e.printStackTrace();
         }
-        
-        request.setAttribute("groups", groups);
-        this.getServletContext().getRequestDispatcher("/groups.jsp").forward(request, response);
+        response.sendRedirect("getGroupListServlet");
     }
 }

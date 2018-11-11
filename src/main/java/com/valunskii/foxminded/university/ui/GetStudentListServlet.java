@@ -16,9 +16,9 @@ import com.valunskii.foxminded.university.repository.exception.DAOException;
 import com.valunskii.foxminded.university.service.StudentService;
 
 
-@WebServlet("/studentServlet")
-public class StudentServlet extends HttpServlet {
-final static Logger log = Logger.getLogger(ClassroomServlet.class);
+@WebServlet("/getStudentListServlet")
+public class GetStudentListServlet extends HttpServlet {
+final static Logger log = Logger.getLogger(GetStudentListServlet.class);
     
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<Student> students = null;
@@ -30,6 +30,7 @@ final static Logger log = Logger.getLogger(ClassroomServlet.class);
         }
         
         request.setAttribute("students", students);
+        request.setAttribute("true_page", this.getServletName());
         this.getServletContext().getRequestDispatcher("/students.jsp").forward(request, response);
     }
 }

@@ -11,12 +11,12 @@
 	<fieldset>
 		<legend>Выберите раздел:</legend>
 		<ul>
-			<li><a href="classroomServlet">Аудитории</a></li>
-			<li><a href="subjectServlet">Предметы</a></li>
-			<li><a href="teacherServlet">Преподаватели</a></li>
-			<li><a href="groupServlet">Группы</a></li>
-			<li><a href="studentServlet">Студенты</a></li>
-			<li><a href="schduleServlet">Расписание</a></li>
+			<li><a href="getClassroomListServlet">Аудитории</a></li>
+			<li><a href="getSubjectListServlet">Предметы</a></li>
+			<li><a href="getTeacherListServlet">Преподаватели</a></li>
+			<li><a href="getGroupListServlet">Группы</a></li>
+			<li><a href="getStudentListServlet">Студенты</a></li>
+			<li><a href="getUniversityScheduleServlet">Расписание</a></li>
 		</ul>
 	</fieldset>
 </body>

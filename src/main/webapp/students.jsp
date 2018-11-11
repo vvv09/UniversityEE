@@ -6,21 +6,43 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>subjects</title>
+<title>Student List</title>
 </head>
 <body>
-    <h3>Студенты</h3>
 
-    <c:forEach items="${students}" var="s">
-       ${s.lastName} ${s.firstName} ${s.middleName} <em>(id = ${s.id})</em></br>
-    </c:forEach>
-
-    <p>
-        <em>(всего: ${fn:length(students)})</em>
-    </p>
-    
-     <p>
-        <em><a href="index.jsp">Назад</a></em>
-    </p>
+	<c:set var="truePage" value="${true_page}" />
+	<c:if
+		test="${(truePage == null) || (truePage != 'com.valunskii.foxminded.university.ui.GetStudentListServlet')}">
+		<c:redirect url="getStudentListServlet" />
+	</c:if>
+	
+	<h3>Студенты</h3>
+	<table border="1" width="50%">
+		<tr>
+			<th>Ф.И.О.</th>
+			<th>Группа</th>
+			<th>ID</th>
+			<th></th>
+			<th></th>
+		</tr>
+		<c:forEach items="${students}" var="s">
+			<tr>
+				<td>${s.lastName} ${s.firstName} ${s.middleName}</td>
+				<td>группе быть</td>
+				<td>${s.id}</td>
+				<td><a href="getStudentServlet?id=${s.getId()}">Edit</a></td>
+				<td><a href="deleteStudentServlet?id=${s.getId()}">Delete</a></td>
+			</tr>
+		</c:forEach>
+	</table>
+	<p>
+		<em>(всего: ${fn:length(students)})</em>
+	</p>
+	<p>
+		<a href="addstudentform.jsp">Добавить студента</a>
+	</p>
+	<p>
+		<em><a href="index.jsp">На главную</a></em>
+	</p>
 </body>
 </html>

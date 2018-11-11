@@ -3,9 +3,7 @@ package com.valunskii.foxminded.university.service;
 import java.util.List;
 
 import com.valunskii.foxminded.university.repository.dao.GroupsDao;
-import com.valunskii.foxminded.university.repository.entity.Classroom;
 import com.valunskii.foxminded.university.repository.entity.Group;
-import com.valunskii.foxminded.university.repository.entity.Student;
 import com.valunskii.foxminded.university.repository.exception.DAOException;
 
 public class GroupService {

@@ -15,9 +15,9 @@ import com.valunskii.foxminded.university.repository.entity.Classroom;
 import com.valunskii.foxminded.university.repository.exception.DAOException;
 import com.valunskii.foxminded.university.service.ClassroomService;
 
-@WebServlet("/classroomServlet")
-public class ClassroomServlet extends HttpServlet {
-    final static Logger log = Logger.getLogger(ClassroomServlet.class);
+@WebServlet("/getClassroomListServlet")
+public class GetClassroomListServlet extends HttpServlet {
+    final static Logger log = Logger.getLogger(GetClassroomListServlet.class);
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		List<Classroom> classrooms = null;
@@ -29,6 +29,7 @@ public class ClassroomServlet extends HttpServlet {
         }
 	    
 	    request.setAttribute("classrooms", classrooms);
+	    request.setAttribute("true_page", this.getServletName());
 	    this.getServletContext().getRequestDispatcher("/classrooms.jsp").forward(request, response);
 	}
 }

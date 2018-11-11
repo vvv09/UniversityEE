@@ -1,7 +1,6 @@
 package com.valunskii.foxminded.university.ui;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,21 +14,20 @@ import com.valunskii.foxminded.university.repository.entity.Teacher;
 import com.valunskii.foxminded.university.repository.exception.DAOException;
 import com.valunskii.foxminded.university.service.TeacherService;
 
-
-@WebServlet("/teacherServlet")
-public class TeacherServlet extends HttpServlet {
-final static Logger log = Logger.getLogger(ClassroomServlet.class);
-    
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Teacher> teachers = null;
+@WebServlet("/getTeacherServlet")
+public class GetTeacherServlet extends HttpServlet {
+    final static Logger log = Logger.getLogger(GetTeacherServlet.class);
+       
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	    Teacher teacher = null;
         try {
-            teachers = TeacherService.getAllTeachers();
+            teacher = TeacherService.getTeacher(Integer.parseInt(request.getParameter("id")));
         } catch (DAOException e) {
             log.error(e);
             e.printStackTrace();
         }
         
-        request.setAttribute("teachers", teachers);
-        this.getServletContext().getRequestDispatcher("/teachers.jsp").forward(request, response);
-    }
+        request.setAttribute("teacher", teacher);
+        this.getServletContext().getRequestDispatcher("/editteacherform.jsp").forward(request, response);
+	}
 }

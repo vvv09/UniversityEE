@@ -6,21 +6,34 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>subjects</title>
+<title>Subject List</title>
 </head>
 <body>
-    <h3>Предметы</h3>
 
-    <c:forEach items="${subjects}" var="s">
-       ${s.name} </br>
-    </c:forEach>
-
-    <p>
-        <em>(всего: ${fn:length(subjects)})</em>
-    </p>
-    
-     <p>
-        <em><a href="index.jsp">Назад</a></em>
-    </p>
+	<c:set var="truePage" value="${true_page}" />
+	<c:if
+		test="${(truePage == null) || (truePage != 'com.valunskii.foxminded.university.ui.GetSubjectListServlet')}">
+		<c:redirect url="getSubjectListServlet" />
+	</c:if>
+	
+	<h3>Предметы</h3>
+	<table border="1" width="50%">
+		<c:forEach items="${subjects}" var="s">
+			<tr>
+				<td>${s.name}<em>(${t.id})</em></td>
+				<td><a href="getSubjectServlet?id=${s.getId()}">Edit</a></td>
+				<td><a href="deleteSubjectServlet?id=${s.getId()}">Delete</a></td>
+			</tr>
+		</c:forEach>
+	</table>
+	<p>
+		<em>(всего: ${fn:length(subjects)})</em>
+	</p>
+	<p>
+		<a href="addsubjectform.jsp">Добавить предмет</a>
+	</p>
+	<p>
+		<em><a href="index.jsp">На главную</a></em>
+	</p>
 </body>
 </html>

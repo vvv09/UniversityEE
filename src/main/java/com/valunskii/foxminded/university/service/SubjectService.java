@@ -3,7 +3,6 @@ package com.valunskii.foxminded.university.service;
 import java.util.List;
 
 import com.valunskii.foxminded.university.repository.dao.SubjectDao;
-import com.valunskii.foxminded.university.repository.entity.Classroom;
 import com.valunskii.foxminded.university.repository.entity.Subject;
 import com.valunskii.foxminded.university.repository.exception.DAOException;
 

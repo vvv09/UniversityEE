@@ -11,25 +11,26 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
-import com.valunskii.foxminded.university.repository.entity.Subject;
+import com.valunskii.foxminded.university.repository.entity.Teacher;
 import com.valunskii.foxminded.university.repository.exception.DAOException;
-import com.valunskii.foxminded.university.service.SubjectService;
+import com.valunskii.foxminded.university.service.TeacherService;
 
 
-@WebServlet("/subjectServlet")
-public class SubjectServlet extends HttpServlet {
-final static Logger log = Logger.getLogger(ClassroomServlet.class);
+@WebServlet("/getTeacherListServlet")
+public class GetTeacherListServlet extends HttpServlet {
+final static Logger log = Logger.getLogger(GetTeacherListServlet.class);
     
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Subject> subjects = null;
+        List<Teacher> teachers = null;
         try {
-            subjects = SubjectService.getAllSubjects();
+            teachers = TeacherService.getAllTeachers();
         } catch (DAOException e) {
             log.error(e);
             e.printStackTrace();
         }
         
-        request.setAttribute("subjects", subjects);
-        this.getServletContext().getRequestDispatcher("/subjects.jsp").forward(request, response);
+        request.setAttribute("teachers", teachers);
+        request.setAttribute("true_page", this.getServletName());
+        this.getServletContext().getRequestDispatcher("/teachers.jsp").forward(request, response);
     }
 }
