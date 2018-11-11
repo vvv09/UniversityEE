@@ -55,8 +55,8 @@ public class ScheduleDao {
             list.add(schedule);
             log.info("Return university schedule");
             return list;
-        }, "SELECT schedule.day_of_week, schedule.parity, schedule.lesson, subjects.name AS subject, teachers.teacher_id, teachers.first_name,"
-                + " teachers.middle_name, teachers.last_name, groups.name AS group_name, classrooms.name AS classroom"
+        }, "SELECT schedule.day_of_week, schedule.parity, schedule.lesson, subjects.subject_id, subjects.name AS subject, teachers.teacher_id, teachers.first_name,"
+                + " teachers.middle_name, teachers.last_name, groups.group_id, groups.name AS group_name, classrooms.classroom_id, classrooms.name AS classroom"
                 + " FROM schedule JOIN lectures_sets_lectures ON lectures_sets_lectures.lectures_set_id = schedule.lecture_set_id"
                 + " JOIN lectures ON lectures_sets_lectures.lecture_id = lectures.lecture_id"
                 + " JOIN subjects ON lectures.subject_id = subjects.subject_id"
