@@ -3,6 +3,7 @@ package com.valunskii.foxminded.university.service;
 import java.util.List;
 
 import com.valunskii.foxminded.university.repository.dao.GroupsDao;
+import com.valunskii.foxminded.university.repository.entity.Classroom;
 import com.valunskii.foxminded.university.repository.entity.Group;
 import com.valunskii.foxminded.university.repository.entity.Student;
 import com.valunskii.foxminded.university.repository.exception.DAOException;
@@ -18,6 +19,10 @@ public class GroupService {
         dao.add(name);
     }
 
+    public static Group getGroup(int id) throws DAOException {
+        return dao.get(id);
+    }
+    
     public static void deleteGroup(int id) throws DAOException {
         dao.delete(id);
     }

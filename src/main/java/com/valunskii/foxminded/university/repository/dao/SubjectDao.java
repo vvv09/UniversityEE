@@ -18,7 +18,7 @@ public class SubjectDao {
         return executor.execQuery(result -> {
             List<Subject> list = new ArrayList<>();
             while (result.next()) {
-                list.add(new Subject(result.getString("name")));
+                list.add(new Subject(result.getInt("subject_id"), result.getString("name")));
             }
             log.info("return subject list");
             return list;
@@ -29,6 +29,15 @@ public class SubjectDao {
         log.info("Add new subject");
         executor.execUpdate("INSERT INTO subjects (name) VALUES (?);", name);
         log.info("Subject added");
+    }
+    
+    public Subject get(int id) throws DAOException {
+        log.info("Looking for subject with id = " + id);
+        return executor.execQuery(result -> {
+            result.next();
+            log.info("Return subject");
+            return new Subject(result.getInt("subject_id"), result.getString("name"));
+        }, "SELECT * FROM subjects WHERE subject_id = ?", id);
     }
 
     public void delete(int id) throws DAOException {

@@ -16,6 +16,10 @@ public class ClassroomService {
     public static void addClassroom(String name) throws DAOException {
         dao.add(name);
     }
+    
+    public static Classroom getClassroom(int id) throws DAOException {
+        return dao.get(id);
+    }
 
     public static void deleteClassroom(int id) throws DAOException {
         dao.delete(id);

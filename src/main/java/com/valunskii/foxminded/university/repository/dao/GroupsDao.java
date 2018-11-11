@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import com.valunskii.foxminded.university.repository.entity.Classroom;
 import com.valunskii.foxminded.university.repository.entity.Group;
 import com.valunskii.foxminded.university.repository.exception.DAOException;
 import com.valunskii.foxminded.university.repository.executor.Executor;
@@ -18,11 +19,20 @@ public class GroupsDao {
         return executor.execQuery(result -> {
             List<Group> list = new ArrayList<>();
             while (result.next()) {
-                list.add(new Group(result.getString("name")));
+                list.add(new Group(result.getInt("group_id"), result.getString("name")));
             }
             log.info("return group list");
             return list;
         }, "SELECT * FROM groups");
+    }
+    
+    public Group get(int id) throws DAOException {
+        log.info("Looking for group with id = " + id);
+        return executor.execQuery(result -> {
+            result.next();
+            log.info("Return group");
+            return new Group(result.getInt("group_id"), result.getString("name"));
+        }, "SELECT * FROM groups WHERE group_id = ?", id);
     }
     
     public void add(String name) throws DAOException {

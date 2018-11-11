@@ -3,6 +3,7 @@ package com.valunskii.foxminded.university.service;
 import java.util.List;
 
 import com.valunskii.foxminded.university.repository.dao.SubjectDao;
+import com.valunskii.foxminded.university.repository.entity.Classroom;
 import com.valunskii.foxminded.university.repository.entity.Subject;
 import com.valunskii.foxminded.university.repository.exception.DAOException;
 
@@ -19,6 +20,9 @@ public class SubjectService {
 
     public static void deleteSubject(int id) throws DAOException {
         dao.delete(id);
+    }
+    public static Subject getSubject(int id) throws DAOException {
+        return dao.get(id);
     }
 
     public static void updateSubject(int id, String name) throws DAOException {

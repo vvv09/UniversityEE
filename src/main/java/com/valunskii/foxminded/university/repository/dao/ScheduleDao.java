@@ -43,11 +43,11 @@ public class ScheduleDao {
                     schedule = new Schedule(DayOfWeek.valueOf(result.getString("day_of_week")),
                             Parity.valueOf(result.getString("parity")), Lesson.valueOf(result.getString("lesson")));
                 }
-                Subject subject = new Subject(result.getString("subject"));
+                Subject subject = new Subject(result.getInt("subject_id"), result.getString("subject"));
                 Teacher teacher = new Teacher(result.getInt("teacher_id"), result.getString("first_name"),
                         result.getString("middle_name"), result.getString("last_name"));
-                Group group = new Group(result.getString("group_name"));
-                Classroom classroom = new Classroom(result.getString("classroom"));
+                Group group = new Group(result.getInt("group_id"), result.getString("group_name"));
+                Classroom classroom = new Classroom(result.getInt("classroom_id"), result.getString("classroom"));
                 Lecture lecture = new Lecture(subject, teacher, group, classroom);
                 lectures.add(lecture);
             }
@@ -86,11 +86,11 @@ public class ScheduleDao {
                     schedule = new Schedule(DayOfWeek.valueOf(result.getString("day_of_week")),
                             Parity.valueOf(result.getString("parity")), Lesson.valueOf(result.getString("lesson")));
                 }
-                Subject subject = new Subject(result.getString("subject"));
+                Subject subject = new Subject(result.getInt("subject_id"), result.getString("subject"));
                 Teacher teacher = new Teacher(result.getInt("teacher_id"), result.getString("first_name"),
                         result.getString("middle_name"), result.getString("last_name"));
-                Group group = new Group(result.getString("group_name"));
-                Classroom classroom = new Classroom(result.getString("classroom"));
+                Group group = new Group(result.getInt("group_id"), result.getString("group_name"));
+                Classroom classroom = new Classroom(result.getInt("classroom_id"), result.getString("classroom"));
                 Lecture lecture = new Lecture(subject, teacher, group, classroom);
                 lectures.add(lecture);
             }
@@ -127,11 +127,11 @@ public class ScheduleDao {
                     schedule = new Schedule(DayOfWeek.valueOf(result.getString("day_of_week")),
                             Parity.valueOf(result.getString("parity")), Lesson.valueOf(result.getString("lesson")));
                 }
-                Subject subject = new Subject(result.getString("subject"));
+                Subject subject = new Subject(result.getInt("subject_id"), result.getString("subject"));
                 Teacher teacher = new Teacher(result.getInt("teacher_id"), result.getString("first_name"),
                         result.getString("middle_name"), result.getString("last_name"));
-                Group group = new Group(result.getString("group_name"));
-                Classroom classroom = new Classroom(result.getString("classroom"));
+                Group group = new Group(result.getInt("group_id"), result.getString("group_name"));
+                Classroom classroom = new Classroom(result.getInt("classroom_id"), result.getString("classroom"));
                 Lecture lecture = new Lecture(subject, teacher, group, classroom);
                 lectures.add(lecture);
             }
@@ -172,11 +172,11 @@ public class ScheduleDao {
                     schedule = new Schedule(DayOfWeek.valueOf(result.getString("day_of_week")),
                             Parity.valueOf(result.getString("parity")), Lesson.valueOf(result.getString("lesson")));
                 }
-                Subject subject = new Subject(result.getString("subject"));
+                Subject subject = new Subject(result.getInt("subject_id"), result.getString("subject"));
                 Teacher teacher = new Teacher(result.getInt("teacher_id"), result.getString("first_name"),
                         result.getString("middle_name"), result.getString("last_name"));
-                Group group = new Group(result.getString("group_name"));
-                Classroom classroom = new Classroom(result.getString("classroom"));
+                Group group = new Group(result.getInt("group_id"), result.getString("group_name"));
+                Classroom classroom = new Classroom(result.getInt("classroom_id"), result.getString("classroom"));
                 Lecture lecture = new Lecture(subject, teacher, group, classroom);
                 lectures.add(lecture);
             }
@@ -215,11 +215,11 @@ public class ScheduleDao {
                     schedule = new Schedule(DayOfWeek.valueOf(result.getString("day_of_week")),
                             Parity.valueOf(result.getString("parity")), Lesson.valueOf(result.getString("lesson")));
                 }
-                Subject subject = new Subject(result.getString("subject"));
+                Subject subject = new Subject(result.getInt("subject_id"), result.getString("subject"));
                 Teacher teacher = new Teacher(result.getInt("teacher_id"), result.getString("first_name"),
                         result.getString("middle_name"), result.getString("last_name"));
-                Group group = new Group(result.getString("group_name"));
-                Classroom classroom = new Classroom(result.getString("classroom"));
+                Group group = new Group(result.getInt("group_id"), result.getString("group_name"));
+                Classroom classroom = new Classroom(result.getInt("classroom_id"), result.getString("classroom"));
                 Lecture lecture = new Lecture(subject, teacher, group, classroom);
                 lectures.add(lecture);
             }

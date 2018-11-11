@@ -18,11 +18,20 @@ public class ClassroomDao {
         return executor.execQuery(result -> {
             List<Classroom> list = new ArrayList<>();
             while (result.next()) {
-                list.add(new Classroom(result.getString("name")));
+                list.add(new Classroom(result.getInt("classroom_id"), result.getString("name")));
             }
             log.info("Return classroom list");
             return list;
         }, "SELECT * FROM classrooms");
+    }
+    
+    public Classroom get(int id) throws DAOException {
+        log.info("Looking for classroom with id = " + id);
+        return executor.execQuery(result -> {
+            result.next();
+            log.info("Return classroom");
+            return new Classroom(result.getInt("classroom_id"), result.getString("name"));
+        }, "SELECT * FROM classrooms WHERE classroom_id = ?", id);
     }
     
     public void add(String name) throws DAOException {
