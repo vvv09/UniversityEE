@@ -15,20 +15,21 @@ import com.valunskii.foxminded.university.repository.entity.Group;
 import com.valunskii.foxminded.university.repository.exception.DAOException;
 import com.valunskii.foxminded.university.service.GroupService;
 
-
 @WebServlet("/getGroupListServlet")
 public class GetGroupListServlet extends HttpServlet {
-final static Logger log = Logger.getLogger(GetGroupListServlet.class);
-    
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    final static Logger log = Logger.getLogger(GetGroupListServlet.class);
+    GroupService service = new GroupService();
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         List<Group> groups = null;
         try {
-            groups = GroupService.getAllGroups();
+            groups = service.getAllGroups();
         } catch (DAOException e) {
             log.error(e);
             e.printStackTrace();
         }
-        
+
         request.setAttribute("groups", groups);
         request.setAttribute("true_page", this.getServletName());
         this.getServletContext().getRequestDispatcher("/groups.jsp").forward(request, response);

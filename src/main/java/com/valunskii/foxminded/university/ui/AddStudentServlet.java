@@ -16,7 +16,8 @@ import com.valunskii.foxminded.university.service.StudentService;
 @WebServlet("/addStudentServlet")
 public class AddStudentServlet extends HttpServlet {
     final static Logger log = Logger.getLogger(AddStudentServlet.class);
-
+    StudentService service = new StudentService();
+    
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String lastName = request.getParameter("lastName");
@@ -24,7 +25,7 @@ public class AddStudentServlet extends HttpServlet {
         String middleName = request.getParameter("middleName");
 
         try {
-            StudentService.addStudent(firstName, middleName, lastName);
+            service.addStudent(firstName, middleName, lastName);
         } catch (DAOException e) {
             log.error(e);
             e.printStackTrace();

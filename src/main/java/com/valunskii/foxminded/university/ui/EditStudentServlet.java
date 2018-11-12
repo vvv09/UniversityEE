@@ -16,6 +16,7 @@ import com.valunskii.foxminded.university.service.StudentService;
 @WebServlet("/editStudentServlet")
 public class EditStudentServlet extends HttpServlet {
     final static Logger log = Logger.getLogger(EditStudentServlet.class);
+    StudentService service = new StudentService();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
@@ -24,7 +25,7 @@ public class EditStudentServlet extends HttpServlet {
         String middleName = request.getParameter("middleName");
         
         try {
-            StudentService.updateStudent(id, firstName, middleName, lastName);
+            service.updateStudent(id, firstName, middleName, lastName);
         } catch (DAOException e) {
             log.error(e);
             e.printStackTrace();

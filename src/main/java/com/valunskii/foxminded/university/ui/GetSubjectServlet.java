@@ -16,17 +16,19 @@ import com.valunskii.foxminded.university.service.SubjectService;
 
 @WebServlet("/getSubjectServlet")
 public class GetSubjectServlet extends HttpServlet {
-final static Logger log = Logger.getLogger(GetSubjectServlet.class);
-    
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    final static Logger log = Logger.getLogger(GetSubjectServlet.class);
+    SubjectService service = new SubjectService();
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         Subject subject = null;
         try {
-            subject = SubjectService.getSubject(Integer.parseInt(request.getParameter("id")));
+            subject = service.getSubject(Integer.parseInt(request.getParameter("id")));
         } catch (DAOException e) {
             log.error(e);
             e.printStackTrace();
         }
-        
+
         request.setAttribute("subject", subject);
         this.getServletContext().getRequestDispatcher("/editsubjectform.jsp").forward(request, response);
     }

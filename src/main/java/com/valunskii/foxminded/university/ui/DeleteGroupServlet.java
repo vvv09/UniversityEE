@@ -16,13 +16,14 @@ import com.valunskii.foxminded.university.service.GroupService;
 @WebServlet("/deleteGroupServlet")
 public class DeleteGroupServlet extends HttpServlet {
     final static Logger log = Logger.getLogger(DeleteGroupServlet.class);
-
+    GroupService service = new GroupService();
+    
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
 
         try {
-            GroupService.deleteGroup(id);
+            service.deleteGroup(id);
         } catch (DAOException e) {
             log.error(e);
             e.printStackTrace();

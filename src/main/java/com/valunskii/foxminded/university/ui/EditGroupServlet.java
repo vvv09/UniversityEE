@@ -15,14 +15,16 @@ import com.valunskii.foxminded.university.service.GroupService;
 
 @WebServlet("/editGroupServlet")
 public class EditGroupServlet extends HttpServlet {
-final static Logger log = Logger.getLogger(EditGroupServlet.class);
-    
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    final static Logger log = Logger.getLogger(EditGroupServlet.class);
+    GroupService service = new GroupService();
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         String name = request.getParameter("name");
-        
+
         try {
-            GroupService.updateGroup(id, name);
+            service.updateGroup(id, name);
         } catch (DAOException e) {
             log.error(e);
             e.printStackTrace();

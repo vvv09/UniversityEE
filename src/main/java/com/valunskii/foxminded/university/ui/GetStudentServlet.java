@@ -20,11 +20,12 @@ import com.valunskii.foxminded.university.service.StudentService;
 @WebServlet("/getStudentServlet")
 public class GetStudentServlet extends HttpServlet {
     final static Logger log = Logger.getLogger(GetStudentServlet.class);
-	
+    StudentService service = new StudentService();
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	Student student = null;
 	try {
-        student = StudentService.getStudent(Integer.parseInt(request.getParameter("id")));
+        student = service.getStudent(Integer.parseInt(request.getParameter("id")));
     } catch (DAOException e) {
         log.error(e);
         e.printStackTrace();

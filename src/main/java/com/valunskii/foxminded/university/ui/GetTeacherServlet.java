@@ -17,11 +17,12 @@ import com.valunskii.foxminded.university.service.TeacherService;
 @WebServlet("/getTeacherServlet")
 public class GetTeacherServlet extends HttpServlet {
     final static Logger log = Logger.getLogger(GetTeacherServlet.class);
-       
+    TeacherService service = new TeacherService();
+  
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	    Teacher teacher = null;
         try {
-            teacher = TeacherService.getTeacher(Integer.parseInt(request.getParameter("id")));
+            teacher = service.getTeacher(Integer.parseInt(request.getParameter("id")));
         } catch (DAOException e) {
             log.error(e);
             e.printStackTrace();

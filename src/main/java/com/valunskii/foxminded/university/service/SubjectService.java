@@ -9,22 +9,23 @@ import com.valunskii.foxminded.university.repository.exception.DAOException;
 public class SubjectService {
     private static SubjectDao dao = new SubjectDao();
     
-    public static List<Subject> getAllSubjects() throws DAOException {
+    public List<Subject> getAllSubjects() throws DAOException {
             return dao.getAll();
     }
     
-    public static void addSubject(String name) throws DAOException {
+    public void addSubject(String name) throws DAOException {
         dao.add(name);
     }
 
-    public static void deleteSubject(int id) throws DAOException {
+    public void deleteSubject(int id) throws DAOException {
         dao.delete(id);
     }
-    public static Subject getSubject(int id) throws DAOException {
+    
+    public Subject getSubject(int id) throws DAOException {
         return dao.get(id);
     }
 
-    public static void updateSubject(int id, String name) throws DAOException {
+    public void updateSubject(int id, String name) throws DAOException {
         dao.update(id, name);
     }
 }

@@ -10,11 +10,13 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 import com.valunskii.foxminded.university.repository.exception.DAOException;
+import com.valunskii.foxminded.university.service.SubjectService;
 import com.valunskii.foxminded.university.service.TeacherService;
 
 @WebServlet("/addTeacherServlet")
 public class AddTeacherServlet extends HttpServlet {
     final static Logger log = Logger.getLogger(AddTeacherServlet.class);
+    TeacherService service = new TeacherService();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -23,7 +25,7 @@ public class AddTeacherServlet extends HttpServlet {
         String middleName = request.getParameter("middleName");
         
         try {
-            TeacherService.addTeacher(firstName, middleName, lastName);
+            service.addTeacher(firstName, middleName, lastName);
         } catch (DAOException e) {
             log.error(e);
             e.printStackTrace();

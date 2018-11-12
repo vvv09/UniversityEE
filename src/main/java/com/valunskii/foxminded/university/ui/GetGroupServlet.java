@@ -17,11 +17,12 @@ import com.valunskii.foxminded.university.service.GroupService;
 @WebServlet("/getGroupServlet")
 public class GetGroupServlet extends HttpServlet {
     final static Logger log = Logger.getLogger(GetGroupServlet.class);
+    GroupService service = new GroupService();
     
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Group group = null;
         try {
-            group = GroupService.getGroup(Integer.parseInt(request.getParameter("id")));
+            group = service.getGroup(Integer.parseInt(request.getParameter("id")));
         } catch (DAOException e) {
             log.error(e);
             e.printStackTrace();

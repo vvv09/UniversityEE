@@ -18,11 +18,12 @@ import com.valunskii.foxminded.university.service.ClassroomService;
 @WebServlet("/getClassroomListServlet")
 public class GetClassroomListServlet extends HttpServlet {
     final static Logger log = Logger.getLogger(GetClassroomListServlet.class);
-    
+    ClassroomService service = new ClassroomService();
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		List<Classroom> classrooms = null;
         try {
-            classrooms = ClassroomService.getAllClassrooms();
+            classrooms = service.getAllClassrooms();
         } catch (DAOException e) {
             log.error(e);
             e.printStackTrace();

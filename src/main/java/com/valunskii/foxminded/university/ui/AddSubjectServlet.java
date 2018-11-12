@@ -16,13 +16,14 @@ import com.valunskii.foxminded.university.service.SubjectService;
 @WebServlet("/addSubjectServlet")
 public class AddSubjectServlet extends HttpServlet {
     final static Logger log = Logger.getLogger(AddSubjectServlet.class);
-
+    SubjectService service = new SubjectService();
+    
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String name = request.getParameter("name");
         
         try {
-            SubjectService.addSubject(name);
+            service.addSubject(name);
         } catch (DAOException e) {
             log.error(e);
             e.printStackTrace();

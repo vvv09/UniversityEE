@@ -15,14 +15,16 @@ import com.valunskii.foxminded.university.service.ClassroomService;
 
 @WebServlet("/editClassroomServlet")
 public class EditClassroomServlet extends HttpServlet {
-final static Logger log = Logger.getLogger(EditClassroomServlet.class);
-    
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    final static Logger log = Logger.getLogger(EditClassroomServlet.class);
+    ClassroomService service = new ClassroomService();
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         String name = request.getParameter("name");
-        
+
         try {
-            ClassroomService.updateClassroom(id, name);
+            service.updateClassroom(id, name);
         } catch (DAOException e) {
             log.error(e);
             e.printStackTrace();

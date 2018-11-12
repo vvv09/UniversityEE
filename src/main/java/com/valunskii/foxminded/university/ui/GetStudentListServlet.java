@@ -15,20 +15,21 @@ import com.valunskii.foxminded.university.repository.entity.Student;
 import com.valunskii.foxminded.university.repository.exception.DAOException;
 import com.valunskii.foxminded.university.service.StudentService;
 
-
 @WebServlet("/getStudentListServlet")
 public class GetStudentListServlet extends HttpServlet {
-final static Logger log = Logger.getLogger(GetStudentListServlet.class);
-    
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    final static Logger log = Logger.getLogger(GetStudentListServlet.class);
+    StudentService service = new StudentService();
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         List<Student> students = null;
         try {
-            students = StudentService.getAllStudents();
+            students = service.getAllStudents();
         } catch (DAOException e) {
             log.error(e);
             e.printStackTrace();
         }
-        
+
         request.setAttribute("students", students);
         request.setAttribute("true_page", this.getServletName());
         this.getServletContext().getRequestDispatcher("/students.jsp").forward(request, response);

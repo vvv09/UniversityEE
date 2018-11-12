@@ -9,23 +9,23 @@ import com.valunskii.foxminded.university.repository.exception.DAOException;
 public class GroupService {
     private static GroupsDao dao = new GroupsDao();
 
-    public static List<Group> getAllGroups() throws DAOException {
+    public List<Group> getAllGroups() throws DAOException {
             return dao.getAll();
     }
 
-    public static void addGroup(String name) throws DAOException {
+    public void addGroup(String name) throws DAOException {
         dao.add(name);
     }
 
-    public static Group getGroup(int id) throws DAOException {
+    public Group getGroup(int id) throws DAOException {
         return dao.get(id);
     }
     
-    public static void deleteGroup(int id) throws DAOException {
+    public void deleteGroup(int id) throws DAOException {
         dao.delete(id);
     }
 
-    public static void updateGroup(int id, String name) throws DAOException {
+    public void updateGroup(int id, String name) throws DAOException {
         dao.update(id, name);
     }
 }

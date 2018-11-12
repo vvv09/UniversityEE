@@ -9,23 +9,23 @@ import com.valunskii.foxminded.university.repository.exception.DAOException;
 public class ClassroomService {
     private static ClassroomDao dao = new ClassroomDao();
 
-    public static List<Classroom> getAllClassrooms() throws DAOException {
+    public List<Classroom> getAllClassrooms() throws DAOException {
             return dao.getAll();
     }
     
-    public static void addClassroom(String name) throws DAOException {
+    public void addClassroom(String name) throws DAOException {
         dao.add(name);
     }
     
-    public static Classroom getClassroom(int id) throws DAOException {
+    public Classroom getClassroom(int id) throws DAOException {
         return dao.get(id);
     }
 
-    public static void deleteClassroom(int id) throws DAOException {
+    public void deleteClassroom(int id) throws DAOException {
         dao.delete(id);
     }
 
-    public static void updateClassroom(int id, String name) throws DAOException {
+    public void updateClassroom(int id, String name) throws DAOException {
         dao.update(id, name);
     }
 }

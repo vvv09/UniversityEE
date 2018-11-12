@@ -15,13 +15,14 @@ import com.valunskii.foxminded.university.service.TeacherService;
 @WebServlet("/deleteTeacherServlet")
 public class DeleteTeacherServlet extends HttpServlet {
     final static Logger log = Logger.getLogger(DeleteTeacherServlet.class);
+    TeacherService service = new TeacherService();
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
 
         try {
-            TeacherService.deleteTeacher(id);
+            service.deleteTeacher(id);
         } catch (DAOException e) {
             log.error(e);
             e.printStackTrace();
