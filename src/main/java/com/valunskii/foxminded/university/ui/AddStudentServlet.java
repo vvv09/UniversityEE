@@ -20,6 +20,7 @@ public class AddStudentServlet extends HttpServlet {
     
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
         String lastName = request.getParameter("lastName");
         String firstName = request.getParameter("firstName");
         String middleName = request.getParameter("middleName");

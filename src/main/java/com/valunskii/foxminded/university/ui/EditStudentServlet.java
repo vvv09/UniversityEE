@@ -19,6 +19,7 @@ public class EditStudentServlet extends HttpServlet {
     StudentService service = new StudentService();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
         int id = Integer.parseInt(request.getParameter("id"));
         String lastName = request.getParameter("lastName");
         String firstName = request.getParameter("firstName");
