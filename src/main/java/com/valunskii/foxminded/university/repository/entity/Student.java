@@ -10,11 +10,12 @@ public class Student {
     private String lastName;
     private Group group;
 
-    public Student(int id, String firstName, String middleName, String lastName) {
+    public Student(int id, String firstName, String middleName, String lastName, Group group) {
         this.id = id;
         this.firstName = firstName;
         this.middleName = middleName;
         this.lastName = lastName;
+        this.group = group;
     }
 
     @Override

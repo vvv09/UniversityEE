@@ -24,9 +24,10 @@ public class EditStudentServlet extends HttpServlet {
         String lastName = request.getParameter("lastName");
         String firstName = request.getParameter("firstName");
         String middleName = request.getParameter("middleName");
+        int groupId = Integer.parseInt(request.getParameter("group"));
         
         try {
-            service.updateStudent(id, firstName, middleName, lastName);
+            service.updateStudent(id, firstName, middleName, lastName, groupId);
         } catch (DAOException e) {
             log.error(e);
             e.printStackTrace();

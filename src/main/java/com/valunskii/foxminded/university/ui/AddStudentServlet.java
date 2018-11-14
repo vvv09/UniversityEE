@@ -24,9 +24,9 @@ public class AddStudentServlet extends HttpServlet {
         String lastName = request.getParameter("lastName");
         String firstName = request.getParameter("firstName");
         String middleName = request.getParameter("middleName");
-
+        int groupId = Integer.parseInt(request.getParameter("group"));
         try {
-            service.addStudent(firstName, middleName, lastName);
+            service.addStudent(firstName, middleName, lastName, groupId);
         } catch (DAOException e) {
             log.error(e);
             e.printStackTrace();

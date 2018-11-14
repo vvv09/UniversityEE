@@ -13,8 +13,8 @@ public class StudentService {
         return dao.getAll();
     }
 
-    public void addStudent(String firstName, String middleName, String lastName) throws DAOException {
-        dao.add(firstName, middleName, lastName);
+    public void addStudent(String firstName, String middleName, String lastName, int groupId) throws DAOException {
+        dao.add(firstName, middleName, lastName, groupId);
     }
 
     public Student getStudent(int id) throws DAOException {
@@ -25,7 +25,7 @@ public class StudentService {
         dao.delete(id);
     }
 
-    public void updateStudent(int id, String firstName, String middleName, String lastName) throws DAOException {
-        dao.update(id, firstName, middleName, lastName);
+    public void updateStudent(int id, String firstName, String middleName, String lastName, int groupId) throws DAOException {
+        dao.update(id, firstName, middleName, lastName, groupId);
     }
 }

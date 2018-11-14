@@ -28,9 +28,9 @@
 		<c:forEach items="${students}" var="s">
 			<tr>
 				<td>${s.lastName} ${s.firstName} ${s.middleName}</td>
-				<td>группе быть</td>
+				<td>${s.group.name}</td>
 				<td>${s.id}</td>
-				<td><a href="getStudentServlet?id=${s.getId()}">Edit</a></td>
+				<td><a href="getStudentForEditServlet?id=${s.getId()}">Edit</a></td>
 				<td><a href="deleteStudentServlet?id=${s.getId()}">Delete</a></td>
 			</tr>
 		</c:forEach>
@@ -39,7 +39,7 @@
 		<em>(всего: ${fn:length(students)})</em>
 	</p>
 	<p>
-		<a href="addstudentform.jsp">Добавить студента</a>
+		<a href="getGroupsForNewStudentServlet">Добавить студента</a>
 	</p>
 	<p>
 		<em><a href="index.jsp">На главную</a></em>
