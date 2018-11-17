@@ -17,7 +17,7 @@
 	</c:if>
 
 	<h3>Расписание</h3>
-
+    <hr/>
 	<c:forEach items="${schedule}" var="row" varStatus="status">
 		<p>
 			<strong> ${row.dayOfWeek} ${row.parity} ${row.lesson} </strong>
@@ -29,7 +29,7 @@
 			</p>
 		</c:forEach>
 	</c:forEach>
-
+    <hr/>
 	<p>
 		<em><a href="index.jsp">На главную</a></em>
 	</p>

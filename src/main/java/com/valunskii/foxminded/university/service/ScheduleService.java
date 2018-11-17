@@ -15,21 +15,41 @@ public class ScheduleService {
             return dao.get();
     }
 
-    public List<Schedule> getGroupSchedule(String groupName) throws DAOException {
-            return dao.getGroupSchedule(groupName);
+    public List<Schedule> getGroupSchedule(int groupId) throws DAOException {
+            return dao.getGroupSchedule(groupId);
     }
 
-    public List<Schedule> getGroupDaySchedule(String groupName, DayOfWeek day, Parity parity)
+    public List<Schedule> getGroupDaySchedule(int groupId, DayOfWeek day, Parity parity)
             throws DAOException {
-            return dao.getGroupDaySchedule(groupName, day, parity);
+            return dao.getGroupDaySchedule(groupId, day, parity);
+    }
+    
+    public List<Schedule> getGroupDayScheduleExceptParity(int groupId, DayOfWeek day)
+            throws DAOException {
+            return dao.getGroupDayScheduleExceptParty(groupId, day);
+    }
+    
+    public List<Schedule> getGroupDayScheduleExceptDay(int groupId, Parity parity)
+            throws DAOException {
+            return dao.getGroupDayScheduleExceptDay(groupId, parity);
     }
 
-    public List<Schedule> getTacherSchedule(int teacherId) throws DAOException {
+    public List<Schedule> getTeacherSchedule(int teacherId) throws DAOException {
             return dao.getTeacherSchedule(teacherId);
     }
 
     public List<Schedule> getTeacherDaySchedule(int teacherId, DayOfWeek day, Parity parity)
             throws DAOException {
             return dao.getTeacherDaySchedule(teacherId, day, parity);
+    }
+    
+    public List<Schedule> getTeacherDayScheduleExceptParity(int teacherId, DayOfWeek day)
+            throws DAOException {
+            return dao.getTeacherDayScheduleExceptParity(teacherId, day);
+    }
+    
+    public List<Schedule> getTeacherDayScheduleExceptDay(int teacherId, Parity parity)
+            throws DAOException {
+            return dao.getTeacherDayScheduleExceptDay(teacherId, parity);
     }
 }

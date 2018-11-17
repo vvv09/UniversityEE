@@ -8,6 +8,7 @@
 </head>
 <body>
 	<h1>Добро пожаловать в наш Университет!</h1>
+	<hr/>
 	<fieldset>
 		<legend>Выберите раздел:</legend>
 		<ul>
@@ -19,5 +20,7 @@
 			<li><a href="getUniversityScheduleServlet">Расписание</a></li>
 		</ul>
 	</fieldset>
+	<hr/>
+	2018
 </body>
 </html>

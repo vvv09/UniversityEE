@@ -15,20 +15,23 @@
 		test="${(truePage == null) || (truePage != 'com.valunskii.foxminded.university.ui.GetGroupListServlet')}">
 		<c:redirect url="getGroupListServlet" />
 	</c:if>
-	
+
 	<h3>Группы</h3>
-	<table border="1" width="50%">
+	<hr />
+	<table width="50%">
 		<c:forEach items="${groups}" var="g">
 			<tr>
-				<td>${g.name}<em>(${g.id})</em></td>
-				<td><a href="getGroupServlet?id=${g.getId()}">Edit</a></td>
-				<td><a href="deleteGroupServlet?id=${g.getId()}">Delete</a></td>
+				<td>${g.name}</td>
+				<td><a href="getGroupScheduleServlet?id=${g.getId()}">Посмотреть расписание</a></td>
+				<td><a href="getGroupServlet?id=${g.getId()}">Править</a></td>
+				<td><a href="deleteGroupServlet?id=${g.getId()}">Удалить</a></td>
 			</tr>
 		</c:forEach>
 	</table>
 	<p>
 		<em>(всего: ${fn:length(groups)})</em>
 	</p>
+	<hr />
 	<p>
 		<a href="addgroupform.jsp">Добавить группу</a>
 	</p>

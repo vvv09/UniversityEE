@@ -15,20 +15,22 @@
 		test="${(truePage == null) || (truePage != 'com.valunskii.foxminded.university.ui.GetSubjectListServlet')}">
 		<c:redirect url="getSubjectListServlet" />
 	</c:if>
-	
+
 	<h3>Предметы</h3>
-	<table border="1" width="50%">
+	<hr />
+	<table width="50%">
 		<c:forEach items="${subjects}" var="s">
 			<tr>
-				<td>${s.name}<em>(${t.id})</em></td>
-				<td><a href="getSubjectServlet?id=${s.getId()}">Edit</a></td>
-				<td><a href="deleteSubjectServlet?id=${s.getId()}">Delete</a></td>
+				<td>${s.name}</td>
+				<td><a href="getSubjectServlet?id=${s.getId()}">Править</a></td>
+				<td><a href="deleteSubjectServlet?id=${s.getId()}">Удалить</a></td>
 			</tr>
 		</c:forEach>
 	</table>
 	<p>
 		<em>(всего: ${fn:length(subjects)})</em>
 	</p>
+	<hr />
 	<p>
 		<a href="addsubjectform.jsp">Добавить предмет</a>
 	</p>

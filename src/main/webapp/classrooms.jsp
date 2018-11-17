@@ -10,25 +10,27 @@
 </head>
 <body>
 
-    <c:set var="truePage" value="${true_page}" />
-    <c:if
-        test="${(truePage == null) || (truePage != 'com.valunskii.foxminded.university.ui.GetClassroomListServlet')}">
-        <c:redirect url="getClassroomListServlet" />
-    </c:if>
-    
+	<c:set var="truePage" value="${true_page}" />
+	<c:if
+		test="${(truePage == null) || (truePage != 'com.valunskii.foxminded.university.ui.GetClassroomListServlet')}">
+		<c:redirect url="getClassroomListServlet" />
+	</c:if>
+
 	<h3>Аудитории</h3>
-	<table border="1" width="50%">
+	<hr />
+	<table width="50%">
 		<c:forEach items="${classrooms}" var="c">
 			<tr>
-				<td>${c.name} <em>(${t.id})</em></td>
-				<td><a href="getClassroomServlet?id=${c.getId()}">Edit</a></td>
-				<td><a href="deleteClassroomServlet?id=${c.getId()}">Delete</a></td>
+				<td>${c.name}</td>
+				<td><a href="getClassroomServlet?id=${c.getId()}">Править</a></td>
+				<td><a href="deleteClassroomServlet?id=${c.getId()}">Удалить</a></td>
 			</tr>
 		</c:forEach>
 	</table>
 	<p>
 		<em>(всего: ${fn:length(classrooms)})</em>
 	</p>
+	<hr />
 	<p>
 		<a href="addclassroomform.jsp">Добавить аудиторию</a>
 	</p>

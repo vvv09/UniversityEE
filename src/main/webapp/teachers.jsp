@@ -15,25 +15,23 @@
 		test="${(truePage == null) || (truePage != 'com.valunskii.foxminded.university.ui.GetTeacherListServlet')}">
 		<c:redirect url="getTeacherListServlet" />
 	</c:if>
-	
+
 	<h3>Преподаватели</h3>
-	<table border="1" width="50%">
-		<tr>
-			<th>Ф.И.О.</th>
-			<th></th>
-			<th></th>
-		</tr>
+	<hr />
+	<table width="50%">
 		<c:forEach items="${teachers}" var="t">
 			<tr>
-				<td>${t.lastName} ${t.firstName} ${t.middleName} <em>(${t.id})</em></td>
-				<td><a href="getTeacherServlet?id=${t.getId()}">Edit</a></td>
-				<td><a href="deleteTeacherServlet?id=${t.getId()}">Delete</a></td>
+				<td>${t.lastName} ${t.firstName} ${t.middleName}</td>
+				<td><a href="getTeacherScheduleServlet?id=${t.getId()}">Посмотреть расписание</a></td>
+				<td><a href="getTeacherServlet?id=${t.getId()}">Править</a></td>
+				<td><a href="deleteTeacherServlet?id=${t.getId()}">Удалить</a></td>
 			</tr>
 		</c:forEach>
 	</table>
 	<p>
 		<em>(всего: ${fn:length(teachers)})</em>
 	</p>
+	<hr />
 	<p>
 		<a href="addteacherform.jsp">Добавить преподавателя</a>
 	</p>

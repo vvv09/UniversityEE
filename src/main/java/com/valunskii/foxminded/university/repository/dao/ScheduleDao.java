@@ -66,8 +66,8 @@ public class ScheduleDao {
                 + " ORDER BY schedule.parity,schedule.day_of_week, schedule.lesson;");
     }
 
-    public List<Schedule> getGroupSchedule(String groupName) throws DAOException {
-        log.info("Looking for schedule for group: " + groupName);
+    public List<Schedule> getGroupSchedule(int groupId) throws DAOException {
+        log.info("Looking for schedule for group with id = : " + groupId);
         return executor.execQuery(result -> {
             List<Schedule> list = new ArrayList<>();
             Schedule schedule = null;
@@ -98,19 +98,19 @@ public class ScheduleDao {
             list.add(schedule);
             log.info("Return schedule for the group");
             return list;
-        }, "SELECT schedule.day_of_week, schedule.parity, schedule.lesson, subjects.name AS subject, teachers.teacher_id, teachers.first_name,"
-                + " teachers.middle_name, teachers.last_name, groups.name AS group_name, classrooms.name AS classroom"
+        }, "SELECT schedule.day_of_week, schedule.parity, schedule.lesson, subjects.subject_id, subjects.name AS subject, teachers.teacher_id, teachers.first_name,"
+                + " teachers.middle_name, teachers.last_name, groups.group_id, groups.name AS group_name, classrooms.classroom_id, classrooms.name AS classroom"
                 + " FROM schedule JOIN lectures_sets_lectures ON lectures_sets_lectures.lectures_set_id = schedule.lecture_set_id"
                 + " JOIN lectures ON lectures_sets_lectures.lecture_id = lectures.lecture_id"
                 + " JOIN subjects ON lectures.subject_id = subjects.subject_id"
                 + " JOIN teachers ON lectures.teacher_id = teachers.teacher_id"
                 + " JOIN groups ON lectures.group_id = groups.group_id"
-                + " JOIN classrooms ON lectures.classroom_id = classrooms.classroom_id" + " WHERE groups.name = ?"
-                + " ORDER BY schedule.parity,schedule.day_of_week, schedule.lesson;", groupName);
+                + " JOIN classrooms ON lectures.classroom_id = classrooms.classroom_id" + " WHERE groups.group_id = ?"
+                + " ORDER BY schedule.parity,schedule.day_of_week, schedule.lesson;", groupId);
     }
 
-    public List<Schedule> getGroupDaySchedule(String groupName, DayOfWeek day, Parity parity) throws DAOException {
-        log.info("Looking for schedule for group: " + groupName + ", day: " + day.name() + " " + parity.name());
+    public List<Schedule> getGroupDaySchedule(int groupId, DayOfWeek day, Parity parity) throws DAOException {
+        log.info("Looking for schedule for group with id = " + groupId + ", day: " + day.name() + " " + parity.name());
         return executor.execQuery(result -> {
             List<Schedule> list = new ArrayList<>();
             Schedule schedule = null;
@@ -139,17 +139,101 @@ public class ScheduleDao {
             list.add(schedule);
             log.info("Return day schedule for the group");
             return list;
-        }, "SELECT schedule.day_of_week, schedule.parity, schedule.lesson, subjects.name AS subject, teachers.teacher_id, teachers.first_name,"
-                + " teachers.middle_name, teachers.last_name, groups.name AS group_name, classrooms.name AS classroom"
+        }, "SELECT schedule.day_of_week, schedule.parity, schedule.lesson, subjects.subject_id, subjects.name AS subject, teachers.teacher_id, teachers.first_name,"
+                + " teachers.middle_name, teachers.last_name, groups.group_id, groups.name AS group_name, classrooms.classroom_id, classrooms.name AS classroom"
                 + " FROM schedule JOIN lectures_sets_lectures ON lectures_sets_lectures.lectures_set_id = schedule.lecture_set_id"
                 + " JOIN lectures ON lectures_sets_lectures.lecture_id = lectures.lecture_id"
                 + " JOIN subjects ON lectures.subject_id = subjects.subject_id"
                 + " JOIN teachers ON lectures.teacher_id = teachers.teacher_id"
                 + " JOIN groups ON lectures.group_id = groups.group_id"
                 + " JOIN classrooms ON lectures.classroom_id = classrooms.classroom_id"
-                + " WHERE groups.name = ? AND schedule.day_of_week = CAST ( ? AS day_of_week) AND schedule.parity = CAST (? As parity)"
-                + " ORDER BY schedule.parity, schedule.day_of_week, schedule.lesson;", groupName, day.name(),
+                + " WHERE groups.group_id = ? AND schedule.day_of_week = CAST ( ? AS day_of_week) AND schedule.parity = CAST (? As parity)"
+                + " ORDER BY schedule.parity, schedule.day_of_week, schedule.lesson;", groupId, day.name(),
                 parity.name());
+    }
+    
+    public List<Schedule> getGroupDayScheduleExceptParty(int groupId, DayOfWeek day) throws DAOException {
+        log.info("Looking for schedule for group with id = " + groupId + ", day: " + day.name());
+        return executor.execQuery(result -> {
+            List<Schedule> list = new ArrayList<>();
+            Schedule schedule = null;
+            Set<Lecture> lectures = new HashSet<>();
+            while (result.next()) {
+                if (schedule == null) {
+                    schedule = new Schedule(DayOfWeek.valueOf(result.getString("day_of_week")),
+                            Parity.valueOf(result.getString("parity")), Lesson.valueOf(result.getString("lesson")));
+                }
+                if (!result.getString("lesson").equals(schedule.getLesson().toString())) {
+                    schedule.setLectures(lectures);
+                    list.add(schedule);
+                    lectures = new HashSet<>();
+                    schedule = new Schedule(DayOfWeek.valueOf(result.getString("day_of_week")),
+                            Parity.valueOf(result.getString("parity")), Lesson.valueOf(result.getString("lesson")));
+                }
+                Subject subject = new Subject(result.getInt("subject_id"), result.getString("subject"));
+                Teacher teacher = new Teacher(result.getInt("teacher_id"), result.getString("first_name"),
+                        result.getString("middle_name"), result.getString("last_name"));
+                Group group = new Group(result.getInt("group_id"), result.getString("group_name"));
+                Classroom classroom = new Classroom(result.getInt("classroom_id"), result.getString("classroom"));
+                Lecture lecture = new Lecture(subject, teacher, group, classroom);
+                lectures.add(lecture);
+            }
+            schedule.setLectures(lectures);
+            list.add(schedule);
+            log.info("Return day schedule for the group");
+            return list;
+        }, "SELECT schedule.day_of_week, schedule.parity, schedule.lesson, subjects.subject_id, subjects.name AS subject, teachers.teacher_id, teachers.first_name,"
+                + " teachers.middle_name, teachers.last_name, groups.group_id, groups.name AS group_name, classrooms.classroom_id, classrooms.name AS classroom"
+                + " FROM schedule JOIN lectures_sets_lectures ON lectures_sets_lectures.lectures_set_id = schedule.lecture_set_id"
+                + " JOIN lectures ON lectures_sets_lectures.lecture_id = lectures.lecture_id"
+                + " JOIN subjects ON lectures.subject_id = subjects.subject_id"
+                + " JOIN teachers ON lectures.teacher_id = teachers.teacher_id"
+                + " JOIN groups ON lectures.group_id = groups.group_id"
+                + " JOIN classrooms ON lectures.classroom_id = classrooms.classroom_id"
+                + " WHERE groups.group_id = ? AND schedule.day_of_week = CAST ( ? AS day_of_week) "
+                + " ORDER BY schedule.parity, schedule.day_of_week, schedule.lesson;", groupId, day.name());
+    }
+    
+    public List<Schedule> getGroupDayScheduleExceptDay(int groupId, Parity parity) throws DAOException {
+        log.info("Looking for schedule for group with id =  " + groupId + ", parity: " + parity.name());
+        return executor.execQuery(result -> {
+            List<Schedule> list = new ArrayList<>();
+            Schedule schedule = null;
+            Set<Lecture> lectures = new HashSet<>();
+            while (result.next()) {
+                if (schedule == null) {
+                    schedule = new Schedule(DayOfWeek.valueOf(result.getString("day_of_week")),
+                            Parity.valueOf(result.getString("parity")), Lesson.valueOf(result.getString("lesson")));
+                }
+                if (!result.getString("lesson").equals(schedule.getLesson().toString())) {
+                    schedule.setLectures(lectures);
+                    list.add(schedule);
+                    lectures = new HashSet<>();
+                    schedule = new Schedule(DayOfWeek.valueOf(result.getString("day_of_week")),
+                            Parity.valueOf(result.getString("parity")), Lesson.valueOf(result.getString("lesson")));
+                }
+                Subject subject = new Subject(result.getInt("subject_id"), result.getString("subject"));
+                Teacher teacher = new Teacher(result.getInt("teacher_id"), result.getString("first_name"),
+                        result.getString("middle_name"), result.getString("last_name"));
+                Group group = new Group(result.getInt("group_id"), result.getString("group_name"));
+                Classroom classroom = new Classroom(result.getInt("classroom_id"), result.getString("classroom"));
+                Lecture lecture = new Lecture(subject, teacher, group, classroom);
+                lectures.add(lecture);
+            }
+            schedule.setLectures(lectures);
+            list.add(schedule);
+            log.info("Return day schedule for the group");
+            return list;
+        }, "SELECT schedule.day_of_week, schedule.parity, schedule.lesson, subjects.subject_id, subjects.name AS subject, teachers.teacher_id, teachers.first_name,"
+                + " teachers.middle_name, teachers.last_name, groups.group_id, groups.name AS group_name, classrooms.classroom_id, classrooms.name AS classroom"
+                + " FROM schedule JOIN lectures_sets_lectures ON lectures_sets_lectures.lectures_set_id = schedule.lecture_set_id"
+                + " JOIN lectures ON lectures_sets_lectures.lecture_id = lectures.lecture_id"
+                + " JOIN subjects ON lectures.subject_id = subjects.subject_id"
+                + " JOIN teachers ON lectures.teacher_id = teachers.teacher_id"
+                + " JOIN groups ON lectures.group_id = groups.group_id"
+                + " JOIN classrooms ON lectures.classroom_id = classrooms.classroom_id"
+                + " WHERE groups.group_id = ? AND schedule.parity = CAST (? As parity)"
+                + " ORDER BY schedule.parity, schedule.day_of_week, schedule.lesson;", groupId, parity.name());
     }
 
     public List<Schedule> getTeacherSchedule(int teacherId) throws DAOException {
@@ -184,8 +268,8 @@ public class ScheduleDao {
             list.add(schedule);
             log.info("Return schedule for the teacher");
             return list;
-        }, "SELECT schedule.day_of_week, schedule.parity, schedule.lesson, subjects.name AS subject, teachers.teacher_id, teachers.first_name,"
-                + " teachers.middle_name, teachers.last_name, groups.name AS group_name, classrooms.name AS classroom"
+        }, "SELECT schedule.day_of_week, schedule.parity, schedule.lesson, subjects.subject_id, subjects.name AS subject, teachers.teacher_id, teachers.first_name,"
+                + " teachers.middle_name, teachers.last_name, groups.group_id, groups.name AS group_name, classrooms.classroom_id, classrooms.name AS classroom"
                 + " FROM schedule JOIN lectures_sets_lectures ON lectures_sets_lectures.lectures_set_id = schedule.lecture_set_id"
                 + " JOIN lectures ON lectures_sets_lectures.lecture_id = lectures.lecture_id"
                 + " JOIN subjects ON lectures.subject_id = subjects.subject_id"
@@ -227,8 +311,8 @@ public class ScheduleDao {
             list.add(schedule);
             log.info("Return day schedule for the teacher");
             return list;
-        }, "SELECT schedule.day_of_week, schedule.parity, schedule.lesson, subjects.name AS subject, teachers.teacher_id, teachers.first_name,"
-                + " teachers.middle_name, teachers.last_name, groups.name AS group_name, classrooms.name AS classroom"
+        }, "SELECT schedule.day_of_week, schedule.parity, schedule.lesson, subjects.subject_id, subjects.name AS subject, teachers.teacher_id, teachers.first_name,"
+                + " teachers.middle_name, teachers.last_name, groups.group_id, groups.name AS group_name, classrooms.classroom_id, classrooms.name AS classroom"
                 + " FROM schedule JOIN lectures_sets_lectures ON lectures_sets_lectures.lectures_set_id = schedule.lecture_set_id"
                 + " JOIN lectures ON lectures_sets_lectures.lecture_id = lectures.lecture_id"
                 + " JOIN subjects ON lectures.subject_id = subjects.subject_id"
@@ -238,6 +322,90 @@ public class ScheduleDao {
                 + " WHERE teachers.teacher_id = ? AND schedule.day_of_week = CAST ( ? AS day_of_week) AND schedule.parity = CAST (? As parity) "
                 + "ORDER BY schedule.parity,schedule.day_of_week, schedule.lesson;", teacherId, day.name(),
                 parity.name());
+    }
+    
+    public List<Schedule> getTeacherDayScheduleExceptDay(int teacherId, Parity parity) throws DAOException {
+        log.info("Looking for schedule for teacher with id: " + teacherId + ", parity: " + parity.name());
+        return executor.execQuery(result -> {
+            List<Schedule> list = new ArrayList<>();
+            Schedule schedule = null;
+            Set<Lecture> lectures = new HashSet<>();
+            while (result.next()) {
+                if (schedule == null) {
+                    schedule = new Schedule(DayOfWeek.valueOf(result.getString("day_of_week")),
+                            Parity.valueOf(result.getString("parity")), Lesson.valueOf(result.getString("lesson")));
+                }
+                if (!result.getString("lesson").equals(schedule.getLesson().toString())) {
+                    schedule.setLectures(lectures);
+                    list.add(schedule);
+                    lectures = new HashSet<>();
+                    schedule = new Schedule(DayOfWeek.valueOf(result.getString("day_of_week")),
+                            Parity.valueOf(result.getString("parity")), Lesson.valueOf(result.getString("lesson")));
+                }
+                Subject subject = new Subject(result.getInt("subject_id"), result.getString("subject"));
+                Teacher teacher = new Teacher(result.getInt("teacher_id"), result.getString("first_name"),
+                        result.getString("middle_name"), result.getString("last_name"));
+                Group group = new Group(result.getInt("group_id"), result.getString("group_name"));
+                Classroom classroom = new Classroom(result.getInt("classroom_id"), result.getString("classroom"));
+                Lecture lecture = new Lecture(subject, teacher, group, classroom);
+                lectures.add(lecture);
+            }
+            schedule.setLectures(lectures);
+            list.add(schedule);
+            log.info("Return day schedule for the teacher");
+            return list;
+        }, "SELECT schedule.day_of_week, schedule.parity, schedule.lesson, subjects.subject_id, subjects.name AS subject, teachers.teacher_id, teachers.first_name,"
+                + " teachers.middle_name, teachers.last_name, groups.group_id, groups.name AS group_name, classrooms.classroom_id, classrooms.name AS classroom"
+                + " FROM schedule JOIN lectures_sets_lectures ON lectures_sets_lectures.lectures_set_id = schedule.lecture_set_id"
+                + " JOIN lectures ON lectures_sets_lectures.lecture_id = lectures.lecture_id"
+                + " JOIN subjects ON lectures.subject_id = subjects.subject_id"
+                + " JOIN teachers ON lectures.teacher_id = teachers.teacher_id"
+                + " JOIN groups ON lectures.group_id = groups.group_id"
+                + " JOIN classrooms ON lectures.classroom_id = classrooms.classroom_id"
+                + " WHERE teachers.teacher_id = ? AND schedule.parity = CAST (? As parity) "
+                + "ORDER BY schedule.parity,schedule.day_of_week, schedule.lesson;", teacherId, parity.name());
+    }
+    
+    public List<Schedule> getTeacherDayScheduleExceptParity(int teacherId, DayOfWeek day) throws DAOException {
+        log.info("Looking for schedule for teacher with id: " + teacherId + ", day: " + day.name());
+        return executor.execQuery(result -> {
+            List<Schedule> list = new ArrayList<>();
+            Schedule schedule = null;
+            Set<Lecture> lectures = new HashSet<>();
+            while (result.next()) {
+                if (schedule == null) {
+                    schedule = new Schedule(DayOfWeek.valueOf(result.getString("day_of_week")),
+                            Parity.valueOf(result.getString("parity")), Lesson.valueOf(result.getString("lesson")));
+                }
+                if (!result.getString("lesson").equals(schedule.getLesson().toString())) {
+                    schedule.setLectures(lectures);
+                    list.add(schedule);
+                    lectures = new HashSet<>();
+                    schedule = new Schedule(DayOfWeek.valueOf(result.getString("day_of_week")),
+                            Parity.valueOf(result.getString("parity")), Lesson.valueOf(result.getString("lesson")));
+                }
+                Subject subject = new Subject(result.getInt("subject_id"), result.getString("subject"));
+                Teacher teacher = new Teacher(result.getInt("teacher_id"), result.getString("first_name"),
+                        result.getString("middle_name"), result.getString("last_name"));
+                Group group = new Group(result.getInt("group_id"), result.getString("group_name"));
+                Classroom classroom = new Classroom(result.getInt("classroom_id"), result.getString("classroom"));
+                Lecture lecture = new Lecture(subject, teacher, group, classroom);
+                lectures.add(lecture);
+            }
+            schedule.setLectures(lectures);
+            list.add(schedule);
+            log.info("Return day schedule for the teacher");
+            return list;
+        }, "SELECT schedule.day_of_week, schedule.parity, schedule.lesson, subjects.subject_id, subjects.name AS subject, teachers.teacher_id, teachers.first_name,"
+                + " teachers.middle_name, teachers.last_name, groups.group_id, groups.name AS group_name, classrooms.classroom_id, classrooms.name AS classroom"
+                + " FROM schedule JOIN lectures_sets_lectures ON lectures_sets_lectures.lectures_set_id = schedule.lecture_set_id"
+                + " JOIN lectures ON lectures_sets_lectures.lecture_id = lectures.lecture_id"
+                + " JOIN subjects ON lectures.subject_id = subjects.subject_id"
+                + " JOIN teachers ON lectures.teacher_id = teachers.teacher_id"
+                + " JOIN groups ON lectures.group_id = groups.group_id"
+                + " JOIN classrooms ON lectures.classroom_id = classrooms.classroom_id"
+                + " WHERE teachers.teacher_id = ? AND schedule.day_of_week = CAST ( ? AS day_of_week) "
+                + "ORDER BY schedule.parity,schedule.day_of_week, schedule.lesson;", teacherId, day.name());
     }
 }
 
