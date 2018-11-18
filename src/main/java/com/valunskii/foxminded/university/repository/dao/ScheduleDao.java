@@ -35,8 +35,8 @@ public class ScheduleDao {
                             Parity.valueOf(result.getString("parity")), Lesson.valueOf(result.getString("lesson")));
                 }
                 if (!result.getString("day_of_week").equals(schedule.getDayOfWeek().toString())
-                        || !result.getString("parity").equals(schedule.getParity().toString())
-                        || !result.getString("lesson").equals(schedule.getLesson().toString())) {
+                        | !result.getString("parity").equals(schedule.getParity().toString())
+                        | !result.getString("lesson").equals(schedule.getLesson().toString())) {
                     schedule.setLectures(lectures);
                     list.add(schedule);
                     lectures = new HashSet<>();
@@ -78,8 +78,8 @@ public class ScheduleDao {
                             Parity.valueOf(result.getString("parity")), Lesson.valueOf(result.getString("lesson")));
                 }
                 if (!result.getString("day_of_week").equals(schedule.getDayOfWeek().toString())
-                        || !result.getString("parity").equals(schedule.getParity().toString())
-                        || !result.getString("lesson").equals(schedule.getLesson().toString())) {
+                        | !result.getString("parity").equals(schedule.getParity().toString())
+                        | !result.getString("lesson").equals(schedule.getLesson().toString())) {
                     schedule.setLectures(lectures);
                     list.add(schedule);
                     lectures = new HashSet<>();
@@ -120,7 +120,9 @@ public class ScheduleDao {
                     schedule = new Schedule(DayOfWeek.valueOf(result.getString("day_of_week")),
                             Parity.valueOf(result.getString("parity")), Lesson.valueOf(result.getString("lesson")));
                 }
-                if (!result.getString("lesson").equals(schedule.getLesson().toString())) {
+                if (!result.getString("day_of_week").equals(schedule.getDayOfWeek().toString())
+                        | !result.getString("parity").equals(schedule.getParity().toString())
+                        | !result.getString("lesson").equals(schedule.getLesson().toString())) {
                     schedule.setLectures(lectures);
                     list.add(schedule);
                     lectures = new HashSet<>();
@@ -163,7 +165,9 @@ public class ScheduleDao {
                     schedule = new Schedule(DayOfWeek.valueOf(result.getString("day_of_week")),
                             Parity.valueOf(result.getString("parity")), Lesson.valueOf(result.getString("lesson")));
                 }
-                if (!result.getString("lesson").equals(schedule.getLesson().toString())) {
+                if (!result.getString("day_of_week").equals(schedule.getDayOfWeek().toString())
+                        | !result.getString("parity").equals(schedule.getParity().toString())
+                        | !result.getString("lesson").equals(schedule.getLesson().toString())) {
                     schedule.setLectures(lectures);
                     list.add(schedule);
                     lectures = new HashSet<>();
@@ -205,7 +209,9 @@ public class ScheduleDao {
                     schedule = new Schedule(DayOfWeek.valueOf(result.getString("day_of_week")),
                             Parity.valueOf(result.getString("parity")), Lesson.valueOf(result.getString("lesson")));
                 }
-                if (!result.getString("lesson").equals(schedule.getLesson().toString())) {
+                if (!result.getString("day_of_week").equals(schedule.getDayOfWeek().toString())
+                        | !result.getString("parity").equals(schedule.getParity().toString())
+                        | !result.getString("lesson").equals(schedule.getLesson().toString())) {
                     schedule.setLectures(lectures);
                     list.add(schedule);
                     lectures = new HashSet<>();
@@ -248,8 +254,8 @@ public class ScheduleDao {
                             Parity.valueOf(result.getString("parity")), Lesson.valueOf(result.getString("lesson")));
                 }
                 if (!result.getString("day_of_week").equals(schedule.getDayOfWeek().toString())
-                        || !result.getString("parity").equals(schedule.getParity().toString())
-                        || !result.getString("lesson").equals(schedule.getLesson().toString())) {
+                        | !result.getString("parity").equals(schedule.getParity().toString())
+                        | !result.getString("lesson").equals(schedule.getLesson().toString())) {
                     schedule.setLectures(lectures);
                     list.add(schedule);
                     lectures = new HashSet<>();
@@ -292,7 +298,9 @@ public class ScheduleDao {
                     schedule = new Schedule(DayOfWeek.valueOf(result.getString("day_of_week")),
                             Parity.valueOf(result.getString("parity")), Lesson.valueOf(result.getString("lesson")));
                 }
-                if (!result.getString("lesson").equals(schedule.getLesson().toString())) {
+                if (!result.getString("day_of_week").equals(schedule.getDayOfWeek().toString())
+                        | !result.getString("parity").equals(schedule.getParity().toString())
+                        | !result.getString("lesson").equals(schedule.getLesson().toString())) {
                     schedule.setLectures(lectures);
                     list.add(schedule);
                     lectures = new HashSet<>();
@@ -335,7 +343,9 @@ public class ScheduleDao {
                     schedule = new Schedule(DayOfWeek.valueOf(result.getString("day_of_week")),
                             Parity.valueOf(result.getString("parity")), Lesson.valueOf(result.getString("lesson")));
                 }
-                if (!result.getString("lesson").equals(schedule.getLesson().toString())) {
+                if (!result.getString("day_of_week").equals(schedule.getDayOfWeek().toString())
+                        | !result.getString("parity").equals(schedule.getParity().toString())
+                        | !result.getString("lesson").equals(schedule.getLesson().toString())) {
                     schedule.setLectures(lectures);
                     list.add(schedule);
                     lectures = new HashSet<>();
@@ -377,7 +387,9 @@ public class ScheduleDao {
                     schedule = new Schedule(DayOfWeek.valueOf(result.getString("day_of_week")),
                             Parity.valueOf(result.getString("parity")), Lesson.valueOf(result.getString("lesson")));
                 }
-                if (!result.getString("lesson").equals(schedule.getLesson().toString())) {
+                if (!result.getString("day_of_week").equals(schedule.getDayOfWeek().toString())
+                        | !result.getString("parity").equals(schedule.getParity().toString())
+                        | !result.getString("lesson").equals(schedule.getLesson().toString())) {
                     schedule.setLectures(lectures);
                     list.add(schedule);
                     lectures = new HashSet<>();
