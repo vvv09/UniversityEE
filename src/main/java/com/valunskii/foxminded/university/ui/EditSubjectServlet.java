@@ -23,13 +23,15 @@ public class EditSubjectServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         int id = Integer.parseInt(request.getParameter("id"));
         String name = request.getParameter("name");
+        
+        String responsePage = "getSubjectListServlet";
 
         try {
             service.updateSubject(id, name);
         } catch (DAOException e) {
             log.error(e);
-            e.printStackTrace();
+            responsePage = "daoerror.jsp";
         }
-        response.sendRedirect("getSubjectListServlet");
+        response.sendRedirect(responsePage);
     }
 }

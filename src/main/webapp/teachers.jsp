@@ -33,7 +33,7 @@
 	</p>
 	<hr />
 	<p>
-		<a href="addteacherform.jsp">Добавить преподавателя</a>
+		<em><a href="addteacherform.jsp">Добавить преподавателя</a></em>
 	</p>
 	<p>
 		<em><a href="index.jsp">На главную</a></em>

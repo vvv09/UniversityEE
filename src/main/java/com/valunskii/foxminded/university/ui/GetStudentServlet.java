@@ -14,9 +14,6 @@ import com.valunskii.foxminded.university.repository.entity.Student;
 import com.valunskii.foxminded.university.repository.exception.DAOException;
 import com.valunskii.foxminded.university.service.StudentService;
 
-/**
- * Servlet implementation class GetStudentServlet
- */
 @WebServlet("/getStudentServlet")
 public class GetStudentServlet extends HttpServlet {
     final static Logger log = Logger.getLogger(GetStudentServlet.class);
@@ -24,13 +21,15 @@ public class GetStudentServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	Student student = null;
+	String responsePage = "/editstudentform.jsp";
+	
 	try {
         student = service.getStudent(Integer.parseInt(request.getParameter("id")));
     } catch (DAOException e) {
         log.error(e);
-        e.printStackTrace();
+        responsePage = "/daoerror.jsp";
     }
 	request.setAttribute("student", student);
-    this.getServletContext().getRequestDispatcher("/editstudentform.jsp").forward(request, response);
+    this.getServletContext().getRequestDispatcher(responsePage).forward(request, response);
 	}
 }

@@ -16,9 +16,6 @@ import com.valunskii.foxminded.university.repository.entity.Student;
 import com.valunskii.foxminded.university.repository.exception.DAOException;
 import com.valunskii.foxminded.university.service.GroupService;
 
-/**
- * Servlet implementation class GetGroupsForNewStudentServlet
- */
 @WebServlet("/getGroupsForNewStudentServlet")
 public class GetGroupsForNewStudentServlet extends HttpServlet {
     final static Logger log = Logger.getLogger(GetGroupsForNewStudentServlet.class);
@@ -27,17 +24,19 @@ public class GetGroupsForNewStudentServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         List<Group> groups = null;
+        String responsePage = "/addstudentform.jsp";
+        
         try {
             groups = service.getAllGroups();
         } catch (DAOException e) {
             log.error(e);
-            e.printStackTrace();
+            responsePage = "/daoerror.jsp";
         }
 
         request.setAttribute("groups", groups);
         request.setAttribute("true_page", this.getServletName());
 
-        this.getServletContext().getRequestDispatcher("/addstudentform.jsp").forward(request, response);
+        this.getServletContext().getRequestDispatcher(responsePage).forward(request, response);
     }
 
 }

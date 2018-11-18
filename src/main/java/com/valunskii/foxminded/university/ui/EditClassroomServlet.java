@@ -23,12 +23,14 @@ public class EditClassroomServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         int id = Integer.parseInt(request.getParameter("id"));
         String name = request.getParameter("name");
+        
+        String responsePage = "getClassroomListServlet";
 
         try {
             service.updateClassroom(id, name);
         } catch (DAOException e) {
             log.error(e);
-            e.printStackTrace();
+            responsePage = "daoerror.jsp";
         }
         response.sendRedirect("getClassroomListServlet");
     }

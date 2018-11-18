@@ -23,15 +23,16 @@ public class GetSubjectListServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         List<Subject> subjects = null;
+        String responsePage = "/subjects.jsp";
         try {
             subjects = service.getAllSubjects();
         } catch (DAOException e) {
             log.error(e);
-            e.printStackTrace();
+            responsePage = "/daoerror.jsp";
         }
 
         request.setAttribute("subjects", subjects);
         request.setAttribute("true_page", this.getServletName());
-        this.getServletContext().getRequestDispatcher("/subjects.jsp").forward(request, response);
+        this.getServletContext().getRequestDispatcher(responsePage).forward(request, response);
     }
 }

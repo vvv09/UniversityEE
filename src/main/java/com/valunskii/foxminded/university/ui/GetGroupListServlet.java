@@ -23,15 +23,16 @@ public class GetGroupListServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         List<Group> groups = null;
+        String responsePage = "/groups.jsp";
         try {
             groups = service.getAllGroups();
         } catch (DAOException e) {
             log.error(e);
-            e.printStackTrace();
+            responsePage = "/daoerror.jsp";
         }
 
         request.setAttribute("groups", groups);
         request.setAttribute("true_page", this.getServletName());
-        this.getServletContext().getRequestDispatcher("/groups.jsp").forward(request, response);
+        this.getServletContext().getRequestDispatcher(responsePage).forward(request, response);
     }
 }

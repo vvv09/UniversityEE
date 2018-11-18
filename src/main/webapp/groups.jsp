@@ -33,7 +33,7 @@
 	</p>
 	<hr />
 	<p>
-		<a href="addgroupform.jsp">Добавить группу</a>
+		<em><a href="addgroupform.jsp">Добавить группу</a></em>
 	</p>
 	<p>
 		<em><a href="index.jsp">На главную</a></em>

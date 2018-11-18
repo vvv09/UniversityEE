@@ -23,15 +23,16 @@ public class GetTeacherListServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         List<Teacher> teachers = null;
+        String responsePage = "/teachers.jsp";
         try {
             teachers = service.getAllTeachers();
         } catch (DAOException e) {
             log.error(e);
-            e.printStackTrace();
+            responsePage = "/daoerror.jsp";
         }
 
         request.setAttribute("teachers", teachers);
         request.setAttribute("true_page", this.getServletName());
-        this.getServletContext().getRequestDispatcher("/teachers.jsp").forward(request, response);
+        this.getServletContext().getRequestDispatcher(responsePage).forward(request, response);
     }
 }

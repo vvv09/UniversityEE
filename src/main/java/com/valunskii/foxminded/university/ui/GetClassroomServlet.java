@@ -21,14 +21,15 @@ public class GetClassroomServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Classroom classroom = null;
+        String responsePage = "/editclassroomform.jsp";
         try {
             classroom = service.getClassroom(Integer.parseInt(request.getParameter("id")));
         } catch (DAOException e) {
             log.error(e);
-            e.printStackTrace();
+            responsePage = "/daoerror.jsp";
         }
         
         request.setAttribute("classroom", classroom);
-        this.getServletContext().getRequestDispatcher("/editclassroomform.jsp").forward(request, response);
+        this.getServletContext().getRequestDispatcher(responsePage).forward(request, response);
     }
 }

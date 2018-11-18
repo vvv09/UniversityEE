@@ -21,14 +21,16 @@ public class GetGroupServlet extends HttpServlet {
     
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Group group = null;
+        String responsePage = "/editgroupform.jsp";
+        
         try {
             group = service.getGroup(Integer.parseInt(request.getParameter("id")));
         } catch (DAOException e) {
             log.error(e);
-            e.printStackTrace();
+            responsePage = "/daoerror.jsp";
         }
         
         request.setAttribute("group", group);
-        this.getServletContext().getRequestDispatcher("/editgroupform.jsp").forward(request, response);
+        this.getServletContext().getRequestDispatcher(responsePage).forward(request, response);
     }
 }

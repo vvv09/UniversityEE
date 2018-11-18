@@ -23,15 +23,16 @@ public class GetUniversityScheduleServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         List<Schedule> schedule = null;
+        String responsePage = "/schedule.jsp";
         try {
             schedule = service.getAllSchedule();
         } catch (DAOException e) {
             log.error(e);
-            e.printStackTrace();
+            responsePage = "/daoerror.jsp";
         }
 
         request.setAttribute("schedule", schedule);
         request.setAttribute("true_page", this.getServletName());
-        this.getServletContext().getRequestDispatcher("/schedule.jsp").forward(request, response);
+        this.getServletContext().getRequestDispatcher(responsePage).forward(request, response);
     }
 }

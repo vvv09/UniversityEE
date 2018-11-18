@@ -23,12 +23,14 @@ public class AddSubjectServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         String name = request.getParameter("name");
         
+        String responsePage = "getSubjectListServlet";
+        
         try {
             service.addSubject(name);
         } catch (DAOException e) {
             log.error(e);
-            e.printStackTrace();
+            responsePage = "daoerror.jsp";
         }
-        response.sendRedirect("getSubjectListServlet");
+        response.sendRedirect(responsePage);
     }
 }

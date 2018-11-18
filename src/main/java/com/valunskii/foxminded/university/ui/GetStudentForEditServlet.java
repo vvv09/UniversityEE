@@ -25,11 +25,13 @@ public class GetStudentForEditServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     Student student = null;
+    String responsePage = "/editstudentform.jsp";
+    
     try {
         student = studentService.getStudent(Integer.parseInt(request.getParameter("id")));
     } catch (DAOException e) {
         log.error(e);
-        e.printStackTrace();
+        responsePage = "/daoerror.jsp";
     }
     request.setAttribute("student", student);
     
@@ -38,13 +40,13 @@ public class GetStudentForEditServlet extends HttpServlet {
         groups = groupService.getAllGroups();
     } catch (DAOException e) {
         log.error(e);
-        e.printStackTrace();
+        responsePage = "/daoerror.jsp";
     }
     
     request.setAttribute("groups", groups);
     
     request.setAttribute("true_page", this.getServletName());
     
-    this.getServletContext().getRequestDispatcher("/editstudentform.jsp").forward(request, response);
+    this.getServletContext().getRequestDispatcher(responsePage).forward(request, response);
     }
 }

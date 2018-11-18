@@ -25,12 +25,14 @@ public class EditTeacherServlet extends HttpServlet {
 		String firstName = request.getParameter("firstName");
 		String middleName = request.getParameter("middleName");
 		
+		String responsePage = "getTeacherListServlet";
+		
 		try {
             service.updateTeacher(id, firstName, middleName, lastName);
         } catch (DAOException e) {
             log.error(e);
-            e.printStackTrace();
+            responsePage = "daoerror.jsp";
         }
-		response.sendRedirect("getTeacherListServlet");
+		response.sendRedirect(responsePage);
 	}
 }

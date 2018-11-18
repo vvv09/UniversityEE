@@ -33,12 +33,16 @@ public class GetTeacherScheduleServlet extends HttpServlet {
         int teacherId = Integer.parseInt(request.getParameter("id"));
 
         Teacher teacher = null;
+        List<Schedule> schedule = null;
+        String responsePage = "/teacherschedule.jsp";
+        
         try {
             teacher = teacherService.getTeacher(teacherId);
         } catch (DAOException e) {
             log.error(e);
+            responsePage = "/daoerror.jsp";
         }
-        List<Schedule> schedule = null;
+        
         try {
             if ((parity == null && dayOfWeek == null) || (parity.equals("ЛЮБАЯ") && dayOfWeek.equals("ЛЮБОЙ"))) {
                 schedule = scheduleService.getTeacherSchedule(teacherId);
@@ -55,11 +59,12 @@ public class GetTeacherScheduleServlet extends HttpServlet {
             }
         } catch (DAOException e) {
             log.error(e);
+            responsePage = "/daoerror.jsp";
         }
 
         request.setAttribute("teacher", teacher);
         request.setAttribute("schedule", schedule);
         request.setAttribute("true_page", this.getServletName());
-        this.getServletContext().getRequestDispatcher("/teacherschedule.jsp").forward(request, response);
+        this.getServletContext().getRequestDispatcher(responsePage).forward(request, response);
     }
 }

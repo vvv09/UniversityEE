@@ -26,11 +26,13 @@ public class EditStudentServlet extends HttpServlet {
         String middleName = request.getParameter("middleName");
         int groupId = Integer.parseInt(request.getParameter("group"));
         
+        String responsePage = "getStudentListServlet";
+        
         try {
             service.updateStudent(id, firstName, middleName, lastName, groupId);
         } catch (DAOException e) {
             log.error(e);
-            e.printStackTrace();
+            responsePage = "daoerror.jsp";
         }
         response.sendRedirect("getStudentListServlet");
     }

@@ -20,13 +20,15 @@ public class DeleteTeacherServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
+        
+        String responsePage = "getTeacherListServlet";
 
         try {
             service.deleteTeacher(id);
         } catch (DAOException e) {
             log.error(e);
-            e.printStackTrace();
+            responsePage = "daoerror.jsp";
         }
-        response.sendRedirect("getTeacherListServlet");
+        response.sendRedirect(responsePage);
     }
 }

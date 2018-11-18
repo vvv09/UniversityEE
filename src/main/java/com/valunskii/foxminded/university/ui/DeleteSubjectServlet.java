@@ -21,13 +21,15 @@ public class DeleteSubjectServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
+        
+        String responsePage = "getSubjectListServlet";
 
         try {
            service.deleteSubject(id);
         } catch (DAOException e) {
             log.error(e);
-            e.printStackTrace();
+            responsePage = "daoerror.jsp";
         }
-        response.sendRedirect("getSubjectListServlet");
+        response.sendRedirect(responsePage);
     }
 }

@@ -22,14 +22,15 @@ public class GetSubjectServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         Subject subject = null;
+        String responsePage = "/editsubjectform.jsp";
         try {
             subject = service.getSubject(Integer.parseInt(request.getParameter("id")));
         } catch (DAOException e) {
             log.error(e);
-            e.printStackTrace();
+            responsePage = "/daoerror.jsp";
         }
 
         request.setAttribute("subject", subject);
-        this.getServletContext().getRequestDispatcher("/editsubjectform.jsp").forward(request, response);
+        this.getServletContext().getRequestDispatcher(responsePage).forward(request, response);
     }
 }

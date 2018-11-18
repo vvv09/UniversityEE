@@ -22,15 +22,17 @@ public class GetClassroomListServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		List<Classroom> classrooms = null;
+		String responsePage = "/classrooms.jsp";
+		
         try {
             classrooms = service.getAllClassrooms();
         } catch (DAOException e) {
             log.error(e);
-            e.printStackTrace();
+            responsePage = "/daoerror.jsp";
         }
 	    
 	    request.setAttribute("classrooms", classrooms);
 	    request.setAttribute("true_page", this.getServletName());
-	    this.getServletContext().getRequestDispatcher("/classrooms.jsp").forward(request, response);
+	    this.getServletContext().getRequestDispatcher(responsePage).forward(request, response);
 	}
 }

@@ -23,12 +23,14 @@ public class AddClassroomServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         String name = request.getParameter("name");
         
+        String responsePage = "getClassroomListServlet";
+        
         try {
             service.addClassroom(name);
         } catch (DAOException e) {
             log.error(e);
-            e.printStackTrace();
+            responsePage = "daoerror.jsp";
         }
-        response.sendRedirect("getClassroomListServlet");
+        response.sendRedirect(responsePage);
     }
 }

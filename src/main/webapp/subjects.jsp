@@ -32,7 +32,7 @@
 	</p>
 	<hr />
 	<p>
-		<a href="addsubjectform.jsp">Добавить предмет</a>
+		<em><a href="addsubjectform.jsp">Добавить предмет</a></em>
 	</p>
 	<p>
 		<em><a href="index.jsp">На главную</a></em>

@@ -23,12 +23,14 @@ public class AddGroupServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         String name = request.getParameter("name");
         
+        String responsePage = "getGroupListServlet";
+        
         try {
             service.addGroup(name);
         } catch (DAOException e) {
             log.error(e);
-            e.printStackTrace();
+            responsePage = "daoerror.jsp";
         }
-        response.sendRedirect("getGroupListServlet");
+        response.sendRedirect(responsePage);
     }
 }

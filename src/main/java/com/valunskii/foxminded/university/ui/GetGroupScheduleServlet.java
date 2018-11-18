@@ -34,12 +34,16 @@ public class GetGroupScheduleServlet extends HttpServlet {
         int groupId = Integer.parseInt(request.getParameter("id"));
 
         Group group = null;
+        List<Schedule> schedule = null;
+        String responsePage = "/groupschedule.jsp";
+        
         try {
             group = groupService.getGroup(groupId);
         } catch (DAOException e) {
             log.error(e);
+            responsePage = "/daoerror.jsp";
         }
-        List<Schedule> schedule = null;
+        
         try {
             if ((parity == null && dayOfWeek == null) || (parity.equals("ЛЮБАЯ") && dayOfWeek.equals("ЛЮБОЙ"))) {
                 schedule = scheduleService.getGroupSchedule(groupId);
@@ -56,11 +60,12 @@ public class GetGroupScheduleServlet extends HttpServlet {
             }
         } catch (DAOException e) {
             log.error(e);
+            responsePage = "/daoerror.jsp";
         }
 
         request.setAttribute("group", group);
         request.setAttribute("schedule", schedule);
         request.setAttribute("true_page", this.getServletName());
-        this.getServletContext().getRequestDispatcher("/groupschedule.jsp").forward(request, response);
+        this.getServletContext().getRequestDispatcher(responsePage).forward(request, response);
     }
 }

@@ -23,13 +23,15 @@ public class EditGroupServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         int id = Integer.parseInt(request.getParameter("id"));
         String name = request.getParameter("name");
+        
+        String responsePage = "getGroupListServlet";
 
         try {
             service.updateGroup(id, name);
         } catch (DAOException e) {
             log.error(e);
-            e.printStackTrace();
+            responsePage = "daoerror.jsp";
         }
-        response.sendRedirect("getGroupListServlet");
+        response.sendRedirect(responsePage);
     }
 }

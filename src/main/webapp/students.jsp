@@ -33,7 +33,7 @@
 	</p>
 	<hr />
 	<p>
-		<a href="getGroupsForNewStudentServlet">Добавить студента</a>
+		<em><a href="getGroupsForNewStudentServlet">Добавить студента</a></em>
 	</p>
 	<p>
 		<em><a href="index.jsp">На главную</a></em>

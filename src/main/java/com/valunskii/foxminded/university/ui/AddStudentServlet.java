@@ -25,13 +25,16 @@ public class AddStudentServlet extends HttpServlet {
         String firstName = request.getParameter("firstName");
         String middleName = request.getParameter("middleName");
         int groupId = Integer.parseInt(request.getParameter("group"));
+        
+        String responsePage = "getStudentListServlet";
+        
         try {
             service.addStudent(firstName, middleName, lastName, groupId);
         } catch (DAOException e) {
             log.error(e);
-            e.printStackTrace();
+            responsePage = "daoerror.jsp";
         }
-        response.sendRedirect("getStudentListServlet");
+        response.sendRedirect(responsePage);
     }
 
 }
