@@ -21,7 +21,7 @@
 	<hr />
 	<form action="getTeacherScheduleServlet" method="get">
 		<input type="hidden" name="id" value="<c:out value="${teacher.id}"/>" />
-		Группа: <select name="dayOfWeek">
+		День недели: <select name="dayOfWeek">
 			<option>ЛЮБОЙ</option>
 			<option>MONDAY</option>
 			<option>TUESDAY</option>
