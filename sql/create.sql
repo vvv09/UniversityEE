@@ -1,16 +1,16 @@
-CREATE TABLE public.subjects
+CREATE TABLE subjects
 (
    subject_id serial primary key,
    name character varying(70)
 );
 
-CREATE TABLE public.groups
+CREATE TABLE groups
 (
    group_id serial primary key,
    name character varying(30)
 );
 
-CREATE TABLE public.students
+CREATE TABLE students
 (
    student_id serial primary key,
    first_name character varying(30),
@@ -21,7 +21,7 @@ CREATE TABLE public.students
    FOREIGN KEY (group_id) REFERENCES groups (group_id) ON DELETE RESTRICT
 );
 
-CREATE TABLE public.teachers
+CREATE TABLE teachers
 (
     teacher_id serial primary key,
     first_name character varying(30),
@@ -29,13 +29,13 @@ CREATE TABLE public.teachers
     last_name character varying(30)
 );
 
-CREATE TABLE public.classrooms
+CREATE TABLE classrooms
 (
 	classroom_id serial primary key,
 	name character varying(30)
 );
 
-CREATE TABLE public.lectures
+CREATE TABLE lectures
 (
     lecture_id serial NOT NULL,
     subject_id integer NOT NULL,
@@ -52,7 +52,7 @@ CREATE TABLE public.lectures
     FOREIGN KEY (classroom_id) REFERENCES classrooms (classroom_id) ON DELETE CASCADE
 );
 
-CREATE TABLE public.lectures_sets
+CREATE TABLE lectures_sets
 (
     lectures_set_id serial NOT NULL,
     name varchar(10) NOT NULL,
@@ -60,7 +60,7 @@ CREATE TABLE public.lectures_sets
     PRIMARY KEY (lectures_set_id)
 );
 
-CREATE TABLE public.lectures_sets_lectures
+CREATE TABLE lectures_sets_lectures
 (
     lectures_set_id integer NOT NULL,
     lecture_id integer NOT NULL,
@@ -75,7 +75,7 @@ CREATE TYPE parity AS ENUM ('ODD', 'EVEN');
 CREATE TYPE lesson AS ENUM ('FIRST', 'SECOND', 'THIRD', 'FOURTH', 'FIFTH', 'SIXTH');
 
 
-CREATE TABLE public.schedule
+CREATE TABLE schedule
 (
     day_of_week day_of_week NOT NULL,
     parity parity NOT NULL,
