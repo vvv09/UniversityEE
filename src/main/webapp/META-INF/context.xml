@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Context>
+    <Resource
+        name="jdbc/postgers" type="javax.sql.DataSource"
+        maxActive="100" maxIdle="20" maxWait="10000" 
+        url="jdbc:postgresql://localhost:5432/foxuniversity"
+        driverClassName="org.postgresql.Driver"
+        username="postgres" password="1568996"
+    />
+</Context>

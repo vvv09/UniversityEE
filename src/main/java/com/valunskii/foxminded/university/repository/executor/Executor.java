@@ -9,6 +9,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
 
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
 import org.apache.log4j.Logger;
 
 import com.valunskii.foxminded.university.repository.exception.DAOException;
@@ -58,16 +62,13 @@ public class Executor {
         log.trace("Get connection settings from db.properties");
         Properties props = readDbProperties();
 
-        final String DRIVER = props.getProperty("jdbc.driver");
-        final String DB_URL = props.getProperty("jdbc.url");
-        final String USER = props.getProperty("jdbc.username");
-        final String PASS = props.getProperty("jdbc.password");
+        final String NAME = props.getProperty("jndi.name");
 
         try {
-            Class.forName(DRIVER);
-            Connection connection = DriverManager.getConnection(DB_URL, USER, PASS);
+            DataSource dataSource = (DataSource) new InitialContext().lookup("java:comp/env/" + NAME);
+            Connection connection = dataSource.getConnection();
             return connection;
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException | NamingException e) {
             e.printStackTrace();
         }
         return null;
