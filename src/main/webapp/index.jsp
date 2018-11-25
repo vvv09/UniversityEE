@@ -7,20 +7,18 @@
 <title>FoxUniversity</title>
 </head>
 <body>
+<center>
 	<h1>Добро пожаловать в наш Университет!</h1>
-	<hr/>
-	<fieldset>
-		<legend>Выберите раздел:</legend>
-		<ul>
-			<li><a href="getClassroomListServlet">Аудитории</a></li>
-			<li><a href="getSubjectListServlet">Предметы</a></li>
-			<li><a href="getTeacherListServlet">Преподаватели</a></li>
-			<li><a href="getGroupListServlet">Группы</a></li>
-			<li><a href="getStudentListServlet">Студенты</a></li>
-			<li><a href="getUniversityScheduleServlet">Расписание</a></li>
-		</ul>
-	</fieldset>
-	<hr/>
+	<hr />
+			<h2><a href="getClassroomListServlet">Аудитории</a></h2>
+			<h2><a href="getSubjectListServlet">Предметы</a></h2>
+			<h2><a href="getTeacherListServlet">Преподаватели</a></h2>
+			<h2><a href="getGroupListServlet">Группы</a></h2>
+			<h2><a href="getStudentListServlet">Студенты</a></h2>
+			<h2><a href="getUniversityScheduleServlet">Расписание</a></h2>
+		
+	<hr />
 	2018
+	</center>
 </body>
 </html>
