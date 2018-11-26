@@ -1,8 +1,5 @@
 package com.valunskii.foxminded.university.repository.entity;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import lombok.Getter;
 import lombok.Setter;
 
