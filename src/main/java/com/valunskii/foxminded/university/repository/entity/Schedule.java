@@ -3,15 +3,11 @@ package com.valunskii.foxminded.university.repository.entity;
 import java.util.Set;
 import java.time.DayOfWeek;
 
-import lombok.Getter;
-import lombok.Setter;
-
-@Getter
 public class Schedule {
     private DayOfWeek dayOfWeek;
     private Parity parity;
     private Lesson lesson;
-    private @Setter Set<Lecture> lectures;
+    private Set<Lecture> lectures;
 
     public Schedule(DayOfWeek dayOfWeek, Parity parity, Lesson lesson) {
         this.dayOfWeek = dayOfWeek;
@@ -21,5 +17,37 @@ public class Schedule {
 
     public Schedule() {
 
+    }
+
+    public DayOfWeek getDayOfWeek() {
+        return dayOfWeek;
+    }
+
+    public void setDayOfWeek(DayOfWeek dayOfWeek) {
+        this.dayOfWeek = dayOfWeek;
+    }
+
+    public Parity getParity() {
+        return parity;
+    }
+
+    public void setParity(Parity parity) {
+        this.parity = parity;
+    }
+
+    public Lesson getLesson() {
+        return lesson;
+    }
+
+    public void setLesson(Lesson lesson) {
+        this.lesson = lesson;
+    }
+
+    public Set<Lecture> getLectures() {
+        return lectures;
+    }
+
+    public void setLectures(Set<Lecture> lectures) {
+        this.lectures = lectures;
     }
 }

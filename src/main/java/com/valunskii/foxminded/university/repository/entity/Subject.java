@@ -1,8 +1,5 @@
 package com.valunskii.foxminded.university.repository.entity;
 
-import lombok.Getter;
-
-@Getter
 public class Subject {
     private int id;
     private String name;
@@ -35,5 +32,21 @@ public class Subject {
         } else if (!name.equals(other.name))
             return false;
         return true;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

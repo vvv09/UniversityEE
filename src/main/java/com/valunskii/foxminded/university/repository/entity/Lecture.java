@@ -1,8 +1,5 @@
 package com.valunskii.foxminded.university.repository.entity;
 
-import lombok.Getter;
-
-@Getter
 public class Lecture {
     private Subject subject;
     private Teacher teacher;
@@ -18,5 +15,37 @@ public class Lecture {
 
     public void createNoSubject() { // TODO Consider situation with "window" in schedule. add to UML
 
+    }
+
+    public Subject getSubject() {
+        return subject;
+    }
+
+    public void setSubject(Subject subject) {
+        this.subject = subject;
+    }
+
+    public Teacher getTeacher() {
+        return teacher;
+    }
+
+    public void setTeacher(Teacher teacher) {
+        this.teacher = teacher;
+    }
+
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
+    }
+
+    public Classroom getClassroom() {
+        return classroom;
+    }
+
+    public void setClassroom(Classroom classroom) {
+        this.classroom = classroom;
     }
 }
